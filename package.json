@@ -1,0 +1,21 @@
+{
+  "name": "discord-moderation",
+  "version": "1.0.24",
+  "description": "discord-moderation will simplify creating moderation system to your discord bot.",
+  "main": "src/index.js",
+  "scripts": {
+    "docs:gen": "docgen --source src/**/*.js --custom ./docs/index.yml --output docs/docs.json --spaces 2",
+    "docs:test": "docgen --source src/**/*.js --spaces 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bad-boy-discord/discord-moderation.git"
+  },
+  "homepage": "https://dm-web.tk/",
+  "author": "goose#1046",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "latest",
+    "colors": "latest"
+  }
+}
