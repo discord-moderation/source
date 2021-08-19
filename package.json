@@ -1,0 +1,59 @@
+{
+  "name": "discord-moderation",
+  "version": "2.0.0-dev",
+  "description": "discord-moderation will simplify creating moderation system to your discord bot.",
+  "main": "dist/index.js",
+  "types": "typings/Moderation.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc",
+    "lint:fix": "prettier --write src",
+    "docs:test": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -g -j .jsconfig.json",
+    "docs:gen": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/master.json -g -j .jsconfig.json",
+    "docs:v2": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/v2.json -g -j .jsconfig.json"
+  },
+  "dependencies": {
+    "colors": "latest",
+    "discord.js": "latest",
+    "ms": "latest",
+    "node-fetch": "latest",
+    "quick.db": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-angular": "^13.1.0",
+    "@types/ms": "^0.7.31",
+    "husky": "^7.0.1",
+    "is-ci": "^3.0.0",
+    "jsdoc-babel": "^0.5.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bad-boy-discord/discord-moderation.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "discord-bot",
+    "moderation",
+    "moderator"
+  ],
+  "author": "goose#1046",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bad-boy-discord/discord-moderation/issues"
+  },
+  "homepage": "https://dm-web.tk/",
+  "engines": {
+    "node": ">=16.6.0"
+  }
+}

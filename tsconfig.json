@@ -1,0 +1,24 @@
+{
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+	  "module": "commonjs",
+	  "target": "es2019",
+	  "lib": ["esnext"],
+	  "strict": true,
+	  "alwaysStrict": true,
+	  "removeComments": false,
+	  "pretty": true,
+	  "sourceMap": true,
+	  "inlineSources": true,
+	  "outDir": "dist",
+	  "moduleResolution": "node",
+	  "allowJs": true,
+	  "declaration": true,
+	  "declarationMap": true,
+	  "skipLibCheck": true,
+	  "skipDefaultLibCheck": true,
+	  "incremental": true,
+	  "esModuleInterop": true
+	}
+  }
