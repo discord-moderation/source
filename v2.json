@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1629405233620
+    "date": 1629467494156
   },
   "custom": {
     "general": {
@@ -11,14 +11,8 @@
         "welcome": {
           "name": "Welcome",
           "type": "md",
-          "content": "<img src=\"https://raw.githubusercontent.com/bad-boy-discord/discord-moderation/main/assets/discord-moderation-main.png\" />\r\n<hr>\r\n\r\n## Welcome\r\n<b>Welcome! This 'discord-moderation' module!</b><br>\r\n<b>This module that simplify creating moderation system to your discord bot.</b>\r\n\r\n## Requirements\r\n- <b>Node.JS v14</b>\r\n- <b>Discord.JS v12</b>\r\n\r\n## Module Classes:\r\n- 'Moderation' - <b>Main class that enables all the Moderation System.</b>\r\n- 'MuteHandler' - <b>Class that enables Mute System.</b>\r\n- 'WarnHandler' - <b>Class that enables Warn System.</b>\r\n- 'Logger' - <b>Class that logs something.</b>\r\n- 'Utils' - <b>Class that includes some utils for other classes.</b>\r\n\r\n### Warning!\r\n<b>To use __mute__ methods, You need to set MuteRole using setMuteRole in Utils#setMuteRole!</b>\r\n\r\n### Module Options\r\n- 'storage' - <b>Required for creating, parsing, editing DB File.</b>\r\n\r\n### Quick Inialization Example\r\n```js\r\nconst { Client, Intents } = require('discord.js');\r\nconst { Moderation } = require('discord-moderation');\r\n\r\nconst client = new Client({\r\n  ws: {\r\n    intents: Intents.ALL\r\n  }\r\n});\r\n\r\nconst moderation = new Moderation(client, {\r\n  storage: './db/db.json'\r\n});\r\n```\r\n\r\n## This module uses\r\n- <b><a href='https://discord.js.org'>Discord.JS v12</a></b>\r\n- <b><a href='https://www.npmjs.com/package/fs'>fs</a></b>\r\n- <b><a href='https://www.npmjs.com/package/ms'>ms</a></b>\r\n\r\n## Examples\r\n<b><a href=\"https://github.com/bad-boy-discord/discord-moderation/tree/main/examples\">Click here to see JavaScript and TypeScript examples.</a></b>\r\n\r\n## Links\r\n<b>Module Creator: <a href=\"https://www.npmjs.com/~badboy-discord\">badboy-discord</a></b><br>\r\n<b>Creator Discord: <a href=\"https://discord.com/545956523571150858\">goose#1046</a></b><br>\r\n<b>NodeJS: <a href=\"https://www.nodejs.org/\">Click</a></b><br>\r\n<b>TypeScript: <a href=\"https://www.typescriptlang.org/\">Click</a></b><br>\r\n<b>Support Server: <a href=\"https://discord.gg/eGZfaWsZgR\">Click</a></b><br>\r\n<b>Website: <a href=\"https://dm-web.tk/\">Click</a></b>",
-          "path": "docs/general/welcome.md"
-        },
-        "changelog": {
-          "name": "ChangeLog",
-          "type": "md",
-          "content": "<strong>Information taked from [GitHub Releases](https://github.com/bad-boy-discord/discord-moderation/release) and [Discord Server](https://discord.com/invite/eGZfaWsZgR).</strong>\r\n<hr>\r\n› <strong>1.0.0 | First Release</strong> <br />\r\n» <strong>4 classes:</strong> <br />\r\n››› <strong>Moderation (main)</strong> <br />\r\n››› <strong>MuteHandler (Mute System)</strong> <br />\r\n››› <strong>WarnHandler (Warn System)</strong> <br />\r\n››› <strong>Utils (Some things)</strong> <br />\r\n<hr>\r\n› <strong>1.0.6 - 1.0.7 | Fixes</strong> <br />\r\n» <strong>Changes Lost :(</strong> <br />\r\n<hr>\r\n› <strong>1.0.9 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Advanced JSDoc</strong> <br />\r\n››› <strong>Some fixes</strong> <br />\r\n<hr>\r\n› <strong>1.0.11 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed Bugs</strong> <br />\r\n<hr>\r\n› <strong>1.0.12 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed Bugs</strong> <br />\r\n››› <strong>Advanced JSDoc</strong> <br />\r\n››› <strong>Other fixes</strong> <br />\r\n<hr>\r\n› <strong>1.0.13 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed Errors</strong> <br />\r\n››› <strong>Advanced JSDoc</strong> <br />\r\n<hr>\r\n› <strong>1.0.14 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed Errors</strong> <br />\r\n››› <strong>Advanced JSDoc</strong> <br />\r\n<hr>\r\n› <strong>1.0.15 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed bug with 'super' in constructors in MuteHandler and WarnHandler.</strong> <br />\r\n<hr>\r\n› <strong>1.0.16 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed bug in WarnHandler.</strong> <br />\r\n<hr>\r\n› <strong>1.0.17 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed bug in WarnHandler (again).</strong> <br />\r\n<hr>\r\n› <strong>1.0.18 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Advanced JSDoc</strong> <br />\r\n››› <strong>Fixed all founded bugs</strong> <br />\r\n<hr>\r\n› <strong>1.0.20 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Added TypeDefs</strong> <br />\r\n››› <strong>Fixed all founded bugs by Gaevleflammen#6969</strong> <br />\r\n<hr>\r\n› <strong>1.0.21 Fix</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Fixed package typings</strong> <br />\r\n<hr>\r\n› <strong>1.0.22 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Bump Discord.JS version to v13</strong> <br />\r\n››› <strong>Update Readme.MD</strong> <br />\r\n<hr>\r\n› <strong>1.0.23 Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>Replaced 'colors' from devDependencies to dependencies (dropping error)</strong> <br />\r\n<hr>\r\n› <strong>2.0.0 Global Update</strong> <br />\r\n» <strong>Changes:</strong> <br />\r\n››› <strong>ReWrite to TypeScript</strong> <br />\r\n››› <strong>Added Promises</strong> <br />\r\n››› <strong>Debug Mode (Advanced Logger)</strong> <br />\r\n››› <strong>quick.db Support</strong> <br />\r\n››› <strong>Log Embed Generator</strong> <br />\r\n››› <strong>Anti-Link, Anti-Invite, Anti-Spam, Auto-Role, Blacklist Systems</strong> <br />",
-          "path": "docs/general/changelog.md"
+          "content": "<img src=\"https://raw.githubusercontent.com/bad-boy-discord/discord-moderation/main/assets/discord-moderation-main.png\" />\r\n<hr>\r\n\r\n**Development process will start in middle of August.**\r\n",
+          "path": "README.MD"
         }
       }
     }
@@ -325,6 +319,38 @@
           }
         },
         {
+          "name": "mutes",
+          "description": "MuteManager Class",
+          "type": [
+            [
+              [
+                "MuteManager"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 54,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "warns",
+          "description": "WarnManager Class",
+          "type": [
+            [
+              [
+                "WarnManager"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 60,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
           "name": "utils",
           "description": "Module Utils",
           "type": [
@@ -335,7 +361,7 @@
             ]
           ],
           "meta": {
-            "line": 54,
+            "line": 66,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -351,7 +377,7 @@
             ]
           ],
           "meta": {
-            "line": 60,
+            "line": 72,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -434,7 +460,7 @@
             ]
           ],
           "meta": {
-            "line": 77,
+            "line": 89,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -448,7 +474,7 @@
           "params": [
             {
               "name": "member",
-              "description": "Member to Mute",
+              "description": "Member for Mute",
               "type": [
                 [
                   [
@@ -471,7 +497,146 @@
             ]
           ],
           "meta": {
-            "line": 118,
+            "line": 128,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "warn",
+          "description": "Method that warns Member",
+          "emits": [
+            "Moderation#event:warnAdd",
+            "Moderation#event:warnKick"
+          ],
+          "params": [
+            {
+              "name": "message",
+              "description": "Discord Message",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "member",
+              "description": "Member for Warn",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reaon of the Warn",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 150,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "unwarn",
+          "description": "Method that removes last warn from Member",
+          "emits": [
+            "Moderation#event:warnRemove"
+          ],
+          "params": [
+            {
+              "name": "member",
+              "description": "Member for Warn",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 187,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "allWarns",
+          "description": "Method that removes last warn from Member",
+          "params": [
+            {
+              "name": "member",
+              "description": "Member for Warn",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">|"
+              ],
+              [
+                "undefined",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 209,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -611,7 +776,7 @@
     },
     {
       "name": "MuteManager",
-      "description": "Class that Handles/Creates Mutes",
+      "description": "Class that Handles/Creates/Removes Mutes",
       "extends": [
         [
           [
@@ -619,6 +784,33 @@
           ]
         ]
       ],
+      "construct": {
+        "name": "MuteManager",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
       "props": [
         {
           "name": "client",
@@ -631,7 +823,7 @@
             ]
           ],
           "meta": {
-            "line": 31,
+            "line": 36,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -647,7 +839,7 @@
             ]
           ],
           "meta": {
-            "line": 36,
+            "line": 42,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -663,7 +855,7 @@
             ]
           ],
           "meta": {
-            "line": 41,
+            "line": 48,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -679,7 +871,7 @@
             ]
           ],
           "meta": {
-            "line": 46,
+            "line": 54,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -726,7 +918,7 @@
             ]
           ],
           "meta": {
-            "line": 53,
+            "line": 61,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -760,7 +952,7 @@
             ]
           ],
           "meta": {
-            "line": 94,
+            "line": 100,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -794,7 +986,7 @@
             ]
           ],
           "meta": {
-            "line": 131,
+            "line": 135,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -872,7 +1064,7 @@
             ]
           ],
           "meta": {
-            "line": 153,
+            "line": 156,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -920,7 +1112,7 @@
             ]
           ],
           "meta": {
-            "line": 297,
+            "line": 285,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -929,7 +1121,7 @@
           "name": "handleUtilsMute",
           "description": "Private method that will handle Mute",
           "emits": [
-            "Moderation#event:unmuteMember"
+            "Moderation#event:muteMember"
           ],
           "params": [
             {
@@ -994,7 +1186,7 @@
             ]
           ],
           "meta": {
-            "line": 395,
+            "line": 332,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1068,7 +1260,7 @@
             ]
           ],
           "meta": {
-            "line": 395,
+            "line": 376,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1201,7 +1393,7 @@
         }
       ],
       "meta": {
-        "line": 21,
+        "line": 19,
         "file": "MuteManager.ts",
         "path": "src/classes"
       }
@@ -1216,6 +1408,33 @@
           ]
         ]
       ],
+      "construct": {
+        "name": "Utils",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
       "props": [
         {
           "name": "client",
@@ -1228,7 +1447,7 @@
             ]
           ],
           "meta": {
-            "line": 30,
+            "line": 37,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1244,7 +1463,7 @@
             ]
           ],
           "meta": {
-            "line": 37,
+            "line": 43,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1260,7 +1479,7 @@
             ]
           ],
           "meta": {
-            "line": 44,
+            "line": 49,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1276,7 +1495,7 @@
             ]
           ],
           "meta": {
-            "line": 51,
+            "line": 55,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1312,7 +1531,7 @@
             ]
           ],
           "meta": {
-            "line": 59,
+            "line": 62,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1380,7 +1599,7 @@
             ]
           ],
           "meta": {
-            "line": 127,
+            "line": 126,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1425,7 +1644,7 @@
             ]
           ],
           "meta": {
-            "line": 194,
+            "line": 193,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1446,7 +1665,7 @@
             ]
           ],
           "meta": {
-            "line": 236,
+            "line": 231,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1467,7 +1686,7 @@
             ]
           ],
           "meta": {
-            "line": 272,
+            "line": 265,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1501,7 +1720,7 @@
             ]
           ],
           "meta": {
-            "line": 422,
+            "line": 387,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1636,6 +1855,354 @@
       "meta": {
         "line": 19,
         "file": "Utils.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "WarnManager",
+      "description": "Class that Handles/Creates/Removes Warns",
+      "extends": [
+        [
+          [
+            "Base"
+          ]
+        ]
+      ],
+      "construct": {
+        "name": "WarnManager",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "methods": [
+        {
+          "name": "getWarn",
+          "description": "Get last Member Warn",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "WarnsData",
+                "|"
+              ],
+              [
+                "null",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 43,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "create",
+          "description": "Method that creates Warn.",
+          "emits": [
+            "Moderation#event:warnAdd",
+            "Moderation#event:warnKick"
+          ],
+          "params": [
+            {
+              "name": "message",
+              "description": "Discord Message",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Warn Reason",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 66,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "delete",
+          "description": "Method that removes last warn from member",
+          "emits": [
+            "Moderation#event:warnRemove"
+          ],
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 132,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "all",
+          "description": "Method that returns all member warns",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "WarnsData",
+                ">|"
+              ],
+              [
+                "null",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 171,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "on",
+          "description": "Handles all the Events",
+          "inherits": "Base#on",
+          "inherited": true,
+          "params": [
+            {
+              "name": "event",
+              "description": "Event Name",
+              "type": [
+                [
+                  [
+                    "String"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "fn",
+              "description": "Callback",
+              "type": [
+                [
+                  [
+                    "function"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "EventEmitter"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 29,
+            "file": "Base.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "once",
+          "description": "Handles all the Events",
+          "inherits": "Base#once",
+          "inherited": true,
+          "params": [
+            {
+              "name": "event",
+              "description": "Event Name",
+              "type": [
+                [
+                  [
+                    "String"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "fn",
+              "description": "Callback",
+              "type": [
+                [
+                  [
+                    "function"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "EventEmitter"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 29,
+            "file": "Base.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "emit",
+          "description": "Emits any Event",
+          "inherits": "Base#emit",
+          "inherited": true,
+          "params": [
+            {
+              "name": "event",
+              "description": "Event Name",
+              "type": [
+                [
+                  [
+                    "String"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "fn",
+              "description": "Callback",
+              "type": [
+                [
+                  [
+                    "function"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 43,
+            "file": "Base.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 17,
+        "file": "WarnManager.ts",
         "path": "src/classes"
       }
     }
