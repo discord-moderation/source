@@ -18,29 +18,32 @@ const fs_1 = __importDefault(require("fs"));
  * @extends {Base}
  */
 class Utils extends Base_1.Base {
+    /**
+     *
+     * @param {Client} client Discord.JS Client
+     * @param {Options} options Module Options
+     *
+     * @constructor
+     */
     constructor(client, options) {
         super();
         /**
          * Discord Client
-         *
          * @type {Client}
          */
         this.client = client;
         /**
          * Mute Manager
-         *
          * @type {MuteManager}
          */
         this.mutes = new MuteManager_1.MuteManager(this.client, this.options);
         /**
          * Module Options
-         *
          * @type {Options}
          */
         this.options = options;
         /**
          * Module Logger
-         *
          * @type {Logger}
          */
         this.logger = new Logger_1.Logger();
@@ -48,16 +51,15 @@ class Utils extends Base_1.Base {
     /**
      * Method that will be used when Member joins Server
      *
-     * @param {GuildMember} member - Discord Member
-     *
+     * @param {GuildMember} member Discord Member
      * @returns {Promise<boolean>}
      */
     checkMute(member) {
         return new Promise(async (res, rej) => {
             if (!member)
                 return this.logger.error('Specify "GuildMember" in Utils#checkMute');
-            const data = await this.getGuild(member.guild);
-            const mute = data.mutes.find((x) => x.memberID === member.id);
+            await this.getGuild(member.guild);
+            const mute = await this.mutes.getMute(member);
             if (mute) {
                 await this.mutes.handleUtilsMute(member);
                 return res(true);
@@ -70,7 +72,7 @@ class Utils extends Base_1.Base {
     /**
      * Method that will return Guild Data
      *
-     * @param {Guild} guild - Discord Guild
+     * @param {Guild} guild Discord Guild
      * @returns {Promise<GuilData>}
      */
     getGuild(guild) {
@@ -78,7 +80,7 @@ class Utils extends Base_1.Base {
             if (!guild)
                 return this.logger.error('Specify "Guild" in Utils#getGuild');
             switch (this.options.storageType) {
-                case 'sqlite': {
+                case "sqlite": {
                     var data = quick_db_1.default.fetch(`guild.${guild.id}`);
                     if (data === undefined) {
                         this.createGuild(guild);
@@ -87,7 +89,7 @@ class Utils extends Base_1.Base {
                     else
                         return res(data);
                 }
-                case 'json': {
+                case "json": {
                     var file = JSON.parse(fs_1.default.readFileSync(this.options.storagePath).toString());
                     const data = file.find((x) => x.guildID === guild.id);
                     if (!data || data === undefined) {
@@ -111,7 +113,7 @@ class Utils extends Base_1.Base {
             if (!guild)
                 return this.logger.error('Specify "Guild" in Utils#createGuild');
             switch (this.options.storageType) {
-                case 'sqlite': {
+                case "sqlite": {
                     const data = quick_db_1.default.fetch(`guild.${guild.id}`);
                     if (data === undefined) {
                         quick_db_1.default.set(`guild.${guild.id}`, {
@@ -127,7 +129,7 @@ class Utils extends Base_1.Base {
                         return rej(this.logger.warn(`Guild with name "${guild.name}" already placed in DB.`));
                     }
                 }
-                case 'json': {
+                case "json": {
                     const file = JSON.parse(fs_1.default.readFileSync(this.options.storagePath).toString());
                     if (file.find((x) => x.guildID === guild.id)) {
                         return rej(this.logger.warn(`Guild with name "${guild.name}" already placed in DB.`));
@@ -140,7 +142,7 @@ class Utils extends Base_1.Base {
                         immunityUsers: [],
                     };
                     file.push(data);
-                    fs_1.default.writeFileSync(this.options.storagePath, JSON.stringify(file, null, '\t'));
+                    fs_1.default.writeFileSync(this.options.storagePath, JSON.stringify(file, null, "\t"));
                     return res(true);
                 }
             }
@@ -149,9 +151,8 @@ class Utils extends Base_1.Base {
     /**
      * Method that changes data in Storage
      *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildData} newData - New Guild Data
-     *
+     * @param {Guild} guild Discord Guild
+     * @param {GuildData} newData New Guild Data
      * @returns {Promise<boolean>}
      */
     setData(guild, newData) {
@@ -162,13 +163,13 @@ class Utils extends Base_1.Base {
                 return this.logger.error('Specify "GuildData" in Utils#setData!');
             await this.getGuild(guild);
             switch (this.options.storageType) {
-                case 'sqlite': {
+                case "sqlite": {
                     quick_db_1.default.set(`guild.${guild.id}`, newData);
                     return res(true);
                 }
-                case 'json': {
+                case "json": {
                     const file = JSON.parse(fs_1.default.readFileSync(this.options.storagePath).toString());
-                    fs_1.default.writeFileSync(this.options.storagePath, JSON.stringify(file, null, '\t'));
+                    fs_1.default.writeFileSync(this.options.storagePath, JSON.stringify(file, null, "\t"));
                     return res(true);
                 }
             }
@@ -181,19 +182,19 @@ class Utils extends Base_1.Base {
      */
     checkFile() {
         return new Promise(async (res, rej) => {
-            if (this.options.storageType !== 'json')
+            if (this.options.storageType !== "json")
                 return this.logger.error('Logger type is not "JSON"');
             setInterval(async () => {
                 const path = this.options.storagePath;
                 if (!fs_1.default.existsSync(path)) {
-                    this.logger.warn('Creating Storage File...');
-                    fs_1.default.writeFileSync(path, JSON.stringify([], null, '\t'));
+                    this.logger.warn("Creating Storage File...");
+                    fs_1.default.writeFileSync(path, JSON.stringify([], null, "\t"));
                     await this.wait(1000);
-                    this.logger.log('Created Storage File.');
+                    this.logger.log("Created Storage File.");
                 }
                 const file = fs_1.default.readFileSync(path).toString();
-                if (!file.startsWith('[') && !file.endsWith(']')) {
-                    return this.logger.error('Storage File contains wrong data!');
+                if (!file.startsWith("[") && !file.endsWith("]")) {
+                    return this.logger.error("Storage File contains wrong data!");
                 }
             }, 5000);
             res(true);
@@ -207,14 +208,14 @@ class Utils extends Base_1.Base {
     checkMutes() {
         return new Promise(async (res, rej) => {
             switch (this.options.storageType) {
-                case 'sqlite': {
+                case "sqlite": {
                     return this.client.guilds.cache.forEach(async (guild) => {
                         const data = await this.getGuild(guild);
                         if (!data.mutes.length)
                             return;
                         for (let i = 0; i < data.mutes.length; i++) {
                             const mute = data.mutes[i];
-                            if (mute.type === 'mute')
+                            if (mute.type === "mute")
                                 continue;
                             if (data.muteRole === null)
                                 continue;
@@ -229,38 +230,34 @@ class Utils extends Base_1.Base {
                             if (mute.unmutedAt === undefined)
                                 continue;
                             if (Date.now() > mute.unmutedAt) {
-                                await member.roles
-                                    .remove(muteRole)
-                                    .catch((err) => {
+                                await member.roles.remove(muteRole).catch((err) => {
                                     return rej(this.logger.error(err.message));
                                 });
                                 mute.unmutedAt = Date.now();
-                                this.emit('unmuteMember', mute);
+                                this.emit("unmuteMember", mute);
                             }
                             else {
                                 const delay = mute.unmutedAt - Date.now();
                                 setTimeout(async () => {
-                                    await member.roles
-                                        .remove(muteRole)
-                                        .catch((err) => {
+                                    await member.roles.remove(muteRole).catch((err) => {
                                         return rej(this.logger.error(err.message));
                                     });
                                     mute.unmutedAt = Date.now();
-                                    this.emit('unmuteMember', mute);
+                                    this.emit("unmuteMember", mute);
                                 }, delay);
                             }
                         }
                         return res(true);
                     });
                 }
-                case 'json': {
+                case "json": {
                     return this.client.guilds.cache.forEach(async (guild) => {
                         const data = await this.getGuild(guild);
                         if (!data.mutes.length)
                             return;
                         for (let i = 0; i < data.mutes.length; i++) {
                             const mute = data.mutes[i];
-                            if (mute.type === 'mute')
+                            if (mute.type === "mute")
                                 continue;
                             if (data.muteRole === null)
                                 continue;
@@ -275,24 +272,20 @@ class Utils extends Base_1.Base {
                             if (mute.unmutedAt === undefined)
                                 continue;
                             if (Date.now() > mute.unmutedAt) {
-                                await member.roles
-                                    .remove(muteRole)
-                                    .catch((err) => {
+                                await member.roles.remove(muteRole).catch((err) => {
                                     return rej(this.logger.error(err.message));
                                 });
                                 mute.unmutedAt = Date.now();
-                                this.emit('unmuteMember', mute);
+                                this.emit("unmuteMember", mute);
                             }
                             else {
                                 const delay = mute.unmutedAt - Date.now();
                                 setTimeout(async () => {
-                                    await member.roles
-                                        .remove(muteRole)
-                                        .catch((err) => {
+                                    await member.roles.remove(muteRole).catch((err) => {
                                         return rej(this.logger.error(err.message));
                                     });
                                     mute.unmutedAt = Date.now();
-                                    this.emit('unmuteMember', mute);
+                                    this.emit("unmuteMember", mute);
                                 }, delay);
                             }
                         }
@@ -305,7 +298,7 @@ class Utils extends Base_1.Base {
     /**
      * Method that create Timeout with Promise
      *
-     * @param {number} ms - Milliseconds
+     * @param {number} ms Milliseconds
      * @returns {Promise<unknown>}
      */
     wait(ms) {

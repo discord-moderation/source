@@ -1,13 +1,12 @@
-import { Client, Guild, GuildMember } from 'discord.js';
-import { MuteManager } from './MuteManager';
-import { GuildData } from '../types/GuildData';
-import { Options } from '../types/Options';
-import { Logger } from './Logger';
-import { Base } from './Base';
+import { Client, Guild, GuildMember } from "discord.js";
+import { MuteManager } from "./MuteManager";
+import { Options, GuildData } from "../constants";
+import { Logger } from "./Logger";
+import { Base } from "./Base";
 export declare interface Utils {
     client: Client;
-    mutes: MuteManager;
     options: Options;
+    mutes: MuteManager;
     logger: Logger;
 }
 /**
@@ -18,19 +17,25 @@ export declare interface Utils {
  * @extends {Base}
  */
 export declare class Utils extends Base {
+    /**
+     *
+     * @param {Client} client Discord.JS Client
+     * @param {Options} options Module Options
+     *
+     * @constructor
+     */
     constructor(client: Client, options: Options);
     /**
      * Method that will be used when Member joins Server
      *
-     * @param {GuildMember} member - Discord Member
-     *
+     * @param {GuildMember} member Discord Member
      * @returns {Promise<boolean>}
      */
     checkMute(member: GuildMember): Promise<boolean>;
     /**
      * Method that will return Guild Data
      *
-     * @param {Guild} guild - Discord Guild
+     * @param {Guild} guild Discord Guild
      * @returns {Promise<GuilData>}
      */
     getGuild(guild: Guild): Promise<GuildData>;
@@ -44,9 +49,8 @@ export declare class Utils extends Base {
     /**
      * Method that changes data in Storage
      *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildData} newData - New Guild Data
-     *
+     * @param {Guild} guild Discord Guild
+     * @param {GuildData} newData New Guild Data
      * @returns {Promise<boolean>}
      */
     setData(guild: Guild, newData: GuildData): Promise<boolean>;
@@ -65,7 +69,7 @@ export declare class Utils extends Base {
     /**
      * Method that create Timeout with Promise
      *
-     * @param {number} ms - Milliseconds
+     * @param {number} ms Milliseconds
      * @returns {Promise<unknown>}
      */
     wait(ms: number): Promise<unknown>;

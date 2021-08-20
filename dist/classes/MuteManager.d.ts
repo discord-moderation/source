@@ -1,10 +1,8 @@
-import { Options } from '../types/Options';
-import { MutesData } from '../types/MuteData';
-import { Client, Guild, GuildMember, Message, Role } from 'discord.js';
-import { Base } from './Base';
-import { Utils } from './Utils';
-import { Logger } from './Logger';
-import { MuteTypes } from '../constants';
+import { Options, MuteTypes, MutesData } from "../constants";
+import { Client, Guild, GuildMember, Message, Role } from "discord.js";
+import { Base } from "./Base";
+import { Utils } from "./Utils";
+import { Logger } from "./Logger";
 export declare interface MuteManager {
     client: Client;
     options: Options;
@@ -15,42 +13,48 @@ export declare interface MuteManager {
  * MuteManager Class
  *
  * @class
- * @classdesc Class that Handles/Creates Mutes
+ * @classdesc Class that Handles/Creates/Removes Mutes
  * @extends {Base}
  */
 export declare class MuteManager extends Base {
+    /**
+     *
+     * @param {Client} client Discord.JS Client
+     * @param {Options} options Module Options
+     *
+     * @constructor
+     */
     constructor(client: Client, options: Options);
     /**
      * This method sets Mute Role.
      *
-     * @param {Guild} guild - Discord Guild
-     * @param {Role} role - Discord Role
+     * @param {Guild} guild Discord Guild
+     * @param {Role} role Discord Role
      * @returns {Promise<boolean>}
      */
     setRole(guild: Guild, role: Role): Promise<boolean>;
     /**
      * This method getting Mute Role.
      *
-     * @param {Guild} guild - Discord Guild
+     * @param {Guild} guild Discord Guild
      * @returns {Promise<boolean>}
      */
     getRole(guild: Guild): Promise<null | Role>;
     /**
      * Method that finds Mute in Storage
      *
-     * @param {GuildMember} member - Discord Member
-     *
+     * @param {GuildMember} member Discord Member
      * @returns {Promise<MutesData>}
      */
     getMute(member: GuildMember): Promise<MutesData | null>;
     /**
      * This is method that mutes member.
      *
-     * @param {string} type - Mute Type
-     * @param {Message} message - Message
-     * @param {GuildMember} member - Discord Guild Member
-     * @param {string} reason - Reason of the Mute
-     * @param {number} time - Time of Temp Mute
+     * @param {string} type Mute Type
+     * @param {Message} message Message
+     * @param {GuildMember} member Discord Guild Member
+     * @param {string} reason Reason of the Mute
+     * @param {number} time Time of Temp Mute
      *
      * @returns {Promise<MutesData>}
      */
@@ -58,8 +62,8 @@ export declare class MuteManager extends Base {
     /**
      * Method that removes Mute from Member
      *
-     * @param {Message} message - Discord Message
-     * @param {GuildMember} member - Discord Member
+     * @param {Message} message Discord Message
+     * @param {GuildMember} member Discord Member
      *
      * @fires Moderation#unmuteMember
      * @returns {Promise<MutesData>}
@@ -68,22 +72,22 @@ export declare class MuteManager extends Base {
     /**
      * Private method that will handle Mute
      *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildMember} member - Guild Member
-     * @param {number} time - Time of the Mute
-     * @param {MutesData} muteData - Mute Data
+     * @param {Guild} guild Discord Guild
+     * @param {GuildMember} member Guild Member
+     * @param {number} time Time of the Mute
+     * @param {MutesData} muteData Mute Data
      * @returns {Promise<null | boolean>}
      *
-     * @emits Moderation#unmuteMember
+     * @emits Moderation#muteMember
      */
     handleUtilsMute(member: GuildMember): Promise<boolean>;
     /**
      * Private method that will handle Mute
      *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildMember} member - Guild Member
-     * @param {number} time - Time of the Mute
-     * @param {MutesData} muteData - Mute Data
+     * @param {Guild} guild Discord Guild
+     * @param {GuildMember} member Guild Member
+     * @param {number} time Time of the Mute
+     * @param {MutesData} muteData Mute Data
      * @returns {Promise<null | boolean>}
      *
      * @emits Moderation#unmuteMember

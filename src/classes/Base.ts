@@ -1,7 +1,7 @@
-import { EventEmitter } from 'events'
-import { Events } from '../types/Events'
+import { EventEmitter } from "events";
+import { Events } from "../constants";
 
-const emitter = new EventEmitter()
+const emitter = new EventEmitter();
 
 /**
  * Base class that uses in all other classes.
@@ -12,44 +12,44 @@ const emitter = new EventEmitter()
  * @private
  */
 export class Base {
-    /**
-     * Handles all the Events
-     *
-     * @param {String} event Event Name
-     * @param {Function} fn Callback
-     * @returns {EventEmitter}
-     */
-    on<K extends keyof Events>(
-        event: K,
-        listener: (...args: Events[K][]) => void
-    ): EventEmitter {
-        return emitter.on(event, listener)
-    }
+  /**
+   * Handles all the Events
+   *
+   * @param {String} event Event Name
+   * @param {Function} fn Callback
+   * @returns {EventEmitter}
+   */
+  on<K extends keyof Events>(
+    event: K,
+    listener: (...args: Events[K][]) => void
+  ): EventEmitter {
+    return emitter.on(event, listener);
+  }
 
-    /**
-     * Handles all the Events
-     *
-     * @param {String} event Event Name
-     * @param {Function} fn Callback
-     * @returns {EventEmitter}
-     */
-    once<K extends keyof Events>(
-        event: K,
-        listener: (...args: Events[K][]) => void
-    ): EventEmitter {
-        return emitter.once(event, listener)
-    }
+  /**
+   * Handles all the Events
+   *
+   * @param {String} event Event Name
+   * @param {Function} fn Callback
+   * @returns {EventEmitter}
+   */
+  once<K extends keyof Events>(
+    event: K,
+    listener: (...args: Events[K][]) => void
+  ): EventEmitter {
+    return emitter.once(event, listener);
+  }
 
-    /**
-     * Emits any Event
-     *
-     * @param {String} event Event Name
-     * @param {Function} fn Callback
-     * @returns {boolean}
-     */
-    emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean {
-        return emitter.emit(event, args)
-    }
+  /**
+   * Emits any Event
+   *
+   * @param {String} event Event Name
+   * @param {Function} fn Callback
+   * @returns {boolean}
+   */
+  emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean {
+    return emitter.emit(event, args);
+  }
 }
 
 /**

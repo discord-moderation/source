@@ -3,7 +3,7 @@
   "version": "2.0.0-dev",
   "description": "discord-moderation will simplify creating moderation system to your discord bot.",
   "main": "dist/index.js",
-  "types": "typings/Moderation.d.ts",
+  "types": "src/typings/Moderation.d.ts",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "tsc",
@@ -13,7 +13,8 @@
     "docs:v2": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/v2.json -g -j .jsconfig.json"
   },
   "dependencies": {
-    "colors": "latest",
+    "@types/colors": "^1.2.1",
+    "colors": "^1.4.0",
     "discord.js": "latest",
     "ms": "latest",
     "node-fetch": "latest",
@@ -37,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bad-boy-discord/discord-moderation.git"
+    "url": "git+https://github.com/discord-moderation/source.git"
   },
   "keywords": [
     "discord",
@@ -50,9 +51,9 @@
   "author": "goose#1046",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bad-boy-discord/discord-moderation/issues"
+    "url": "https://github.com/discord-moderation/source/issues"
   },
-  "homepage": "https://dm-web.tk/",
+  "homepage": "https://discord-moderaiton.js.org/",
   "engines": {
     "node": ">=16.6.0"
   }

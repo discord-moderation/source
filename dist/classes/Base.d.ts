@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { Events } from '../types/Events';
+import { EventEmitter } from "events";
+import { Events } from "../constants";
 /**
  * Base class that uses in all other classes.
  *

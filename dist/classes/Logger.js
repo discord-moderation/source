@@ -13,7 +13,7 @@ const colors_1 = __importDefault(require("colors"));
  */
 class Logger {
     constructor() {
-        this.tag = '[DM]';
+        this.tag = "[DM]";
     }
     /**
      * Logging Something

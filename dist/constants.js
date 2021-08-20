@@ -6,11 +6,11 @@ exports.ERROR_MESSAGES = {
         var _a;
         return `Expected ${Array.isArray(expected)
             ? expected
-                .map((e) => (typeof e === 'number' ? e : `'${e}'`))
-                .join(' or ')
-            : `'${expected}'`}${name ? ` for ${name}` : ''}, but got ${typeof got === 'string'
+                .map((e) => (typeof e === "number" ? e : `'${e}'`))
+                .join(" or ")
+            : `'${expected}'`}${name ? ` for ${name}` : ""}, but got ${typeof got === "string"
             ? `'${got}'`
-            : typeof got === 'number'
+            : typeof got === "number"
                 ? got
                 : Array.isArray(got)
                     ? `Array<${got.length}>`

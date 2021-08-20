@@ -1,430 +1,414 @@
-import { Options } from '../types/Options'
-import { GuildData } from '../types/GuildData'
-import { MutesData } from '../types/MuteData'
-import { Client, Guild, GuildMember, Message, Role } from 'discord.js'
-import { Base } from './Base'
-import { Utils } from './Utils'
-import { Logger } from './Logger'
-import { MuteTypes } from '../constants'
+import { Options, GuildData, MuteTypes, MutesData } from "../constants";
+import { Client, Guild, GuildMember, Message, Role } from "discord.js";
+import { Base } from "./Base";
+import { Utils } from "./Utils";
+import { Logger } from "./Logger";
 
 // Storage Imports
-import db from 'quick.db'
-import fs from 'fs'
+import db from "quick.db";
+import fs from "fs";
 
 export declare interface MuteManager {
-    client: Client
-    options: Options
-    logger: Logger
-    utils: Utils
+  client: Client;
+  options: Options;
+
+  logger: Logger;
+  utils: Utils;
 }
 
 /**
  * MuteManager Class
  *
  * @class
- * @classdesc Class that Handles/Creates Mutes
+ * @classdesc Class that Handles/Creates/Removes Mutes
  * @extends {Base}
  */
 export class MuteManager extends Base {
-    constructor(client: Client, options: Options) {
-        super()
-        /**
-         * Discord Client
-         * @type {Client}
-         */
-        this.client = client
-        /**
-         * Module Options
-         * @type {Options}
-         */
-        this.options = options
-        /**
-         * Module Logger
-         * @type {Logger}
-         */
-        this.logger = new Logger()
-        /**
-         * Module Utils
-         * @type {Utils}
-         */
-        this.utils = new Utils(this.client, this.options)
-    }
+  /**
+   *
+   * @param {Client} client Discord.JS Client
+   * @param {Options} options Module Options
+   *
+   * @constructor
+   */
+  constructor(client: Client, options: Options) {
+    super();
+    /**
+     * Discord Client
+     * @type {Client}
+     */
+    this.client = client;
 
     /**
-     * This method sets Mute Role.
-     *
-     * @param {Guild} guild - Discord Guild
-     * @param {Role} role - Discord Role
-     * @returns {Promise<boolean>}
+     * Module Options
+     * @type {Options}
      */
-    setRole(guild: Guild, role: Role): Promise<boolean> {
-        return new Promise(async (res, _rej) => {
-            if (!role)
-                return this.logger.error(
-                    'Specify "Role" in MuteManager#setRole'
-                )
-
-            switch (this.options.storageType) {
-                case 'sqlite': {
-                    await this.utils.getGuild(guild)
-
-                    db.set(`guild.${guild.id}.muteRole`, role.id)
-
-                    return res(true)
-                }
-
-                case 'json': {
-                    const data = await this.utils.getGuild(guild)
-                    data.muteRole = role.id
-
-                    const file = JSON.parse(
-                        fs.readFileSync(this.options.storagePath).toString()
-                    )
-                    fs.writeFileSync(
-                        this.options.storagePath,
-                        JSON.stringify(file, null, '\t')
-                    )
-
-                    return res(true)
-                }
-            }
-        })
-    }
+    this.options = options;
 
     /**
-     * This method getting Mute Role.
-     *
-     * @param {Guild} guild - Discord Guild
-     * @returns {Promise<boolean>}
+     * Module Logger
+     * @type {Logger}
      */
-    getRole(guild: Guild): Promise<null | Role> {
-        return new Promise(async (res, rej) => {
-            if (!guild)
-                return rej(
-                    this.logger.warn('Specify "Guild" in MuteManager#getRole')
-                )
-
-            switch (this.options.storageType) {
-                case 'sqlite': {
-                    const data = await this.utils.getGuild(guild)
-                    if (data.muteRole === null) return res(null)
-
-                    const role = guild.roles.cache.get(data.muteRole)
-                    if (!role) return res(null)
-
-                    return res(role)
-                }
-
-                case 'json': {
-                    const data = await this.utils.getGuild(guild)
-                    if (data.muteRole === null) return res(null)
-
-                    const role = guild.roles.cache.get(data.muteRole)
-                    if (!role) return res(null)
-
-                    return res(role)
-                }
-            }
-        })
-    }
+    this.logger = new Logger();
 
     /**
-     * Method that finds Mute in Storage
-     *
-     * @param {GuildMember} member - Discord Member
-     *
-     * @returns {Promise<MutesData>}
+     * Module Utils
+     * @type {Utils}
      */
-    getMute(member: GuildMember): Promise<MutesData | null> {
-        return new Promise(async (res, rej) => {
-            if (!member)
-                return this.logger.error(
-                    'Specify "GuildMember" in MuteManager#getMute'
-                )
+    this.utils = new Utils(this.client, this.options);
+  }
 
-            const data = await this.utils.getGuild(member.guild)
-            const mute = data.mutes.find((x) => x.memberID === member.id)
+  /**
+   * This method sets Mute Role.
+   *
+   * @param {Guild} guild Discord Guild
+   * @param {Role} role Discord Role
+   * @returns {Promise<boolean>}
+   */
+  setRole(guild: Guild, role: Role): Promise<boolean> {
+    return new Promise(async (res, _rej) => {
+      if (!role)
+        return this.logger.error('Specify "Role" in MuteManager#setRole');
 
-            if (mute) return res(mute)
-            else return res(null)
-        })
-    }
+      switch (this.options.storageType) {
+        case "sqlite": {
+          await this.utils.getGuild(guild);
 
-    /**
-     * This is method that mutes member.
-     *
-     * @param {string} type - Mute Type
-     * @param {Message} message - Message
-     * @param {GuildMember} member - Discord Guild Member
-     * @param {string} reason - Reason of the Mute
-     * @param {number} time - Time of Temp Mute
-     *
-     * @returns {Promise<MutesData>}
-     */
-    create(
-        type: MuteTypes,
-        message: Message,
-        member: GuildMember,
-        reason?: string,
-        time?: number
-    ): Promise<MutesData> {
-        return new Promise(async (res, rej) => {
-            if (!type)
-                return this.logger.warn('Specify "type" in MuteManager#create')
-            if (!message)
-                return this.logger.warn(
-                    'Specify "message" in MuteManager#create'
-                )
-            if (!member)
-                return this.logger.warn(
-                    'Specify "member" in MuteManager#create'
-                )
+          db.set(`guild.${guild.id}.muteRole`, role.id);
 
-            if (!reason) reason = 'No reason provided.'
+          return res(true);
+        }
 
-            if (type === 'tempmute' && time === undefined)
-                return this.logger.warn(
-                    'No "time" specified in MuteManager#create (tempmute)'
-                )
+        case "json": {
+          const data = await this.utils.getGuild(guild);
+          data.muteRole = role.id;
 
-            const mute = await this.getMute(member)
-            if (mute !== null)
-                return this.logger.error('Member already has Mute!')
+          const file = JSON.parse(
+            fs.readFileSync(this.options.storagePath).toString()
+          );
+          fs.writeFileSync(
+            this.options.storagePath,
+            JSON.stringify(file, null, "\t")
+          );
 
-            switch (this.options.storageType) {
-                case 'sqlite': {
-                    if (message.guild === null) return
+          return res(true);
+        }
+      }
+    });
+  }
 
-                    const data = await this.utils.getGuild(message.guild)
-                    const role = await this.getRole(message.guild)
+  /**
+   * This method getting Mute Role.
+   *
+   * @param {Guild} guild Discord Guild
+   * @returns {Promise<boolean>}
+   */
+  getRole(guild: Guild): Promise<null | Role> {
+    return new Promise(async (res, rej) => {
+      if (!guild)
+        return rej(this.logger.warn('Specify "Guild" in MuteManager#getRole'));
 
-                    if (role === null) return
-                    if (time === undefined) return
+      switch (this.options.storageType) {
+        case "sqlite": {
+          const data = await this.utils.getGuild(guild);
+          if (data.muteRole === null) return res(null);
 
-                    var muteData: MutesData = {
-                        id: data.mutes.length + 1,
-                        type,
-                        guildID: message.guild.id,
-                        memberID: member.id,
-                        moderatorID: message.author.id,
-                        channelID: message.channel.id,
-                        reason,
-                    }
+          const role = guild.roles.cache.get(data.muteRole);
+          if (!role) return res(null);
 
-                    if (type === 'tempmute') {
-                        muteData = {
-                            ...muteData,
-                            time,
-                            unmutedAt: Date.now() + time,
-                        }
-                    }
+          return res(role);
+        }
 
-                    await member.roles.add(role).catch((err) => {
-                        return rej(this.logger.error(err.message))
-                    })
+        case "json": {
+          const data = await this.utils.getGuild(guild);
+          if (data.muteRole === null) return res(null);
 
-                    if (type === 'tempmute')
-                        await this.handleMute(
-                            message.guild,
-                            member,
-                            time,
-                            muteData
-                        )
+          const role = guild.roles.cache.get(data.muteRole);
+          if (!role) return res(null);
 
-                    data.mutes.push(muteData)
-                    db.set(`guild.${message.guild.id}`, data)
+          return res(role);
+        }
+      }
+    });
+  }
 
-                    this.emit('muteMember', muteData)
-                    return res(muteData)
-                }
+  /**
+   * Method that finds Mute in Storage
+   *
+   * @param {GuildMember} member Discord Member
+   * @returns {Promise<MutesData>}
+   */
+  getMute(member: GuildMember): Promise<MutesData | null> {
+    return new Promise(async (res, rej) => {
+      if (!member)
+        return this.logger.error(
+          'Specify "GuildMember" in MuteManager#getMute'
+        );
 
-                case 'json': {
-                    if (message.guild === null) return
+      const data = await this.utils.getGuild(member.guild);
+      const mute = data.mutes.find((x) => x.memberID === member.id);
 
-                    const data = await this.utils.getGuild(message.guild)
-                    const role = await this.getRole(message.guild)
+      if (mute) return res(mute);
+      else return res(null);
+    });
+  }
 
-                    if (role === null) return
-                    if (time === undefined) return
+  /**
+   * This is method that mutes member.
+   *
+   * @param {string} type Mute Type
+   * @param {Message} message Message
+   * @param {GuildMember} member Discord Guild Member
+   * @param {string} reason Reason of the Mute
+   * @param {number} time Time of Temp Mute
+   *
+   * @returns {Promise<MutesData>}
+   */
+  create(
+    type: MuteTypes,
+    message: Message,
+    member: GuildMember,
+    reason?: string,
+    time?: number
+  ): Promise<MutesData> {
+    return new Promise(async (res, rej) => {
+      if (!type)
+        return this.logger.warn('Specify "type" in MuteManager#create');
+      if (!message)
+        return this.logger.warn('Specify "message" in MuteManager#create');
+      if (!member)
+        return this.logger.warn('Specify "member" in MuteManager#create');
 
-                    var muteData: MutesData = {
-                        id: data.mutes.length + 1,
-                        type,
-                        guildID: message.guild.id,
-                        memberID: member.id,
-                        moderatorID: message.author.id,
-                        channelID: message.channel.id,
-                        reason,
-                    }
+      if (!reason) reason = "No reason provided.";
 
-                    if (type === 'tempmute') {
-                        muteData = {
-                            ...muteData,
-                            time,
-                            unmutedAt: Date.now() + time,
-                        }
-                    }
+      if (type === "tempmute" && time === undefined)
+        return this.logger.warn(
+          'No "time" specified in MuteManager#create (tempmute)'
+        );
 
-                    await member.roles.add(role).catch((err) => {
-                        return rej(this.logger.error(err.message))
-                    })
+      const mute = await this.getMute(member);
+      if (mute !== null) return this.logger.error("Member already has Mute!");
 
-                    if (type === 'tempmute')
-                        await this.handleMute(
-                            message.guild,
-                            member,
-                            time,
-                            muteData
-                        )
+      switch (this.options.storageType) {
+        case "sqlite": {
+          if (message.guild === null) return;
 
-                    const file: GuildData = JSON.parse(
-                        fs.readFileSync(this.options.storagePath).toString()
-                    )
-                    file.mutes.push(muteData)
+          const data = await this.utils.getGuild(message.guild);
+          const role = await this.getRole(message.guild);
 
-                    fs.writeFileSync(
-                        this.options.storagePath,
-                        JSON.stringify(file, null, '\t')
-                    )
+          if (role === null) return;
+          if (time === undefined) return;
 
-                    this.emit('muteMember', muteData)
-                    return res(muteData)
-                }
-            }
-        })
-    }
+          var muteData: MutesData = {
+            id: data.mutes.length + 1,
+            type,
+            guildID: message.guild.id,
+            memberID: member.id,
+            moderatorID: message.author.id,
+            channelID: message.channel.id,
+            reason,
+          };
 
-    /**
-     * Method that removes Mute from Member
-     *
-     * @param {Message} message - Discord Message
-     * @param {GuildMember} member - Discord Member
-     *
-     * @fires Moderation#unmuteMember
-     * @returns {Promise<MutesData>}
-     */
-    delete(member: GuildMember): Promise<MutesData> {
-        return new Promise(async (res, rej) => {
-            const mute = await this.getMute(member)
+          if (type === "tempmute") {
+            muteData = {
+              ...muteData,
+              time,
+              unmutedAt: Date.now() + time,
+            };
+          }
 
-            if (mute === null)
-                return this.logger.error("Member hasn't any Mute!")
-            else {
-                const data = await this.utils.getGuild(member.guild)
-                const role = await this.getRole(member.guild)
+          await member.roles.add(role).catch((err) => {
+            return rej(this.logger.error(err.message));
+          });
 
-                if (!role)
-                    return this.logger.error("Server hasn't any Mute Role!")
+          if (type === "tempmute")
+            await this.handleMute(message.guild, member, time, muteData);
 
-                const roleCheck = member.roles.cache.find(
-                    (r) => r.id === role.id
-                )
-                if (!roleCheck)
-                    return this.logger.error("Member haven't Mute Role!")
+          data.mutes.push(muteData);
+          db.set(`guild.${message.guild.id}`, data);
 
-                await member.roles.remove(role).catch((err) => {
-                    return this.logger.error(err)
-                })
+          this.emit("muteMember", muteData);
+          return res(muteData);
+        }
 
-                data.mutes.filter((muteData) => muteData.memberID !== member.id)
+        case "json": {
+          if (message.guild === null) return;
 
-                this.utils.setData(member.guild, data)
+          const data = await this.utils.getGuild(message.guild);
+          const role = await this.getRole(message.guild);
 
-                this.emit('unmuteMember', {
-                    id: mute.id,
-                    type: mute.type,
-                    guildID: member.guild.id,
-                    memberID: member.id,
-                    moderatorID: mute.moderatorID,
-                    channelID: mute.channelID,
-                    reason: mute.reason,
-                    time: mute.time !== undefined ? mute.time : undefined,
-                })
+          if (role === null) return;
+          if (time === undefined) return;
 
-                return mute
-            }
-        })
-    }
+          var muteData: MutesData = {
+            id: data.mutes.length + 1,
+            type,
+            guildID: message.guild.id,
+            memberID: member.id,
+            moderatorID: message.author.id,
+            channelID: message.channel.id,
+            reason,
+          };
 
-    /**
-     * Private method that will handle Mute
-     *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildMember} member - Guild Member
-     * @param {number} time - Time of the Mute
-     * @param {MutesData} muteData - Mute Data
-     * @returns {Promise<null | boolean>}
-     *
-     * @emits Moderation#unmuteMember
-     */
-    handleUtilsMute(member: GuildMember): Promise<boolean> {
-        return new Promise(async (res, rej) => {
-            const data = await this.utils.getGuild(member.guild)
-            if (data.muteRole === null) return res(false)
+          if (type === "tempmute") {
+            muteData = {
+              ...muteData,
+              time,
+              unmutedAt: Date.now() + time,
+            };
+          }
 
-            const lastMute = data.mutes.find(
-                (mute) => mute.memberID === member.id
-            )
-            if (lastMute?.channelID === undefined) return res(false)
+          await member.roles.add(role).catch((err) => {
+            return rej(this.logger.error(err.message));
+          });
 
-            const role = await this.getRole(member.guild)
-            if (!role) return res(false)
+          if (type === "tempmute")
+            await this.handleMute(message.guild, member, time, muteData);
 
-            if (this.client?.user?.id === undefined) return res(false)
+          const file: GuildData = JSON.parse(
+            fs.readFileSync(this.options.storagePath).toString()
+          );
+          file.mutes.push(muteData);
 
-            const muteData: MutesData = {
-                id: data.mutes.length + 1,
-                type: 'mute',
-                guildID: member.guild.id,
-                memberID: member.id,
-                moderatorID: this.client.user.id,
-                channelID: lastMute.channelID,
-                reason: 'User rejoined server.',
-            }
+          fs.writeFileSync(
+            this.options.storagePath,
+            JSON.stringify(file, null, "\t")
+          );
 
-            await member.roles.add(role).catch((err) => {
-                return rej(this.logger.error(err.message))
-            })
+          this.emit("muteMember", muteData);
+          return res(muteData);
+        }
+      }
+    });
+  }
 
-            this.emit('muteMember', muteData)
+  /**
+   * Method that removes Mute from Member
+   *
+   * @param {Message} message Discord Message
+   * @param {GuildMember} member Discord Member
+   *
+   * @fires Moderation#unmuteMember
+   * @returns {Promise<MutesData>}
+   */
+  delete(member: GuildMember): Promise<MutesData> {
+    return new Promise(async (res, rej) => {
+      const mute = await this.getMute(member);
 
-            return res(true)
-        })
-    }
+      if (mute === null) return this.logger.error("Member hasn't any Mute!");
+      else {
+        const data = await this.utils.getGuild(member.guild);
+        const role = await this.getRole(member.guild);
 
-    /**
-     * Private method that will handle Mute
-     *
-     * @param {Guild} guild - Discord Guild
-     * @param {GuildMember} member - Guild Member
-     * @param {number} time - Time of the Mute
-     * @param {MutesData} muteData - Mute Data
-     * @returns {Promise<null | boolean>}
-     *
-     * @emits Moderation#unmuteMember
-     */
-    private handleMute(
-        guild: Guild,
-        member: GuildMember,
-        time: number,
-        muteData: MutesData
-    ): Promise<null | boolean> {
-        return new Promise(async (res, rej) => {
-            const data = await this.utils.getGuild(guild)
-            if (data.muteRole === null) return res(null)
+        if (!role) return this.logger.error("Server hasn't any Mute Role!");
 
-            const role = guild.roles.cache.get(data.muteRole)
-            if (!role) return res(null)
+        const roleCheck = member.roles.cache.find((r) => r.id === role.id);
+        if (!roleCheck) return this.logger.error("Member haven't Mute Role!");
 
-            setTimeout(async () => {
-                await member.roles.add(role).catch((err) => {
-                    return rej(this.logger.error(err.message))
-                })
+        await member.roles.remove(role).catch((err) => {
+          return this.logger.error(err);
+        });
 
-                this.emit('unmuteMember', muteData)
+        data.mutes.filter((muteData) => muteData.memberID !== member.id);
 
-                return res(true)
-            }, time)
-        })
-    }
+        this.utils.setData(member.guild, data);
+
+        this.emit("unmuteMember", {
+          id: mute.id,
+          type: mute.type,
+          guildID: member.guild.id,
+          memberID: member.id,
+          moderatorID: mute.moderatorID,
+          channelID: mute.channelID,
+          reason: mute.reason,
+          time: mute.time !== undefined ? mute.time : undefined,
+        });
+
+        return mute;
+      }
+    });
+  }
+
+  /**
+   * Private method that will handle Mute
+   *
+   * @param {Guild} guild Discord Guild
+   * @param {GuildMember} member Guild Member
+   * @param {number} time Time of the Mute
+   * @param {MutesData} muteData Mute Data
+   * @returns {Promise<null | boolean>}
+   *
+   * @emits Moderation#muteMember
+   */
+  handleUtilsMute(member: GuildMember): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      const data = await this.utils.getGuild(member.guild);
+      if (data.muteRole === null) return res(false);
+
+      const lastMute = await this.getMute(member);
+      if (lastMute?.channelID === undefined) return res(false);
+
+      const role = await this.getRole(member.guild);
+      if (!role) return res(false);
+
+      if (this.client?.user?.id === undefined) return res(false);
+
+      const muteData: MutesData = {
+        id: data.mutes.length + 1,
+        type: "mute",
+        guildID: member.guild.id,
+        memberID: member.id,
+        moderatorID: this.client.user.id,
+        channelID: lastMute.channelID,
+        reason: "User rejoined server.",
+      };
+
+      await member.roles.add(role).catch((err) => {
+        return rej(this.logger.error(err.message));
+      });
+
+      this.emit("muteMember", muteData);
+
+      return res(true);
+    });
+  }
+
+  /**
+   * Private method that will handle Mute
+   *
+   * @param {Guild} guild Discord Guild
+   * @param {GuildMember} member Guild Member
+   * @param {number} time Time of the Mute
+   * @param {MutesData} muteData Mute Data
+   * @returns {Promise<null | boolean>}
+   *
+   * @emits Moderation#unmuteMember
+   */
+  private handleMute(
+    guild: Guild,
+    member: GuildMember,
+    time: number,
+    muteData: MutesData
+  ): Promise<null | boolean> {
+    return new Promise(async (res, rej) => {
+      const data = await this.utils.getGuild(guild);
+      if (data.muteRole === null) return res(null);
+
+      const role = guild.roles.cache.get(data.muteRole);
+      if (!role) return res(null);
+
+      setTimeout(async () => {
+        await member.roles.add(role).catch((err) => {
+          return rej(this.logger.error(err.message));
+        });
+
+        data.mutes.filter((m) => m.memberID !== member.id);
+        await this.utils.setData(guild, data);
+
+        this.emit("unmuteMember", muteData);
+
+        return res(true);
+      }, time);
+    });
+  }
 }

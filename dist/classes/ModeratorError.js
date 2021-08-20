@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModeratorError = void 0;
 const constants_1 = require("../constants");
 function createMessage(msg, ...args) {
-    if (typeof msg === 'string')
+    if (typeof msg === "string")
         return msg;
     return msg(...args);
 }
