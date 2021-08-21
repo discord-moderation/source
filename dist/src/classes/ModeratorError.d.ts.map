@@ -1,0 +1,1 @@
+{"version":3,"file":"ModeratorError.d.ts","sourceRoot":"","sources":["../../../src/classes/ModeratorError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,cAAc,CAAC;AAQ9C,qBAAa,cAAe,SAAQ,KAAK;IACvC,SAAS,EAAE,MAAM,CAAC;gBAEN,IAAI,EAAE,MAAM,OAAO,cAAc,EAAE,GAAG,IAAI,EAAE,GAAG;IAU3D,IAAI,IAAI,WAEP;IAED,IAAI,IAAI,WAEP;CACF;AAED,eAAe,cAAc,CAAC"}

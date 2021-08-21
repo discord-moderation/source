@@ -3,6 +3,7 @@ import { Base } from "./Base";
 import { Utils } from "./Utils";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
+import { Logger } from "./Logger";
 import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
 import ModeratorError from "./ModeratorError";
 
@@ -17,6 +18,7 @@ export declare interface Moderation {
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
+  logger: Logger;
 
   // Other
   isReady: boolean;
@@ -82,7 +84,7 @@ export class Moderation extends Base {
     });
 
     this.client.on("guildMemberAdd", async (member) => {
-      await this.utils.checkMute(member);
+      await this.checkMute(member);
     });
   }
 
@@ -226,6 +228,32 @@ export class Moderation extends Base {
       if (warns === null) return res(undefined);
 
       return res(warns);
+    });
+  }
+
+  /**
+   * Method that will be used when Member joins Server
+   *
+   * @param {GuildMember} member Discord Member
+   *
+   * @private
+   * @returns {Promise<boolean>}
+   */
+  private checkMute(member: GuildMember): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      if (!member)
+        return this.logger.error('Specify "GuildMember" in Utils#checkMute');
+
+      await this.utils.getGuild(member.guild);
+      const mute = await this.mutes.getMute(member);
+
+      if (mute) {
+        await this.mutes.handleUtilsMute(member);
+
+        return res(true);
+      } else {
+        return res(false);
+      }
     });
   }
 }

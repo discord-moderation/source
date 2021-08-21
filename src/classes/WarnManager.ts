@@ -32,11 +32,34 @@ export class WarnManager extends Base {
   constructor(client: Client, options: Options) {
     super();
 
+    /**
+     * Discord Client
+     * @type {Client}
+     */
     this.client = client;
+
+    /**
+     * Module Options
+     * @type {Options}
+     */
     this.options = options;
 
+    /**
+     * Mute Manager
+     * @type {MuteManager}
+     */
     this.mutes = new MuteManager(this.client, this.options);
+
+    /**
+     * Module Utils
+     * @type {Utils}
+     */
     this.utils = new Utils(this.client, this.options);
+
+    /**
+     * Module Logger
+     * @type {Logger}
+     */
     this.logger = new Logger();
   }
 

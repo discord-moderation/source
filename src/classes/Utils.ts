@@ -1,8 +1,9 @@
-import { Client, Guild, GuildMember } from "discord.js";
-import { MuteManager } from "./MuteManager";
+import { Client, Guild } from "discord.js";
 import { Options, GuildData } from "../constants";
 import { Logger } from "./Logger";
 import { Base } from "./Base";
+import { version } from "../../package.json";
+import fetch from "node-fetch";
 
 // Storage Imports
 import db from "quick.db";
@@ -12,7 +13,6 @@ export declare interface Utils {
   client: Client;
   options: Options;
 
-  mutes: MuteManager;
   logger: Logger;
 }
 
@@ -41,12 +41,6 @@ export class Utils extends Base {
     this.client = client;
 
     /**
-     * Mute Manager
-     * @type {MuteManager}
-     */
-    this.mutes = new MuteManager(this.client, this.options);
-
-    /**
      * Module Options
      * @type {Options}
      */
@@ -57,30 +51,6 @@ export class Utils extends Base {
      * @type {Logger}
      */
     this.logger = new Logger();
-  }
-
-  /**
-   * Method that will be used when Member joins Server
-   *
-   * @param {GuildMember} member Discord Member
-   * @returns {Promise<boolean>}
-   */
-  checkMute(member: GuildMember): Promise<boolean> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        return this.logger.error('Specify "GuildMember" in Utils#checkMute');
-
-      await this.getGuild(member.guild);
-      const mute = await this.mutes.getMute(member);
-
-      if (mute) {
-        await this.mutes.handleUtilsMute(member);
-
-        return res(true);
-      } else {
-        return res(false);
-      }
-    });
   }
 
   /**
@@ -392,5 +362,20 @@ export class Utils extends Base {
    */
   wait(ms: number): Promise<unknown> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  checkUpdate(): Promise<any> {
+    return new Promise(async (res, rej) => {
+      const data = await fetch(
+        "https://registry.npmjs.com/discord-moderation"
+      ).then((res) => res.json());
+      const lastVersion: string = data["dist-tags"]["latest"];
+
+      if (version !== lastVersion) {
+        return this.logger.warn(
+          'New Version of Discord-Moderation avaliable!\nWe recomend you to update this module using "npm i discord-moderation@latest" command,'
+        );
+      }
+    });
   }
 }
