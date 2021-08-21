@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1629467494156
+    "date": 1629543544353
   },
   "custom": {
     "general": {
@@ -13,6 +13,12 @@
           "type": "md",
           "content": "<img src=\"https://raw.githubusercontent.com/bad-boy-discord/discord-moderation/main/assets/discord-moderation-main.png\" />\r\n<hr>\r\n\r\n**Development process will start in middle of August.**\r\n",
           "path": "README.MD"
+        },
+        "changelog": {
+          "name": "ChangeLog",
+          "type": "md",
+          "content": "<strong>Information taked from [GitHub Releases](https://github.com/bad-boy-discord/discord-moderation/releases) and [Discord Server](https://discord.com/invite/eGZfaWsZgR).</strong>\r\n<hr>\r\n› 1.0.0 | First Release <br />\r\n» 4 classes: <br />\r\n››› Moderation (main) <br />\r\n››› MuteHandler (Mute System) <br />\r\n››› WarnHandler (Warn System) <br />\r\n››› Utils (Some things) <br />\r\n<hr>\r\n› 1.0.6 - 1.0.7 | Fixes <br />\r\n» Changes Lost :( <br />\r\n<hr>\r\n› 1.0.9 Update <br />\r\n» Changes: <br />\r\n››› Advanced JSDoc <br />\r\n››› Some fixes <br />\r\n<hr>\r\n› 1.0.11 Update <br />\r\n» Changes: <br />\r\n››› Fixed Bugs <br />\r\n<hr>\r\n› 1.0.12 Update <br />\r\n» Changes: <br />\r\n››› Fixed Bugs <br />\r\n››› Advanced JSDoc <br />\r\n››› Other fixes <br />\r\n<hr>\r\n› 1.0.13 Update <br />\r\n» Changes: <br />\r\n››› Fixed Errors <br />\r\n››› Advanced JSDoc <br />\r\n<hr>\r\n› 1.0.14 Update <br />\r\n» Changes: <br />\r\n››› Fixed Errors <br />\r\n››› Advanced JSDoc <br />\r\n<hr>\r\n› 1.0.15 Update <br />\r\n» Changes: <br />\r\n››› Fixed bug with 'super' in constructors in MuteHandler and WarnHandler. <br />\r\n<hr>\r\n› 1.0.16 Update <br />\r\n» Changes: <br />\r\n››› Fixed bug in WarnHandler. <br />\r\n<hr>\r\n› 1.0.17 Update <br />\r\n» Changes: <br />\r\n››› Fixed bug in WarnHandler (again). <br />\r\n<hr>\r\n› 1.0.18 Update <br />\r\n» Changes: <br />\r\n››› Advanced JSDoc <br />\r\n››› Fixed all founded bugs <br />\r\n<hr>\r\n› 1.0.20 Update <br />\r\n» Changes: <br />\r\n››› Added TypeDefs <br />\r\n››› Fixed all founded bugs by Gaevleflammen#6969 <br />\r\n<hr>\r\n› 1.0.21 Fix <br />\r\n» Changes: <br />\r\n››› Fixed package typings <br />\r\n<hr>\r\n› 1.0.22 Update <br />\r\n» Changes: <br />\r\n››› Bump Discord.JS version to v13 <br />\r\n››› Update Readme.MD <br />\r\n<hr>\r\n› 1.0.23 Update <br />\r\n» Changes: <br />\r\n››› Replaced 'colors' from devDependencies to dependencies (dropping error) <br />\r\n<hr>\r\n› 2.0.0 Global Update <br />\r\n» Changes: <br />\r\n››› ReWrite to TypeScript <br />\r\n››› Added Promises <br />\r\n››› quick.db Support <br />\r\n››› Log Embed Generator <br />\r\n››› Anti-Link, Anti-Invite, Anti-Spam, Auto-Role, Blacklist Systems",
+          "path": "docs/general/changelog.md"
         }
       }
     }
@@ -297,7 +303,7 @@
             ]
           ],
           "meta": {
-            "line": 42,
+            "line": 44,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -313,7 +319,7 @@
             ]
           ],
           "meta": {
-            "line": 48,
+            "line": 50,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -329,7 +335,7 @@
             ]
           ],
           "meta": {
-            "line": 54,
+            "line": 56,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -345,7 +351,7 @@
             ]
           ],
           "meta": {
-            "line": 60,
+            "line": 62,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -361,7 +367,7 @@
             ]
           ],
           "meta": {
-            "line": 66,
+            "line": 68,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -377,7 +383,7 @@
             ]
           ],
           "meta": {
-            "line": 72,
+            "line": 74,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -460,7 +466,7 @@
             ]
           ],
           "meta": {
-            "line": 89,
+            "line": 91,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -497,7 +503,7 @@
             ]
           ],
           "meta": {
-            "line": 128,
+            "line": 130,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -557,7 +563,7 @@
             ]
           ],
           "meta": {
-            "line": 150,
+            "line": 152,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -594,7 +600,7 @@
             ]
           ],
           "meta": {
-            "line": 187,
+            "line": 189,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -636,7 +642,42 @@
             ]
           ],
           "meta": {
-            "line": 209,
+            "line": 211,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "checkMute",
+          "description": "Method that will be used when Member joins Server",
+          "access": "private",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 234,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -769,7 +810,7 @@
         }
       ],
       "meta": {
-        "line": 25,
+        "line": 27,
         "file": "Moderation.ts",
         "path": "src/classes"
       }
@@ -1453,22 +1494,6 @@
           }
         },
         {
-          "name": "mutes",
-          "description": "Mute Manager",
-          "type": [
-            [
-              [
-                "MuteManager"
-              ]
-            ]
-          ],
-          "meta": {
-            "line": 43,
-            "file": "Utils.ts",
-            "path": "src/classes"
-          }
-        },
-        {
           "name": "options",
           "description": "Module Options",
           "type": [
@@ -1479,7 +1504,7 @@
             ]
           ],
           "meta": {
-            "line": 49,
+            "line": 43,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1495,47 +1520,13 @@
             ]
           ],
           "meta": {
-            "line": 55,
+            "line": 49,
             "file": "Utils.ts",
             "path": "src/classes"
           }
         }
       ],
       "methods": [
-        {
-          "name": "checkMute",
-          "description": "Method that will be used when Member joins Server",
-          "params": [
-            {
-              "name": "member",
-              "description": "Discord Member",
-              "type": [
-                [
-                  [
-                    "GuildMember"
-                  ]
-                ]
-              ]
-            }
-          ],
-          "returns": [
-            [
-              [
-                "Promise",
-                "<"
-              ],
-              [
-                "boolean",
-                ">"
-              ]
-            ]
-          ],
-          "meta": {
-            "line": 62,
-            "file": "Utils.ts",
-            "path": "src/classes"
-          }
-        },
         {
           "name": "getGuild",
           "description": "Method that will return Guild Data",
@@ -1565,7 +1556,7 @@
             ]
           ],
           "meta": {
-            "line": 86,
+            "line": 56,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1599,7 +1590,7 @@
             ]
           ],
           "meta": {
-            "line": 126,
+            "line": 96,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1644,7 +1635,7 @@
             ]
           ],
           "meta": {
-            "line": 193,
+            "line": 163,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1665,7 +1656,7 @@
             ]
           ],
           "meta": {
-            "line": 231,
+            "line": 201,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1686,7 +1677,7 @@
             ]
           ],
           "meta": {
-            "line": 265,
+            "line": 235,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1720,7 +1711,7 @@
             ]
           ],
           "meta": {
-            "line": 387,
+            "line": 357,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1895,6 +1886,88 @@
           }
         ]
       },
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 35,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 41,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "mutes",
+          "description": "Mute Manager",
+          "type": [
+            [
+              [
+                "MuteManager"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 47,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "utils",
+          "description": "Module Utils",
+          "type": [
+            [
+              [
+                "Utils"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 53,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 59,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
       "methods": [
         {
           "name": "getWarn",
@@ -1929,7 +2002,7 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 66,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -1989,7 +2062,7 @@
             ]
           ],
           "meta": {
-            "line": 66,
+            "line": 89,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -2026,7 +2099,7 @@
             ]
           ],
           "meta": {
-            "line": 132,
+            "line": 155,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -2068,7 +2141,7 @@
             ]
           ],
           "meta": {
-            "line": 171,
+            "line": 194,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
