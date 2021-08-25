@@ -55,48 +55,76 @@ export class Base {
 /**
  * Module Options
  * @typedef {Object} Options
- * @prop {string} storageType - Storage Type (Json or SQLite)
- * @prop {string} storagePath - Storage Path (Only for Json type)
+ * @prop {string} storageType Storage Type (JSON or SQLite, default JSON)
+ * @prop {string} storagePath Storage Path (Only for JSON type)
+ * @prop {string} locale Date Locale (default 'en-US')
+ * @prop {object} ModuleSystems Module Systems
+ */
+
+/**
+ * Module Options
+ * @typedef {Object} ModuleSystems
+ * @prop {boolean} autoRole Auto Role System
+ * @prop {boolean} antiInvite Anti Invite System
+ * @prop {boolean} antiJoin Anti Join System
+ * @prop {boolean} antiLink Anti Link System
+ * @prop {boolean} blacklist Blacklist System
+ * @prop {boolean} ghostPing Ghost Ping Detecting System
+ * @prop {boolean} logSystem Log System
  */
 
 /**
  * Mute Data
  * @typedef {Object} MutesData
- * @prop {number} id - ID of the Mute
- * @prop {string} type - Type of the Mute
- * @prop {string} guildID - Guild ID
- * @prop {string} memberID - Member ID
- * @prop {string} moderatorID - Moderator ID
- * @prop {string} channelID - Channel ID
- * @prop {number} time - Mute Time
- * @prop {number} unmutedAt - Time when Member will be Unmuted
+ * @prop {number} id ID of the Mute
+ * @prop {string} type Type of the Mute
+ * @prop {string} guildID  Guild ID
+ * @prop {string} memberID Member ID
+ * @prop {string} moderatorID Moderator ID
+ * @prop {string} channelID Channel ID
+ * @prop {number} time Mute Time
+ * @prop {number} unmutedAt Time when Member will be Unmuted
  */
 
 /**
  * Guild Data
  * @typedef {Object} GuildData
- * @prop {string} guildID - Guild ID
- * @prop {null | string} muteRole - Mute Role ID
- * @prop {Array<WarnsData>} warns - Guild Warns
- * @prop {Array<MutesData>} mutes - Guild Mutes
- * @prop {Array<ImmunityUsersData>} ImmunityUsersData - Users with Immunity
+ * @prop {string} guildID Guild ID
+ * @prop {null | string} muteRole Mute Role ID
+ * @prop {null | string} autoRole Auto Role ID
+ * @prop {null | number} cases Count of Cases
+ * @prop {Array<WarnsData>} warns Guild Warns
+ * @prop {Array<MutesData>} mutes Guild Mutes
+ * @prop {Array<ImmunityUsersData>} ImmunityUsersData Users with Immunity
  */
 
 /**
  * Warn Data
  * @typedef {Object} WarnsData
- * @prop {number} id - ID of the Warn
- * @prop {string} guildID - Guild ID
- * @prop {string} memberID - Member ID
- * @prop {string} moderatorID - Moderator ID
- * @prop {string} channelID - Channel ID
- * @prop {number | null} warns - Warns Length
- * @prop {string} reason - Warn Reason
+ * @prop {number} id ID of the Warn
+ * @prop {string} guildID Guild ID
+ * @prop {string} memberID Member ID
+ * @prop {string} moderatorID Moderator ID
+ * @prop {string} channelID Channel ID
+ * @prop {number | null} warns Warns Length
+ * @prop {string} reason Warn Reason
  */
 
 /**
  * Immunity Users Data
  * @typedef {Object} ImmunityUsersData
- * @prop {boolean} status - Status of Immunity
- * @prop {string} memberID - Member ID
+ * @prop {boolean} status Status of Immunity
+ * @prop {string} memberID Member ID
+ */
+
+/**
+ * * Mute
+ * * TempMute
+ * * UnMute
+ * * Ban
+ * * Kick
+ * * Warn
+ * * UnWarn
+ *
+ * @typedef {string} ActionTypes
  */

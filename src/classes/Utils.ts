@@ -1,9 +1,17 @@
-import { Client, Guild } from "discord.js";
-import { Options, GuildData } from "../constants";
+import { Client, Guild, GuildMember, MessageEmbed } from "discord.js";
+import {
+  Options,
+  GuildData,
+  defaultOptions,
+  ActionTypes,
+  MutesData,
+  WarnsData,
+} from "../constants";
 import { Logger } from "./Logger";
 import { Base } from "./Base";
 import { version } from "../../package.json";
 import fetch from "node-fetch";
+import ms from "ms";
 
 // Storage Imports
 import db from "quick.db";
@@ -112,6 +120,8 @@ export class Utils extends Base {
             db.set(`guild.${guild.id}`, {
               guildID: guild.id,
               muteRole: null,
+              autoRole: null,
+              cases: 0,
               warns: [],
               mutes: [],
               immunityUsers: [],
@@ -143,6 +153,8 @@ export class Utils extends Base {
           const data: GuildData = {
             guildID: guild.id,
             muteRole: null,
+            autoRole: null,
+            cases: 0,
             warns: [],
             mutes: [],
             immunityUsers: [],
@@ -195,6 +207,233 @@ export class Utils extends Base {
           return res(true);
         }
       }
+    });
+  }
+
+  /**
+   * Method that created Log Embed
+   *
+   * @param {ActionTypes} action Type of the Action
+   * @param {GuildMember} member Discord Member
+   * @param {MutesData | WarnsData} data Warn or Mute Data
+   *
+   * @returns {Promise<GuildMember>}
+   */
+  logEmbed(
+    action: ActionTypes,
+    member: GuildMember,
+    muteData?: MutesData | null,
+    warnData?: WarnsData | null
+  ): Promise<MessageEmbed> {
+    return new Promise(async (res, rej) => {
+      const embed = new MessageEmbed();
+      embed.setColor("RED");
+      const caseID = await (await this.getGuild(member.guild)).cases;
+
+      switch (action) {
+        case "Ban": {
+          const data = await member.guild.fetchAuditLogs({
+            type: "MEMBER_BAN_ADD",
+            limit: 1,
+          });
+          const info = data.entries.first();
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member Ban**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${info?.target}**`,
+              `› **Reason**: **${info?.reason || "No reason provided."}**`,
+              `› **Banned At**: **${new Date(
+                info?.createdTimestamp || Date.now()
+              ).toLocaleString(this.options.locale)}**`,
+            ].join("\n")
+          );
+        }
+
+        case "Kick": {
+          const data = await member.guild.fetchAuditLogs({
+            type: "MEMBER_KICK",
+            limit: 1,
+          });
+          const info = data.entries.first();
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member Kick**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${info?.target}**`,
+              `› **Reason**: **${info?.reason || "No reason provided."}**`,
+              `› **Kicked At**: **${new Date(
+                info?.createdTimestamp || Date.now()
+              ).toLocaleString(this.options.locale)}**`,
+            ].join("\n")
+          );
+        }
+
+        case "Kick": {
+          const data = await member.guild.fetchAuditLogs({
+            type: "MEMBER_KICK",
+            limit: 1,
+          });
+          const info = data.entries.first();
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member Kick**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${info?.target}**`,
+              `› **Reason**: **${info?.reason || "No reason provided."}**`,
+              `› **Kicked At**: **${new Date(
+                info?.createdTimestamp || Date.now()
+              ).toLocaleString(this.options.locale)}**`,
+            ].join("\n")
+          );
+        }
+
+        case "Mute": {
+          const { mutes } = await this.getGuild(member.guild);
+          const info = mutes.find((mute) => mute.memberID === member.id);
+
+          const moderator = member.guild.members.cache.get(
+            String(info?.moderatorID)
+          );
+          const channel = member.guild.channels.cache.get(
+            String(info?.channelID)
+          );
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member Warn**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${moderator}**`,
+              `› **Channel**: **${channel}**`,
+              `› **Reason**: **${info?.reason || "No reason provided."}**`,
+              `› **Muted At**: **${new Date().toLocaleString(
+                this.options.locale
+              )}**`,
+            ].join("\n")
+          );
+        }
+
+        case "TempMute": {
+          const { mutes } = await this.getGuild(member.guild);
+          const info = mutes.find((mute) => mute.memberID === member.id);
+
+          const moderator = member.guild.members.cache.get(
+            String(info?.moderatorID)
+          );
+          const channel = member.guild.channels.cache.get(
+            String(info?.channelID)
+          );
+
+          const muteTime = ms(Number(info?.time));
+          const unmutedAt = new Date(Number(info?.unmutedAt)).toLocaleString(
+            this.options.locale
+          );
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member Mute**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${moderator}**`,
+              `› **Channel**: **${channel}**`,
+              `› **Reason**: **${info?.reason || "No reason provided."}**`,
+              ``,
+              `› **Mute Time**: **${muteTime}**`,
+              `› **Muted At**: **${new Date().toLocaleString(
+                this.options.locale
+              )}**`,
+              `› **Unmuted At**: **${unmutedAt}**`,
+            ].join("\n")
+          );
+        }
+
+        case "UnMute": {
+          const moderator = member.guild.members.cache.get(
+            String(muteData?.moderatorID)
+          );
+          const channel = member.guild.channels.cache.get(
+            String(muteData?.channelID)
+          );
+
+          const muteTime = ms(muteData?.time || 0);
+          const unmutedAt = new Date(
+            muteData?.unmutedAt || Date.now()
+          ).toLocaleString(this.options.locale);
+
+          embed.setTitle(`New Case [ID: ${caseID}]`);
+          embed.setDescription(
+            [
+              `› **Type**: **Member UnMute [${muteData?.type}]**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${moderator}**`,
+              `› **Channel**: **${channel}**`,
+              `› **Reason**: **${muteData?.reason || "No reason provided."}**`,
+              ``,
+              `› **Mute Time**: **${muteTime}**`,
+              `› **Unmuted At**: **${unmutedAt}**`,
+            ].join("\n")
+          );
+        }
+
+        case "Warn": {
+          const { warns } = await this.getGuild(member.guild);
+          const warnsLegth = warns.length;
+          const lastWarn = warns[warnsLegth - 1];
+
+          const moderator = member.guild.members.cache.get(
+            String(lastWarn?.moderatorID)
+          );
+          const channel = member.guild.channels.cache.get(
+            String(lastWarn?.channelID)
+          );
+
+          embed.setColor("YELLOW");
+          embed.setDescription(
+            [
+              `› **Type**: **Member Warn**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${moderator}**`,
+              `› **Channel**: **${channel}**`,
+              `› **Reason**: **${lastWarn?.reason || "No reason provided."}**`,
+              `› **Warned At**: **${new Date(Date.now()).toLocaleString(
+                this.options.locale
+              )}**`,
+            ].join("\n")
+          );
+        }
+
+        case "UnWarn": {
+          const moderator = member.guild.members.cache.get(
+            String(warnData?.moderatorID)
+          );
+          const channel = member.guild.channels.cache.get(
+            String(warnData?.channelID)
+          );
+
+          embed.setColor("YELLOW");
+          embed.setDescription(
+            [
+              `› **Type**: **Member UnWarn**`,
+              `› **Member**: **${member}**`,
+              `› **Moderator**: **${moderator}**`,
+              `› **Channel**: **${channel}**`,
+              `› **Reason**: **${warnData?.reason || "No reason provided."}**`,
+              `› **UnWarned At**: **${new Date(Date.now()).toLocaleString(
+                this.options.locale
+              )}**`,
+            ].join("\n")
+          );
+        }
+      }
+
+      return embed;
     });
   }
 
@@ -364,6 +603,9 @@ export class Utils extends Base {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  /**
+   * @returns {Promise<any>}
+   */
   checkUpdate(): Promise<any> {
     return new Promise(async (res, rej) => {
       const data = await fetch(
@@ -376,6 +618,35 @@ export class Utils extends Base {
           'New Version of Discord-Moderation avaliable!\nWe recomend you to update this module using "npm i discord-moderation@latest" command,'
         );
       }
+    });
+  }
+
+  /**
+   * @returns {Promise<any>}
+   */
+  checkOptions(): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      var options = this.options;
+      if (!options) this.options = defaultOptions;
+
+      return res(true);
+    });
+  }
+
+  /**
+   * Method that checks User Immunity.
+   *
+   * @param {GuildMember} member Discord Member
+   * @returns {Promise<boolean>}
+   */
+  checkImmunity(member: GuildMember): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      const data = await this.getGuild(member.guild);
+      const immunityUsers = data.immunityUsers;
+      const user = immunityUsers.find((m) => m.memberID === member.id);
+
+      if (!user) return res(false);
+      else return res(true);
     });
   }
 }

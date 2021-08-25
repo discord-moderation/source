@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "build:check": "tsc --noEmit --incremental false",
-    "prepublishOnly": "tsc",
+    "postinstall": "npm run build",
     "lint:fix": "prettier --write src",
     "docs:test": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -g -j .jsconfig.json",
     "docs:gen": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/master.json -g -j .jsconfig.json",

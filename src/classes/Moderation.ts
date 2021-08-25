@@ -4,6 +4,7 @@ import { Utils } from "./Utils";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
 import { Logger } from "./Logger";
+import { Systems } from "./Systems";
 import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
 import ModeratorError from "./ModeratorError";
 
@@ -18,6 +19,7 @@ export declare interface Moderation {
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
+  systems: Systems;
   logger: Logger;
 
   // Other
@@ -72,12 +74,21 @@ export class Moderation extends Base {
     this.utils = new Utils(this.client, this.options);
 
     /**
+     * Module Systems
+     * @type {Systems}
+     */
+    this.systems = new Systems(this.client, this.options);
+
+    /**
      * Module Ready State
      * @type {boolean}
      */
     this.isReady = false;
 
-    if (this.options.storageType === "json") this.utils.checkFile();
+    async () => {
+      await this.utils.checkOptions();
+      if (this.options.storageType === "json") await this.utils.checkFile();
+    };
 
     this.client.on("ready", async () => {
       await this.utils.checkMutes();
@@ -85,6 +96,24 @@ export class Moderation extends Base {
 
     this.client.on("guildMemberAdd", async (member) => {
       await this.checkMute(member);
+    });
+
+    this.client.on("messageCreate", async (message) => {
+      if (this.options.systems?.antiLink) return;
+
+      await this.systems.antiLink(message);
+    });
+
+    // this.client.on('messageDelete', async(message) => {
+    //   if(this.options.systems?.ghostPing) return;
+    //
+    //  [ToDo]
+    // });
+
+    this.client.on("guildMemberAdd", async (member) => {
+      if (this.options.systems?.antiJoin) return;
+
+      await this.systems.antiJoin(member);
     });
   }
 

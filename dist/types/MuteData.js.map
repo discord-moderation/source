@@ -1,1 +1,0 @@
-{"version":3,"file":"MuteData.js","sourceRoot":"","sources":["../../src/types/MuteData.ts"],"names":[],"mappings":"","sourcesContent":["export interface MutesData {\n    id: number\n    type: string\n    guildID: string\n    memberID: string\n    moderatorID: string\n    channelID: string\n    reason: string\n    time?: number\n    unmutedAt?: number\n}\n"]}

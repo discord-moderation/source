@@ -1,4 +1,12 @@
 export type MuteTypes = "mute" | "tempmute";
+export type ActionTypes =
+  | "Mute"
+  | "TempMute"
+  | "UnMute"
+  | "Ban"
+  | "Kick"
+  | "Warn"
+  | "UnWarn";
 
 export const ERROR_MESSAGES = {
   INVALID_TYPE: (expected: string | string[], got: any, name?: string) =>
@@ -19,6 +27,33 @@ export const ERROR_MESSAGES = {
     }`,
   UNDEFINED_VALUE: (expected: string, got: any, name: string) =>
     `Expected '${expected}' for '${name}', but got '${got}'`,
+};
+
+export const links: Array<string> = [
+  "https://",
+  "http://",
+  "discord.gg",
+  "discord.com",
+  ".xyz",
+  ".online",
+  ".com",
+  ".ru",
+  ".space",
+];
+
+export const defaultOptions: Options = {
+  storageType: "json",
+  storagePath: "./moderation.json",
+  locale: "en-US",
+  systems: {
+    autoRole: false,
+    antiInvite: false,
+    antiJoin: false,
+    antiLink: false,
+    blacklist: false,
+    ghostPing: false,
+    logSystem: false,
+  },
 };
 
 export interface Events {
@@ -86,6 +121,8 @@ export interface Events {
 export interface GuildData {
   guildID: string;
   muteRole: null | string;
+  autoRole: null | string;
+  cases: null | number;
   warns: Array<WarnsData>;
   mutes: Array<MutesData>;
   immunityUsers: Array<ImmunityUsersData>;
@@ -120,4 +157,17 @@ export interface WarnsData {
 export interface Options {
   storageType: "json" | "sqlite";
   storagePath: string;
+  locale?: string;
+
+  systems?: ModuleSystems;
+}
+
+export interface ModuleSystems {
+  autoRole?: boolean;
+  antiJoin?: boolean;
+  antiInvite?: boolean;
+  antiLink?: boolean;
+  blacklist?: boolean;
+  ghostPing?: boolean;
+  logSystem?: boolean;
 }
