@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1629903967967
+    "date": 1629904229143
   },
   "custom": {
     "general": {
@@ -1728,6 +1728,76 @@
           ],
           "meta": {
             "line": 44,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "antiJoin",
+          "description": "Method that controls Anti Join System",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 51,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "antiLink",
+          "description": "Method that controls Anti Link System",
+          "params": [
+            {
+              "name": "message",
+              "description": "Discord Message",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 84,
             "file": "Systems.ts",
             "path": "src/classes"
           }
