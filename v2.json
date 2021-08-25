@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1629543544353
+    "date": 1629903967967
   },
   "custom": {
     "general": {
@@ -157,6 +157,189 @@
       }
     },
     {
+      "name": "ImmunityUsers",
+      "description": "Immunity Users Class",
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 22,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 28,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "utils",
+          "description": "Module Utils",
+          "type": [
+            [
+              [
+                "Utils"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 34,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 40,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "add",
+          "description": "Method that adds Member to Immunity List.",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 47,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "delete",
+          "description": "Method that removes Member to Immunity List.",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 78,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "getAll",
+          "description": "Method that returns an Array of Immunity Users.",
+          "params": [
+            {
+              "name": "guild",
+              "description": "Discord Guild",
+              "type": [
+                [
+                  [
+                    "Guild"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "Array",
+                "<"
+              ],
+              [
+                "ImmunityUsersData",
+                ">>"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 104,
+            "file": "ImmunityUsers.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 14,
+        "file": "ImmunityUsers.ts",
+        "path": "src/classes"
+      }
+    },
+    {
       "name": "Logger",
       "description": "Logger Class",
       "methods": [
@@ -303,7 +486,7 @@
             ]
           ],
           "meta": {
-            "line": 44,
+            "line": 46,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -319,7 +502,7 @@
             ]
           ],
           "meta": {
-            "line": 50,
+            "line": 52,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -335,7 +518,7 @@
             ]
           ],
           "meta": {
-            "line": 56,
+            "line": 58,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -351,7 +534,7 @@
             ]
           ],
           "meta": {
-            "line": 62,
+            "line": 64,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -367,7 +550,23 @@
             ]
           ],
           "meta": {
-            "line": 68,
+            "line": 70,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "systems",
+          "description": "Module Systems",
+          "type": [
+            [
+              [
+                "Systems"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 76,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -383,7 +582,7 @@
             ]
           ],
           "meta": {
-            "line": 74,
+            "line": 82,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -466,7 +665,7 @@
             ]
           ],
           "meta": {
-            "line": 91,
+            "line": 120,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -503,7 +702,7 @@
             ]
           ],
           "meta": {
-            "line": 130,
+            "line": 159,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -563,7 +762,7 @@
             ]
           ],
           "meta": {
-            "line": 152,
+            "line": 181,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -600,7 +799,7 @@
             ]
           ],
           "meta": {
-            "line": 189,
+            "line": 218,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -642,7 +841,7 @@
             ]
           ],
           "meta": {
-            "line": 211,
+            "line": 240,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -677,7 +876,7 @@
             ]
           ],
           "meta": {
-            "line": 234,
+            "line": 263,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -810,7 +1009,7 @@
         }
       ],
       "meta": {
-        "line": 27,
+        "line": 29,
         "file": "Moderation.ts",
         "path": "src/classes"
       }
@@ -1440,6 +1639,107 @@
       }
     },
     {
+      "name": "Systems",
+      "construct": {
+        "name": "Systems",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 26,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 32,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "utils",
+          "description": "Module Utils",
+          "type": [
+            [
+              [
+                "Utils"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 38,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 44,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 16,
+        "file": "Systems.ts",
+        "path": "src/classes"
+      }
+    },
+    {
       "name": "Utils",
       "description": "Class that including some methods.",
       "extends": [
@@ -1488,7 +1788,7 @@
             ]
           ],
           "meta": {
-            "line": 37,
+            "line": 45,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1504,7 +1804,7 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 51,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1520,7 +1820,7 @@
             ]
           ],
           "meta": {
-            "line": 49,
+            "line": 57,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1556,7 +1856,7 @@
             ]
           ],
           "meta": {
-            "line": 56,
+            "line": 64,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1590,7 +1890,7 @@
             ]
           ],
           "meta": {
-            "line": 96,
+            "line": 104,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1635,7 +1935,68 @@
             ]
           ],
           "meta": {
-            "line": 163,
+            "line": 175,
+            "file": "Utils.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logEmbed",
+          "description": "Method that created Log Embed",
+          "params": [
+            {
+              "name": "action",
+              "description": "Type of the Action",
+              "type": [
+                [
+                  [
+                    "ActionTypes"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "data",
+              "description": "Warn or Mute Data",
+              "type": [
+                [
+                  [
+                    "MutesData"
+                  ]
+                ],
+                [
+                  [
+                    "WarnsData"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "GuildMember",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 213,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1656,7 +2017,7 @@
             ]
           ],
           "meta": {
-            "line": 201,
+            "line": 440,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1677,7 +2038,7 @@
             ]
           ],
           "meta": {
-            "line": 235,
+            "line": 474,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1711,7 +2072,81 @@
             ]
           ],
           "meta": {
-            "line": 357,
+            "line": 596,
+            "file": "Utils.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "checkUpdate",
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "any",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 624,
+            "file": "Utils.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "checkOptions",
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "any",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 624,
+            "file": "Utils.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "checkImmunity",
+          "description": "Method that checks User Immunity.",
+          "params": [
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 636,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1844,7 +2279,7 @@
         }
       ],
       "meta": {
-        "line": 19,
+        "line": 27,
         "file": "Utils.ts",
         "path": "src/classes"
       }
@@ -2295,7 +2730,7 @@
       "props": [
         {
           "name": "storageType",
-          "description": "Storage Type (Json or SQLite)",
+          "description": "Storage Type (JSON or SQLite, default JSON)",
           "type": [
             [
               [
@@ -2306,7 +2741,7 @@
         },
         {
           "name": "storagePath",
-          "description": "Storage Path (Only for Json type)",
+          "description": "Storage Path (Only for JSON type)",
           "type": [
             [
               [
@@ -2314,10 +2749,127 @@
               ]
             ]
           ]
+        },
+        {
+          "name": "locale",
+          "description": "Date Locale (default 'en-US')",
+          "type": [
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "ModuleSystems",
+          "description": "Module Systems",
+          "type": [
+            [
+              [
+                "object"
+              ]
+            ]
+          ]
         }
       ],
       "meta": {
         "line": 55,
+        "file": "Base.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "ModuleSystems",
+      "description": "Module Options",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "autoRole",
+          "description": "Auto Role System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "antiInvite",
+          "description": "Anti Invite System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "antiJoin",
+          "description": "Anti Join System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "antiLink",
+          "description": "Anti Link System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "blacklist",
+          "description": "Blacklist System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "ghostPing",
+          "description": "Ghost Ping Detecting System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "logSystem",
+          "description": "Log System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 64,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -2423,7 +2975,7 @@
         }
       ],
       "meta": {
-        "line": 62,
+        "line": 76,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -2462,6 +3014,38 @@
             [
               [
                 "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "autoRole",
+          "description": "Auto Role ID",
+          "type": [
+            [
+              [
+                "null"
+              ]
+            ],
+            [
+              [
+                "string"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "cases",
+          "description": "Count of Cases",
+          "type": [
+            [
+              [
+                "null"
+              ]
+            ],
+            [
+              [
+                "number"
               ]
             ]
           ]
@@ -2516,7 +3100,7 @@
         }
       ],
       "meta": {
-        "line": 75,
+        "line": 89,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -2616,7 +3200,7 @@
         }
       ],
       "meta": {
-        "line": 85,
+        "line": 101,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -2656,7 +3240,23 @@
         }
       ],
       "meta": {
-        "line": 97,
+        "line": 113,
+        "file": "Base.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "ActionTypes",
+      "description": "* Mute\n* TempMute\n* UnMute\n* Ban\n* Kick\n* Warn\n* UnWarn",
+      "type": [
+        [
+          [
+            "string"
+          ]
+        ]
+      ],
+      "meta": {
+        "line": 120,
         "file": "Base.ts",
         "path": "src/classes"
       }
