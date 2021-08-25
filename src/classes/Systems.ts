@@ -48,6 +48,12 @@ export class Systems extends Base {
     this.logger = new Logger();
   }
 
+  /**
+   * Method that controls Anti Join System
+   * 
+   * @param {GuildMember} member Discord Member 
+   * @returns {Promise<boolean>}
+   */
   antiJoin(member: GuildMember): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!member)
@@ -75,6 +81,12 @@ export class Systems extends Base {
     });
   }
 
+  /**
+   * Method that controls Anti Link System
+   * 
+   * @param {Message} message Discord Message 
+   * @returns {Promise<boolean>}
+   */
   antiLink(message: Message): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!message.member) return;
