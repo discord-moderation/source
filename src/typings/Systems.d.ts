@@ -1,4 +1,4 @@
-import { Client, GuildMember, Message, MessageEmbed } from "discord.js";
+import { Client, GuildMember, Invite, Message, MessageEmbed } from "discord.js";
 import { Options, links } from "../constants";
 
 import { Base } from "./Base";
@@ -18,4 +18,6 @@ export declare class Systems extends Base {
 
   antiJoin(member: GuildMember): Promise<boolean>;
   antiLink(message: Message): Promise<boolean>;
+  antiInvite(invite: Invite): Promise<boolean>;
+  ghostPing(message: Message): Promise<boolean>;
 }

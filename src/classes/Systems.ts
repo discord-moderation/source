@@ -1,5 +1,12 @@
 import { Base } from "./Base";
-import { Client, GuildMember, Message, MessageEmbed } from "discord.js";
+import {
+  Client,
+  GuildMember,
+  Message,
+  MessageEmbed,
+  Invite,
+  TextChannel,
+} from "discord.js";
 import { Options, links } from "../constants";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";
@@ -50,8 +57,8 @@ export class Systems extends Base {
 
   /**
    * Method that controls Anti Join System
-   * 
-   * @param {GuildMember} member Discord Member 
+   *
+   * @param {GuildMember} member Discord Member
    * @returns {Promise<boolean>}
    */
   antiJoin(member: GuildMember): Promise<boolean> {
@@ -69,7 +76,7 @@ export class Systems extends Base {
               `**Hello! You were kicked from "${member.guild.name}"!**\n› **Reason**: **Anti-Join System.**`
             );
 
-          member.send({
+          mem.send({
             embeds: [embed],
           });
 
@@ -83,8 +90,8 @@ export class Systems extends Base {
 
   /**
    * Method that controls Anti Link System
-   * 
-   * @param {Message} message Discord Message 
+   *
+   * @param {Message} message Discord Message
    * @returns {Promise<boolean>}
    */
   antiLink(message: Message): Promise<boolean> {
@@ -116,6 +123,59 @@ export class Systems extends Base {
 
         return res(true);
       } else return res(false);
+    });
+  }
+
+  /**
+   * Method that controls Ghost Ping System
+   *
+   * @param {Message} message Discord Message
+   * @returns {Promise<boolean>}
+   */
+  ghostPing(message: Message): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      if (!message)
+        return this.logger.error('Specify "Message" in Systems#ghostPing!');
+      if (!message.mentions) return;
+      if (!message.mentions.members) return;
+
+      if (message.mentions.members.size) return res(true);
+      else return res(false);
+    });
+  }
+
+  /**
+   * Method that controls Anti invite System
+   *
+   * @param {Invite} invite Discord Invite
+   * @returns {Promise<boolean>}
+   */
+  antiInvite(invite: Invite): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      if (!invite)
+        return this.logger.error('Specify "Invite" in Systems#antiInvite!');
+      if (!invite.inviter) return;
+
+      const immunityCheck = await this.utils.checkImmunity(invite);
+      if (immunityCheck) return;
+
+      const embed = new MessageEmbed()
+        .setColor("YELLOW")
+        .setAuthor(
+          invite.inviter.username,
+          invite.inviter.displayAvatarURL({ dynamic: true })
+        )
+        .setTitle("Anti-Invite System.")
+        .setDescription(
+          "**Invites are restricted in this server! Invite has been deleted!**"
+        );
+
+      await invite.delete("Anti-Invite System.");
+      await (invite.channel as TextChannel).send({
+        embeds: [embed],
+      });
+
+      return res(true);
     });
   }
 }

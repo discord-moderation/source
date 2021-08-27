@@ -93,28 +93,6 @@ export class Moderation extends Base {
     this.client.on("ready", async () => {
       await this.utils.checkMutes();
     });
-
-    this.client.on("guildMemberAdd", async (member) => {
-      await this.checkMute(member);
-    });
-
-    this.client.on("messageCreate", async (message) => {
-      if (this.options.systems?.antiLink) return;
-
-      await this.systems.antiLink(message);
-    });
-
-    // this.client.on('messageDelete', async(message) => {
-    //   if(this.options.systems?.ghostPing) return;
-    //
-    //  [ToDo]
-    // });
-
-    this.client.on("guildMemberAdd", async (member) => {
-      if (this.options.systems?.antiJoin) return;
-
-      await this.systems.antiJoin(member);
-    });
   }
 
   /**

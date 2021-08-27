@@ -1,4 +1,11 @@
-import { Client, Guild, GuildMember, MessageEmbed } from "discord.js";
+import {
+  Client,
+  Guild,
+  GuildMember,
+  Invite,
+  MessageEmbed,
+  User,
+} from "discord.js";
 import {
   Options,
   GuildData,
@@ -636,14 +643,18 @@ export class Utils extends Base {
   /**
    * Method that checks User Immunity.
    *
-   * @param {GuildMember} member Discord Member
+   * @param {GuildMember | Invite} target Discord Member or Invite
    * @returns {Promise<boolean>}
    */
-  checkImmunity(member: GuildMember): Promise<boolean> {
+  checkImmunity(target: GuildMember | Invite): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      const data = await this.getGuild(member.guild);
+      if (!target.guild) return;
+
+      const data = await this.getGuild(target.guild as Guild);
       const immunityUsers = data.immunityUsers;
-      const user = immunityUsers.find((m) => m.memberID === member.id);
+      const user = immunityUsers.find(
+        (m) => m.memberID === (target as GuildMember).id
+      );
 
       if (!user) return res(false);
       else return res(true);
