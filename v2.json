@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1629904229143
+    "date": 1630089524971
   },
   "custom": {
     "general": {
@@ -665,7 +665,7 @@
             ]
           ],
           "meta": {
-            "line": 120,
+            "line": 98,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -702,7 +702,7 @@
             ]
           ],
           "meta": {
-            "line": 159,
+            "line": 137,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -762,7 +762,7 @@
             ]
           ],
           "meta": {
-            "line": 181,
+            "line": 159,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -799,7 +799,7 @@
             ]
           ],
           "meta": {
-            "line": 218,
+            "line": 196,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -841,7 +841,7 @@
             ]
           ],
           "meta": {
-            "line": 240,
+            "line": 218,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -876,7 +876,7 @@
             ]
           ],
           "meta": {
-            "line": 263,
+            "line": 241,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -1679,7 +1679,7 @@
             ]
           ],
           "meta": {
-            "line": 26,
+            "line": 33,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -1695,7 +1695,7 @@
             ]
           ],
           "meta": {
-            "line": 32,
+            "line": 39,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -1711,7 +1711,7 @@
             ]
           ],
           "meta": {
-            "line": 38,
+            "line": 45,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -1727,7 +1727,7 @@
             ]
           ],
           "meta": {
-            "line": 44,
+            "line": 51,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -1763,7 +1763,7 @@
             ]
           ],
           "meta": {
-            "line": 51,
+            "line": 58,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -1797,14 +1797,82 @@
             ]
           ],
           "meta": {
-            "line": 84,
+            "line": 91,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "ghostPing",
+          "description": "Method that controls Ghost Ping System",
+          "params": [
+            {
+              "name": "message",
+              "description": "Discord Message",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 129,
+            "file": "Systems.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "antiInvite",
+          "description": "Method that controls Anti invite System",
+          "params": [
+            {
+              "name": "invite",
+              "description": "Discord Invite",
+              "type": [
+                [
+                  [
+                    "Invite"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 147,
             "file": "Systems.ts",
             "path": "src/classes"
           }
         }
       ],
       "meta": {
-        "line": 16,
+        "line": 23,
         "file": "Systems.ts",
         "path": "src/classes"
       }
@@ -1858,7 +1926,7 @@
             ]
           ],
           "meta": {
-            "line": 45,
+            "line": 52,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1874,7 +1942,7 @@
             ]
           ],
           "meta": {
-            "line": 51,
+            "line": 58,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1890,7 +1958,7 @@
             ]
           ],
           "meta": {
-            "line": 57,
+            "line": 64,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1926,7 +1994,7 @@
             ]
           ],
           "meta": {
-            "line": 64,
+            "line": 71,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1960,7 +2028,7 @@
             ]
           ],
           "meta": {
-            "line": 104,
+            "line": 111,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2005,7 +2073,7 @@
             ]
           ],
           "meta": {
-            "line": 175,
+            "line": 182,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2066,7 +2134,7 @@
             ]
           ],
           "meta": {
-            "line": 213,
+            "line": 220,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2087,7 +2155,7 @@
             ]
           ],
           "meta": {
-            "line": 440,
+            "line": 447,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2108,7 +2176,7 @@
             ]
           ],
           "meta": {
-            "line": 474,
+            "line": 481,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2142,7 +2210,7 @@
             ]
           ],
           "meta": {
-            "line": 596,
+            "line": 603,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2162,7 +2230,7 @@
             ]
           ],
           "meta": {
-            "line": 624,
+            "line": 631,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2182,7 +2250,7 @@
             ]
           ],
           "meta": {
-            "line": 624,
+            "line": 631,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2192,12 +2260,17 @@
           "description": "Method that checks User Immunity.",
           "params": [
             {
-              "name": "member",
-              "description": "Discord Member",
+              "name": "target",
+              "description": "Discord Member or Invite",
               "type": [
                 [
                   [
                     "GuildMember"
+                  ]
+                ],
+                [
+                  [
+                    "Invite"
                   ]
                 ]
               ]
@@ -2216,7 +2289,7 @@
             ]
           ],
           "meta": {
-            "line": 636,
+            "line": 643,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2349,7 +2422,7 @@
         }
       ],
       "meta": {
-        "line": 27,
+        "line": 34,
         "file": "Utils.ts",
         "path": "src/classes"
       }
