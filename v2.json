@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1630089524971
+    "date": 1630325100634
   },
   "custom": {
     "general": {
@@ -24,6 +24,406 @@
     }
   },
   "classes": [
+    {
+      "name": "AntiSpam",
+      "description": "Anti-Spam System",
+      "construct": {
+        "name": "AntiSpam",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 39,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 45,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "mutes",
+          "description": "Mute Manager",
+          "type": [
+            [
+              [
+                "MuteManager"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 51,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "utils",
+          "description": "Module Utils",
+          "type": [
+            [
+              [
+                "Utils"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 57,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 63,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "usersMap",
+          "description": "Users Map",
+          "type": [
+            [
+              [
+                "Map",
+                "<"
+              ],
+              [
+                "string",
+                ", "
+              ],
+              [
+                "userMap",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 69,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "handle",
+          "description": "Method that handles Anti-Spam System.",
+          "params": [
+            {
+              "name": "message",
+              "description": "Discord Message",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 76,
+            "file": "AntiSpam.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 24,
+        "file": "AntiSpam.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "AutoRole",
+      "description": "Auto-Role System",
+      "construct": {
+        "name": "AutoRole",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 29,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 35,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "utils",
+          "description": "Module Utils",
+          "type": [
+            [
+              [
+                "Utils"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 41,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 47,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "get",
+          "description": "Method that gets Guild Auto-Role",
+          "params": [
+            {
+              "name": "guild",
+              "description": "Discord Guild",
+              "type": [
+                [
+                  [
+                    "Guild"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "Role",
+                "|"
+              ],
+              [
+                "null",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 54,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "set",
+          "description": "Method that sets Guild Auto-Role",
+          "params": [
+            {
+              "name": "guild",
+              "description": "Discord Guild",
+              "type": [
+                [
+                  [
+                    "Guild"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "role",
+              "description": "Discord Role",
+              "type": [
+                [
+                  [
+                    "Role"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 74,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "delete",
+          "description": "Method that removes Guild Auto-Role",
+          "params": [
+            {
+              "name": "guild",
+              "description": "Discord Guild",
+              "type": [
+                [
+                  [
+                    "Guild"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 94,
+            "file": "AutoRole.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 14,
+        "file": "AutoRole.ts",
+        "path": "src/classes"
+      }
+    },
     {
       "name": "Base",
       "description": "Base class that uses in all other classes.",
@@ -59,12 +459,12 @@
           "returns": [
             [
               [
-                "EventEmitter"
+                "Base"
               ]
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 15,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -104,7 +504,7 @@
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 30,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -144,7 +544,7 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 45,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -486,7 +886,7 @@
             ]
           ],
           "meta": {
-            "line": 46,
+            "line": 50,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -502,7 +902,7 @@
             ]
           ],
           "meta": {
-            "line": 52,
+            "line": 56,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -518,7 +918,7 @@
             ]
           ],
           "meta": {
-            "line": 58,
+            "line": 62,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -534,7 +934,7 @@
             ]
           ],
           "meta": {
-            "line": 64,
+            "line": 68,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -550,7 +950,39 @@
             ]
           ],
           "meta": {
-            "line": 70,
+            "line": 74,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "autoRole",
+          "description": "Auto-Role System",
+          "type": [
+            [
+              [
+                "AutoRole"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 80,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "antiSpam",
+          "description": "Anti-Spam System",
+          "type": [
+            [
+              [
+                "AntiSpam"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 86,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -566,7 +998,7 @@
             ]
           ],
           "meta": {
-            "line": 76,
+            "line": 92,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -582,7 +1014,7 @@
             ]
           ],
           "meta": {
-            "line": 82,
+            "line": 98,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -665,7 +1097,7 @@
             ]
           ],
           "meta": {
-            "line": 98,
+            "line": 113,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -702,7 +1134,7 @@
             ]
           ],
           "meta": {
-            "line": 137,
+            "line": 152,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -762,7 +1194,7 @@
             ]
           ],
           "meta": {
-            "line": 159,
+            "line": 174,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -799,7 +1231,7 @@
             ]
           ],
           "meta": {
-            "line": 196,
+            "line": 211,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -841,7 +1273,7 @@
             ]
           ],
           "meta": {
-            "line": 218,
+            "line": 233,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -876,7 +1308,7 @@
             ]
           ],
           "meta": {
-            "line": 241,
+            "line": 256,
             "file": "Moderation.ts",
             "path": "src/classes"
           }
@@ -913,12 +1345,12 @@
           "returns": [
             [
               [
-                "EventEmitter"
+                "Base"
               ]
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 15,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -960,7 +1392,7 @@
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 30,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -1002,14 +1434,14 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 45,
             "file": "Base.ts",
             "path": "src/classes"
           }
         }
       ],
       "meta": {
-        "line": 29,
+        "line": 33,
         "file": "Moderation.ts",
         "path": "src/classes"
       }
@@ -1063,7 +1495,7 @@
             ]
           ],
           "meta": {
-            "line": 36,
+            "line": 35,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1079,7 +1511,7 @@
             ]
           ],
           "meta": {
-            "line": 42,
+            "line": 41,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1095,7 +1527,7 @@
             ]
           ],
           "meta": {
-            "line": 48,
+            "line": 47,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1111,7 +1543,7 @@
             ]
           ],
           "meta": {
-            "line": 54,
+            "line": 53,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1158,7 +1590,7 @@
             ]
           ],
           "meta": {
-            "line": 61,
+            "line": 60,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1192,7 +1624,7 @@
             ]
           ],
           "meta": {
-            "line": 100,
+            "line": 80,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1226,7 +1658,7 @@
             ]
           ],
           "meta": {
-            "line": 135,
+            "line": 101,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1304,7 +1736,7 @@
             ]
           ],
           "meta": {
-            "line": 156,
+            "line": 122,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1352,7 +1784,7 @@
             ]
           ],
           "meta": {
-            "line": 285,
+            "line": 199,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1426,7 +1858,7 @@
             ]
           ],
           "meta": {
-            "line": 332,
+            "line": 246,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1500,7 +1932,7 @@
             ]
           ],
           "meta": {
-            "line": 376,
+            "line": 290,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1537,12 +1969,12 @@
           "returns": [
             [
               [
-                "EventEmitter"
+                "Base"
               ]
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 15,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -1584,7 +2016,7 @@
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 30,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -1626,14 +2058,14 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 45,
             "file": "Base.ts",
             "path": "src/classes"
           }
         }
       ],
       "meta": {
-        "line": 19,
+        "line": 18,
         "file": "MuteManager.ts",
         "path": "src/classes"
       }
@@ -1926,7 +2358,7 @@
             ]
           ],
           "meta": {
-            "line": 52,
+            "line": 51,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1942,7 +2374,7 @@
             ]
           ],
           "meta": {
-            "line": 58,
+            "line": 57,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1958,7 +2390,7 @@
             ]
           ],
           "meta": {
-            "line": 64,
+            "line": 63,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -1994,7 +2426,7 @@
             ]
           ],
           "meta": {
-            "line": 71,
+            "line": 70,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2028,7 +2460,7 @@
             ]
           ],
           "meta": {
-            "line": 111,
+            "line": 90,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2073,7 +2505,7 @@
             ]
           ],
           "meta": {
-            "line": 182,
+            "line": 125,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2134,28 +2566,7 @@
             ]
           ],
           "meta": {
-            "line": 220,
-            "file": "Utils.ts",
-            "path": "src/classes"
-          }
-        },
-        {
-          "name": "checkFile",
-          "description": "Method that will check Storage File every 5 seconds",
-          "returns": [
-            [
-              [
-                "Promise",
-                "<"
-              ],
-              [
-                "boolean",
-                ">"
-              ]
-            ]
-          ],
-          "meta": {
-            "line": 447,
+            "line": 146,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2176,7 +2587,7 @@
             ]
           ],
           "meta": {
-            "line": 481,
+            "line": 373,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2210,7 +2621,7 @@
             ]
           ],
           "meta": {
-            "line": 603,
+            "line": 436,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2230,7 +2641,7 @@
             ]
           ],
           "meta": {
-            "line": 631,
+            "line": 464,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2250,7 +2661,7 @@
             ]
           ],
           "meta": {
-            "line": 631,
+            "line": 464,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2289,7 +2700,7 @@
             ]
           ],
           "meta": {
-            "line": 643,
+            "line": 476,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2326,12 +2737,12 @@
           "returns": [
             [
               [
-                "EventEmitter"
+                "Base"
               ]
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 15,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -2373,7 +2784,7 @@
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 30,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -2415,14 +2826,14 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 45,
             "file": "Base.ts",
             "path": "src/classes"
           }
         }
       ],
       "meta": {
-        "line": 34,
+        "line": 33,
         "file": "Utils.ts",
         "path": "src/classes"
       }
@@ -2756,12 +3167,12 @@
           "returns": [
             [
               [
-                "EventEmitter"
+                "Base"
               ]
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 15,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -2803,7 +3214,7 @@
             ]
           ],
           "meta": {
-            "line": 29,
+            "line": 30,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -2845,7 +3256,7 @@
             ]
           ],
           "meta": {
-            "line": 43,
+            "line": 45,
             "file": "Base.ts",
             "path": "src/classes"
           }
@@ -2910,14 +3321,14 @@
           "type": [
             [
               [
-                "object"
+                "ModuleSystems"
               ]
             ]
           ]
         }
       ],
       "meta": {
-        "line": 55,
+        "line": 57,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -2936,6 +3347,17 @@
         {
           "name": "autoRole",
           "description": "Auto Role System",
+          "type": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "antiSpam",
+          "description": "Anti Spam System",
           "type": [
             [
               [
@@ -3012,7 +3434,7 @@
         }
       ],
       "meta": {
-        "line": 64,
+        "line": 66,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -3118,7 +3540,7 @@
         }
       ],
       "meta": {
-        "line": 76,
+        "line": 79,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -3243,7 +3665,7 @@
         }
       ],
       "meta": {
-        "line": 89,
+        "line": 92,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -3343,7 +3765,7 @@
         }
       ],
       "meta": {
-        "line": 101,
+        "line": 104,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -3383,7 +3805,62 @@
         }
       ],
       "meta": {
-        "line": 113,
+        "line": 116,
+        "file": "Base.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "userMap",
+      "description": "Users Map",
+      "type": [
+        [
+          [
+            "Object"
+          ]
+        ]
+      ],
+      "props": [
+        {
+          "name": "msgCount",
+          "description": "Count of Sent User Messages",
+          "type": [
+            [
+              [
+                "number"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "lastMessage",
+          "description": "Last Message by User",
+          "type": [
+            [
+              [
+                "Message"
+              ]
+            ]
+          ]
+        },
+        {
+          "name": "timer",
+          "description": "Timeout",
+          "type": [
+            [
+              [
+                "NodeJS",
+                "."
+              ],
+              [
+                "Timeout"
+              ]
+            ]
+          ]
+        }
+      ],
+      "meta": {
+        "line": 123,
         "file": "Base.ts",
         "path": "src/classes"
       }
@@ -3399,7 +3876,7 @@
         ]
       ],
       "meta": {
-        "line": 120,
+        "line": 131,
         "file": "Base.ts",
         "path": "src/classes"
       }
