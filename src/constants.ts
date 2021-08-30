@@ -42,11 +42,10 @@ export const links: Array<string> = [
 ];
 
 export const defaultOptions: Options = {
-  storageType: "json",
-  storagePath: "./moderation.json",
   locale: "en-US",
   systems: {
     autoRole: false,
+    antiSpam: false,
     antiInvite: false,
     antiJoin: false,
     antiLink: false,
@@ -155,8 +154,6 @@ export interface WarnsData {
 }
 
 export interface Options {
-  storageType: "json" | "sqlite";
-  storagePath: string;
   locale?: string;
 
   systems?: ModuleSystems;
@@ -164,6 +161,7 @@ export interface Options {
 
 export interface ModuleSystems {
   autoRole?: boolean;
+  antiSpam?: boolean;
   antiJoin?: boolean;
   antiInvite?: boolean;
   antiLink?: boolean;

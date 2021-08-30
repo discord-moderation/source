@@ -4,6 +4,8 @@ import { Utils } from "./Utils";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
 import { Logger } from "./Logger";
+import { AutoRole } from "./AutoRole";
+import { AntiSpam } from "./AntiSpam";
 import { Systems } from "./Systems";
 import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
 import ModeratorError from "./ModeratorError";
@@ -15,11 +17,13 @@ export declare interface Moderation {
   client: Client;
   options: Options;
 
-  // Classes
+  // Classes and Systems
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
   systems: Systems;
+  autoRole: AutoRole;
+  antiSpam: AntiSpam;
   logger: Logger;
 
   // Other
@@ -74,6 +78,18 @@ export class Moderation extends Base {
     this.utils = new Utils(this.client, this.options);
 
     /**
+     * Auto-Role System
+     * @type {AutoRole}
+     */
+    this.autoRole = new AutoRole(this.client, this.options);
+
+    /**
+     * Anti-Spam System
+     * @type {AntiSpam}
+     */
+    this.antiSpam = new AntiSpam(this.client, this.options);
+
+    /**
      * Module Systems
      * @type {Systems}
      */
@@ -87,7 +103,6 @@ export class Moderation extends Base {
 
     async () => {
       await this.utils.checkOptions();
-      if (this.options.storageType === "json") await this.utils.checkFile();
     };
 
     this.client.on("ready", async () => {

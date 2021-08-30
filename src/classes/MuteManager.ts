@@ -4,9 +4,8 @@ import { Base } from "./Base";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
 
-// Storage Imports
+// Storage Import
 import db from "quick.db";
-import fs from "fs";
 
 export declare interface MuteManager {
   client: Client;
@@ -70,30 +69,11 @@ export class MuteManager extends Base {
       if (!role)
         return this.logger.error('Specify "Role" in MuteManager#setRole');
 
-      switch (this.options.storageType) {
-        case "sqlite": {
-          await this.utils.getGuild(guild);
+      await this.utils.getGuild(guild);
 
-          db.set(`guild.${guild.id}.muteRole`, role.id);
+      db.set(`guild.${guild.id}.muteRole`, role.id);
 
-          return res(true);
-        }
-
-        case "json": {
-          const data = await this.utils.getGuild(guild);
-          data.muteRole = role.id;
-
-          const file = JSON.parse(
-            fs.readFileSync(this.options.storagePath).toString()
-          );
-          fs.writeFileSync(
-            this.options.storagePath,
-            JSON.stringify(file, null, "\t")
-          );
-
-          return res(true);
-        }
-      }
+      return res(true);
     });
   }
 
@@ -108,27 +88,13 @@ export class MuteManager extends Base {
       if (!guild)
         return rej(this.logger.warn('Specify "Guild" in MuteManager#getRole'));
 
-      switch (this.options.storageType) {
-        case "sqlite": {
-          const data = await this.utils.getGuild(guild);
-          if (data.muteRole === null) return res(null);
+      const data = await this.utils.getGuild(guild);
+      if (data.muteRole === null) return res(null);
 
-          const role = guild.roles.cache.get(data.muteRole);
-          if (!role) return res(null);
+      const role = guild.roles.cache.get(data.muteRole);
+      if (!role) return res(null);
 
-          return res(role);
-        }
-
-        case "json": {
-          const data = await this.utils.getGuild(guild);
-          if (data.muteRole === null) return res(null);
-
-          const role = guild.roles.cache.get(data.muteRole);
-          if (!role) return res(null);
-
-          return res(role);
-        }
-      }
+      return res(role);
     });
   }
 
@@ -188,97 +154,44 @@ export class MuteManager extends Base {
 
       const mute = await this.getMute(member);
       if (mute !== null) return this.logger.error("Member already has Mute!");
+      if (message.guild === null) return;
 
-      switch (this.options.storageType) {
-        case "sqlite": {
-          if (message.guild === null) return;
+      const data = await this.utils.getGuild(message.guild);
+      const role = await this.getRole(message.guild);
 
-          const data = await this.utils.getGuild(message.guild);
-          const role = await this.getRole(message.guild);
+      if (role === null) return;
+      if (time === undefined) return;
 
-          if (role === null) return;
-          if (time === undefined) return;
+      var muteData: MutesData = {
+        id: data.mutes.length + 1,
+        type,
+        guildID: message.guild.id,
+        memberID: member.id,
+        moderatorID: message.author.id,
+        channelID: message.channel.id,
+        reason,
+      };
 
-          var muteData: MutesData = {
-            id: data.mutes.length + 1,
-            type,
-            guildID: message.guild.id,
-            memberID: member.id,
-            moderatorID: message.author.id,
-            channelID: message.channel.id,
-            reason,
-          };
-
-          if (type === "tempmute") {
-            muteData = {
-              ...muteData,
-              time,
-              unmutedAt: Date.now() + time,
-            };
-          }
-
-          await member.roles.add(role).catch((err) => {
-            return rej(this.logger.error(err.message));
-          });
-
-          if (type === "tempmute")
-            await this.handleMute(message.guild, member, time, muteData);
-
-          data.mutes.push(muteData);
-          db.set(`guild.${message.guild.id}`, data);
-
-          this.emit("muteMember", muteData);
-          return res(muteData);
-        }
-
-        case "json": {
-          if (message.guild === null) return;
-
-          const data = await this.utils.getGuild(message.guild);
-          const role = await this.getRole(message.guild);
-
-          if (role === null) return;
-          if (time === undefined) return;
-
-          var muteData: MutesData = {
-            id: data.mutes.length + 1,
-            type,
-            guildID: message.guild.id,
-            memberID: member.id,
-            moderatorID: message.author.id,
-            channelID: message.channel.id,
-            reason,
-          };
-
-          if (type === "tempmute") {
-            muteData = {
-              ...muteData,
-              time,
-              unmutedAt: Date.now() + time,
-            };
-          }
-
-          await member.roles.add(role).catch((err) => {
-            return rej(this.logger.error(err.message));
-          });
-
-          if (type === "tempmute")
-            await this.handleMute(message.guild, member, time, muteData);
-
-          const file: GuildData = JSON.parse(
-            fs.readFileSync(this.options.storagePath).toString()
-          );
-          file.mutes.push(muteData);
-
-          fs.writeFileSync(
-            this.options.storagePath,
-            JSON.stringify(file, null, "\t")
-          );
-
-          this.emit("muteMember", muteData);
-          return res(muteData);
-        }
+      if (type === "tempmute") {
+        muteData = {
+          ...muteData,
+          time,
+          unmutedAt: Date.now() + time,
+        };
       }
+
+      await member.roles.add(role).catch((err) => {
+        return rej(this.logger.error(err.message));
+      });
+
+      data.mutes.push(muteData);
+      db.set(`guild.${message.guild.id}`, data);
+
+      this.emit("muteMember", muteData);
+      
+      res(muteData);
+
+      if (type === "tempmute") await this.handleMute(message.guild, member, time, muteData);
     });
   }
 

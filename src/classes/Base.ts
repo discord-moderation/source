@@ -11,18 +11,19 @@ const emitter = new EventEmitter();
  *
  * @private
  */
-export class Base {
+ export class Base {
   /**
    * Handles all the Events
    *
    * @param {String} event Event Name
    * @param {Function} fn Callback
-   * @returns {EventEmitter}
+   * @returns {Base}
    */
   on<K extends keyof Events>(
     event: K,
-    listener: (...args: Events[K][]) => void
+    listener: (...args: Events[K]) => void
   ): EventEmitter {
+    // @ts-expect-error
     return emitter.on(event, listener);
   }
 
@@ -35,8 +36,9 @@ export class Base {
    */
   once<K extends keyof Events>(
     event: K,
-    listener: (...args: Events[K][]) => void
+    listener: (...args: Events[K]) => void
   ): EventEmitter {
+    // @ts-expect-error
     return emitter.once(event, listener);
   }
 
@@ -48,7 +50,7 @@ export class Base {
    * @returns {boolean}
    */
   emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean {
-    return emitter.emit(event, args);
+    return emitter.emit(event, args[0]);
   }
 }
 
@@ -58,13 +60,14 @@ export class Base {
  * @prop {string} storageType Storage Type (JSON or SQLite, default JSON)
  * @prop {string} storagePath Storage Path (Only for JSON type)
  * @prop {string} locale Date Locale (default 'en-US')
- * @prop {object} ModuleSystems Module Systems
+ * @prop {ModuleSystems} ModuleSystems Module Systems
  */
 
 /**
  * Module Options
  * @typedef {Object} ModuleSystems
  * @prop {boolean} autoRole Auto Role System
+ * @prop {boolean} antiSpam Anti Spam System
  * @prop {boolean} antiInvite Anti Invite System
  * @prop {boolean} antiJoin Anti Join System
  * @prop {boolean} antiLink Anti Link System
@@ -115,6 +118,14 @@ export class Base {
  * @typedef {Object} ImmunityUsersData
  * @prop {boolean} status Status of Immunity
  * @prop {string} memberID Member ID
+ */
+
+/**
+ * Users Map
+ * @typedef {Object} userMap
+ * @prop {number} msgCount Count of Sent User Messages
+ * @prop {Message} lastMessage Last Message by User
+ * @prop {NodeJS.Timeout} timer Timeout
  */
 
 /**
