@@ -21,7 +21,20 @@ export declare interface AntiSpam {
   usersMap: Map<string, userMap>;
 }
 
+/**
+ * Class that controls Anti-Spam System
+ *
+ * @class
+ * @classdesc Anti-Spam System
+ */
 export class AntiSpam {
+  /**
+   *
+   * @param {Client} client Discord.JS Client
+   * @param {Options} options Module Options
+   *
+   * @constructor
+   */
   constructor(client: Client, options: Options) {
     /**
      * Discord Client
