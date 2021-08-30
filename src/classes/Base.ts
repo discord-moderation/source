@@ -11,7 +11,7 @@ const emitter = new EventEmitter();
  *
  * @private
  */
- export class Base {
+export class Base {
   /**
    * Handles all the Events
    *

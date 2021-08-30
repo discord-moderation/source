@@ -4,17 +4,17 @@ import { Logger } from "./Logger";
 import { Utils } from "./Utils";
 
 export declare interface AutoRole {
-    client: Client;
-    options: Options;
+  client: Client;
+  options: Options;
 
-    utils: Utils;
-    logger: Logger;
+  utils: Utils;
+  logger: Logger;
 }
 
 export class AutoRole {
-    constructor(client: Client, options: Options);
+  constructor(client: Client, options: Options);
 
-    get(guild: Guild): Promise<Role | null>;
-    set(guild: Guild, role: Role): Promise<boolean>;
-    delete(guild: Guild): Promise<boolean>;
+  get(guild: Guild): Promise<Role | null>;
+  set(guild: Guild, role: Role): Promise<boolean>;
+  delete(guild: Guild): Promise<boolean>;
 }

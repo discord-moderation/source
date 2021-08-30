@@ -188,10 +188,11 @@ export class MuteManager extends Base {
       db.set(`guild.${message.guild.id}`, data);
 
       this.emit("muteMember", muteData);
-      
+
       res(muteData);
 
-      if (type === "tempmute") await this.handleMute(message.guild, member, time, muteData);
+      if (type === "tempmute")
+        await this.handleMute(message.guild, member, time, muteData);
     });
   }
 

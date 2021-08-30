@@ -5,24 +5,24 @@ import { MuteManager } from "./MuteManager";
 import { Utils } from "./Utils";
 
 interface userMap {
-    msgCount: number;
-    lastMessage: Message;
-    timer: NodeJS.Timeout
+  msgCount: number;
+  lastMessage: Message;
+  timer: NodeJS.Timeout;
 }
 
 export declare interface AntiSpam {
-    client: Client;
-    options: Options;
+  client: Client;
+  options: Options;
 
-    mutes: MuteManager;
-    utils: Utils;
-    logger: Logger;
+  mutes: MuteManager;
+  utils: Utils;
+  logger: Logger;
 
-    usersMap: Map<string, userMap>;
+  usersMap: Map<string, userMap>;
 }
 
 export class AntiSpam {
-    constructor(client: Client, options: Options);
+  constructor(client: Client, options: Options);
 
-    handle(message: Message): Promise<boolean>;
+  handle(message: Message): Promise<boolean>;
 }
