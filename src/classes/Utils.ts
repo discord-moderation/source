@@ -4,7 +4,6 @@ import {
   GuildMember,
   Invite,
   MessageEmbed,
-  User,
 } from "discord.js";
 import {
   Options,
@@ -451,6 +450,7 @@ export class Utils extends Base {
       const data = await fetch(
         "https://registry.npmjs.com/discord-moderation"
       ).then((res) => res.json());
+      // @ts-expect-error
       const lastVersion: string = data["dist-tags"]["latest"];
 
       if (version !== lastVersion) {
