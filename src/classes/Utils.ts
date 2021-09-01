@@ -16,7 +16,7 @@ import {
 import { Logger } from "./Logger";
 import { Base } from "./Base";
 import { version } from "../../package.json";
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import ms from "ms";
 
 // Storage Imports
@@ -450,8 +450,7 @@ export class Utils extends Base {
       const data = await fetch(
         "https://registry.npmjs.com/discord-moderation"
       ).then((res) => res.json());
-      // @ts-ignore
-      const lastVersion: string = data["dist-tags"]["latest"];
+      const lastVersion: string = (data as any)["dist-tags"]["latest"];
 
       if (version !== lastVersion) {
         return res(
