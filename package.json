@@ -14,10 +14,10 @@
     "docs:v2": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/v2.json -g -j .jsconfig.json"
   },
   "dependencies": {
-    "colors": "^1.4.0",
+    "colors": "latest",
     "discord.js": "latest",
     "ms": "latest",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "latest",
     "quick.db": "latest"
   },
   "devDependencies": {
