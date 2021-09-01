@@ -450,7 +450,7 @@ export class Utils extends Base {
       const data = await fetch(
         "https://registry.npmjs.com/discord-moderation"
       ).then((res) => res.json());
-      // @ts-expect-error
+      // @ts-ignore
       const lastVersion: string = data["dist-tags"]["latest"];
 
       if (version !== lastVersion) {
