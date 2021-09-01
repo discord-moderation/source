@@ -49,7 +49,6 @@ export const defaultOptions: Options = {
     antiInvite: false,
     antiJoin: false,
     antiLink: false,
-    blacklist: false,
     ghostPing: false,
     logSystem: false,
   },
@@ -165,7 +164,6 @@ export interface ModuleSystems {
   antiJoin?: boolean;
   antiInvite?: boolean;
   antiLink?: boolean;
-  blacklist?: boolean;
   ghostPing?: boolean;
   logSystem?: boolean;
 }
