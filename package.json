@@ -52,6 +52,6 @@
   },
   "homepage": "https://discord-moderaiton.js.org/",
   "engines": {
-    "node": ">=16.6.0"
+    "node": ">=16"
   }
 }
