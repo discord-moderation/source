@@ -1,6 +1,6 @@
 {
   "name": "discord-moderation",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "description": "discord-moderation will simplify creating moderation system to your discord bot.",
   "main": "dist/index.js",
   "types": "src/typings/Moderation.d.ts",
@@ -14,7 +14,6 @@
     "docs:v2": "docgen -s src/*.ts src/**/*.ts -c docs/index.yml -S 2 -o docs/v2.json -g -j .jsconfig.json"
   },
   "dependencies": {
-    "@types/colors": "^1.2.1",
     "colors": "^1.4.0",
     "discord.js": "latest",
     "ms": "latest",
@@ -31,6 +30,7 @@
     "@commitlint/config-angular": "^13.1.0",
     "@types/ms": "^0.7.31",
     "@types/node-fetch": "^2.5.12",
+    "@types/colors": "^1.2.1",
     "husky": "^7.0.1",
     "is-ci": "^3.0.0",
     "jsdoc-babel": "^0.5.0",

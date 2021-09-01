@@ -1,4 +1,53 @@
-<img src="https://raw.githubusercontent.com/bad-boy-discord/discord-moderation/main/assets/discord-moderation-main.png" />
+<img src="https://raw.githubusercontent.com/discord-moderation/source/main/assets/discord-moderation-main.png" />
 <hr>
 
-**Development process will start in middle of August.**
+## Welcome!
+<strong>Welcome, this is 'discord-moderation' module!</strong> <br />
+<strong>discord-moderation will simplify creating Moderation System for Your Discord Bot!</strong>
+
+## Features
+<span><strong>[🔑] Built in TypeScript</strong></span> <br />
+<span><strong>[⚙] 100% Promise-based</strong></span> <br />
+<span><strong>[🙂] TypeScript Support</strong></span> <br />
+<span><strong>[👍] Discord.JS v13</strong></span>
+
+## Requirements
+<span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />
+<span><strong>[2] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />
+
+## Quick Example
+```js
+const { Client, Intents } = require('discord.js');
+const { Moderation } = require('discord-moderation');
+
+const client = new Client({
+  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_BANS']
+});
+
+const moderation = new Moderation(client, {
+  locale: "en-US",
+  systems: {
+    autoRole: false,
+    antiSpam: false,
+    antiInvite: false,
+    antiJoin: false,
+    antiLink: false,
+    blacklist: false,
+    ghostPing: false,
+    logSystem: false,
+  },
+});
+```
+
+## This module uses
+<span><strong>[1] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />
+<span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />
+<span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />
+<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />
+<span><strong>[5] [quick.db](https://npmjs.com/package/quick.db/)</strong></span> <br />
+
+## Links
+<span><strong>[1] [Module Website](https://discord/)</strong></span> <br />
+<span><strong>[2] [NPMJS Link](https://npmjs.com/package/discord-moderation/)</strong></span> <br />
+<span><strong>[3] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />
+<span><strong>[4] [Support Server](https://discord.gg/eGZfaWsZgR/)</strong></span>

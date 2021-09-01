@@ -454,8 +454,10 @@ export class Utils extends Base {
       const lastVersion: string = data["dist-tags"]["latest"];
 
       if (version !== lastVersion) {
-        return this.logger.warn(
-          'New Version of Discord-Moderation avaliable!\nWe recomend you to update this module using "npm i discord-moderation@latest" command,'
+        return res(
+          this.logger.warn(
+            'New Version of Discord-Moderation avaliable!\nWe recomend you to update this module using "npm i discord-moderation@latest" command.'
+          )
         );
       }
     });
