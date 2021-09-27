@@ -312,7 +312,7 @@ export class MuteManager extends Base {
       if (!role) return res(null);
 
       setTimeout(async () => {
-        await member.roles.add(role).catch((err) => {
+        await member.roles.remove(role).catch((err) => {
           return rej(this.logger.error(err.message));
         });
 
