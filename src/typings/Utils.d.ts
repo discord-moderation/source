@@ -3,11 +3,13 @@ import { Base } from "./Base";
 import { GuildData, Options } from "../constants";
 import { MuteManager } from "./MuteManager";
 import { Logger } from "./Logger";
+import { DBManager } from "./DBManager";
 
 export declare interface Utils {
   client: Client;
   options: Options;
 
+  database: DBManager;
   mutes: MuteManager;
   logger: Logger;
 }
