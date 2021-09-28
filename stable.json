@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1630507701944
+    "date": 1632848304970
   },
   "custom": {
     "general": {
@@ -11,8 +11,8 @@
         "README": {
           "name": "Welcome",
           "type": "md",
-          "content": "<img src=\"https://raw.githubusercontent.com/discord-moderation/source/main/assets/discord-moderation-main.png\" />\r\n<hr>\r\n\r\n## Welcome!\r\n<strong>Welcome, this is 'discord-moderation' module!</strong> <br />\r\n<strong>discord-moderation will simplify creating Moderation System for Your Discord Bot!</strong>\r\n\r\n## Features\r\n<span><strong>[🔑] Built in TypeScript</strong></span> <br />\r\n<span><strong>[⚙] 100% Promise-based</strong></span> <br />\r\n<span><strong>[🙂] TypeScript Support</strong></span> <br />\r\n<span><strong>[👍] Discord.JS v13</strong></span>\r\n\r\n## Requirements\r\n<span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />\r\n<span><strong>[2] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />\r\n\r\n## Quick Example\r\n```js\r\nconst { Client, Intents } = require('discord.js');\r\nconst { Moderation } = require('discord-moderation');\r\n\r\nconst client = new Client({\r\n  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_BANS']\r\n});\r\n\r\nconst moderation = new Moderation(client, {\r\n  locale: \"en-US\",\r\n  systems: {\r\n    autoRole: false,\r\n    antiSpam: false,\r\n    antiInvite: false,\r\n    antiJoin: false,\r\n    antiLink: false,\r\n    blacklist: false,\r\n    ghostPing: false,\r\n    logSystem: false,\r\n  },\r\n});\r\n```\r\n\r\n## This module uses\r\n<span><strong>[1] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />\r\n<span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />\r\n<span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />\r\n<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />\r\n<span><strong>[5] [quick.db](https://npmjs.com/package/quick.db/)</strong></span> <br />\r\n\r\n## Links\r\n<span><strong>[1] [Module Website](https://discord/)</strong></span> <br />\r\n<span><strong>[2] [NPMJS Link](https://npmjs.com/package/discord-moderation/)</strong></span> <br />\r\n<span><strong>[3] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />\r\n<span><strong>[4] [Support Server](https://discord.gg/eGZfaWsZgR/)</strong></span>",
-          "path": "README.md"
+          "content": "<img src=\"https://raw.githubusercontent.com/discord-moderation/source/main/assets/discord-moderation-main.png\" />\r\n<hr>\r\n\r\n## Welcome!\r\n<strong>Welcome, this is 'discord-moderation' module!</strong> <br />\r\n<strong>discord-moderation will simplify creating Moderation System for Your Discord Bot!</strong>\r\n\r\n## Features\r\n<span><strong>[🔑] Built in TypeScript</strong></span> <br />\r\n<span><strong>[⚙] 100% Promise-based</strong></span> <br />\r\n<span><strong>[🙂] TypeScript Support</strong></span> <br />\r\n<span><strong>[👍] Discord.JS v13</strong></span>\r\n\r\n## Requirements\r\n<span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />\r\n<span><strong>[2] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />\r\n\r\n## Quick Example\r\n```js\r\nconst { Client, Intents } = require('discord.js');\r\nconst { Moderation } = require('discord-moderation');\r\n\r\nconst client = new Client({\r\n  intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_BANS']\r\n});\r\n\r\nconst moderation = new Moderation(client, {\r\n  dbPath: './db/',\r\n  locale: \"en-US\",\r\n  systems: {\r\n    autoRole: false,\r\n    antiSpam: false,\r\n    antiInvite: false,\r\n    antiJoin: false,\r\n    antiLink: false,\r\n    blacklist: false,\r\n    ghostPing: false,\r\n    logSystem: false,\r\n  },\r\n});\r\n```\r\n\r\n## This module uses\r\n<span><strong>[1] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />\r\n<span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />\r\n<span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />\r\n<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />\r\n<span><strong>[5] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />\r\n\r\n## Links\r\n<span><strong>[1] [Documentation](https://discord-moderation.js.org/)</strong></span> <br />\r\n<span><strong>[2] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />\r\n<span><strong>[3] [Support Server](https://discord.gg/eGZfaWsZgR/)</strong></span>",
+          "path": "docs/general/README.md"
         },
         "changelog": {
           "name": "ChangeLog",
@@ -378,7 +378,7 @@
             ]
           ],
           "meta": {
-            "line": 74,
+            "line": 75,
             "file": "AutoRole.ts",
             "path": "src/classes"
           }
@@ -412,7 +412,7 @@
             ]
           ],
           "meta": {
-            "line": 94,
+            "line": 97,
             "file": "AutoRole.ts",
             "path": "src/classes"
           }
@@ -553,6 +553,382 @@
       "meta": {
         "line": 6,
         "file": "Base.ts",
+        "path": "src/classes"
+      }
+    },
+    {
+      "name": "DBManager",
+      "description": "Class that controls Database",
+      "construct": {
+        "name": "DBManager",
+        "params": [
+          {
+            "name": "client",
+            "description": "Discord.JS Client",
+            "type": [
+              [
+                [
+                  "Client"
+                ]
+              ]
+            ]
+          },
+          {
+            "name": "options",
+            "description": "Module Options",
+            "type": [
+              [
+                [
+                  "Options"
+                ]
+              ]
+            ]
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "client",
+          "description": "Discord Client",
+          "type": [
+            [
+              [
+                "Client"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 28,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "options",
+          "description": "Module Options",
+          "type": [
+            [
+              [
+                "Options"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 34,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "logger",
+          "description": "Module Logger",
+          "type": [
+            [
+              [
+                "Logger"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 40,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "database",
+          "description": "Database",
+          "type": [
+            [
+              [
+                "Enmap"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 46,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "set",
+          "description": "Method that Changes Something from Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "value",
+              "description": "Value to Set",
+              "type": [
+                [
+                  [
+                    "any"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 56,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "setProp",
+          "description": "Method that Changes Property Value from Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "key",
+              "description": "Property Name",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "value",
+              "description": "Value to Set",
+              "type": [
+                [
+                  [
+                    "any"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 70,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "push",
+          "description": "Method that Pushing Data to Something from Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "data",
+              "description": "Data to Push",
+              "type": [
+                [
+                  [
+                    "any"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 88,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "get",
+          "description": "Method that Returns Value from Specified Key in Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "key",
+              "description": "Key to Get",
+              "type": [
+                [
+                  [
+                    "any"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "string"
+              ]
+            ],
+            [
+              [
+                "number"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 102,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "fetch",
+          "description": "Method that Returns Data from Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "object"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 117,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "remove",
+          "description": "Method that Removes Object from Array in Database",
+          "params": [
+            {
+              "name": "id",
+              "description": "Discord Guild ID",
+              "type": [
+                [
+                  [
+                    "id"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "key",
+              "description": "Name of Array in Database",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "second",
+              "description": "Property for Filter",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "value",
+              "description": "Value for Filter",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "returns": [
+            [
+              [
+                "any"
+              ]
+            ],
+            [
+              [
+                "boolean"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 129,
+            "file": "DBManager.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "meta": {
+        "line": 14,
+        "file": "DBManager.ts",
         "path": "src/classes"
       }
     },
@@ -1495,7 +1871,7 @@
             ]
           ],
           "meta": {
-            "line": 35,
+            "line": 38,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1511,7 +1887,7 @@
             ]
           ],
           "meta": {
-            "line": 41,
+            "line": 44,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1527,7 +1903,7 @@
             ]
           ],
           "meta": {
-            "line": 47,
+            "line": 50,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1543,7 +1919,7 @@
             ]
           ],
           "meta": {
-            "line": 53,
+            "line": 56,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1590,7 +1966,7 @@
             ]
           ],
           "meta": {
-            "line": 60,
+            "line": 63,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1624,7 +2000,7 @@
             ]
           ],
           "meta": {
-            "line": 80,
+            "line": 82,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1658,7 +2034,7 @@
             ]
           ],
           "meta": {
-            "line": 101,
+            "line": 103,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1680,11 +2056,16 @@
             },
             {
               "name": "message",
-              "description": "Message",
+              "description": "Message or Interaction",
               "type": [
                 [
                   [
                     "Message"
+                  ]
+                ],
+                [
+                  [
+                    "Interaction"
                   ]
                 ]
               ]
@@ -1736,7 +2117,7 @@
             ]
           ],
           "meta": {
-            "line": 122,
+            "line": 124,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1748,17 +2129,6 @@
             "Moderation#event:unmuteMember"
           ],
           "params": [
-            {
-              "name": "message",
-              "description": "Discord Message",
-              "type": [
-                [
-                  [
-                    "Message"
-                  ]
-                ]
-              ]
-            },
             {
               "name": "member",
               "description": "Discord Member",
@@ -1784,7 +2154,7 @@
             ]
           ],
           "meta": {
-            "line": 199,
+            "line": 206,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1858,7 +2228,7 @@
             ]
           ],
           "meta": {
-            "line": 246,
+            "line": 253,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -1932,7 +2302,7 @@
             ]
           ],
           "meta": {
-            "line": 290,
+            "line": 297,
             "file": "MuteManager.ts",
             "path": "src/classes"
           }
@@ -2065,7 +2435,7 @@
         }
       ],
       "meta": {
-        "line": 18,
+        "line": 21,
         "file": "MuteManager.ts",
         "path": "src/classes"
       }
@@ -2229,7 +2599,7 @@
             ]
           ],
           "meta": {
-            "line": 91,
+            "line": 93,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -2263,7 +2633,7 @@
             ]
           ],
           "meta": {
-            "line": 129,
+            "line": 131,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -2297,7 +2667,7 @@
             ]
           ],
           "meta": {
-            "line": 147,
+            "line": 149,
             "file": "Systems.ts",
             "path": "src/classes"
           }
@@ -2358,7 +2728,7 @@
             ]
           ],
           "meta": {
-            "line": 50,
+            "line": 43,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2374,7 +2744,23 @@
             ]
           ],
           "meta": {
-            "line": 56,
+            "line": 49,
+            "file": "Utils.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "database",
+          "description": "Database",
+          "type": [
+            [
+              [
+                "DBManager"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 55,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2390,7 +2776,7 @@
             ]
           ],
           "meta": {
-            "line": 62,
+            "line": 61,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2426,7 +2812,7 @@
             ]
           ],
           "meta": {
-            "line": 69,
+            "line": 68,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2566,7 +2952,7 @@
             ]
           ],
           "meta": {
-            "line": 145,
+            "line": 146,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2587,7 +2973,7 @@
             ]
           ],
           "meta": {
-            "line": 372,
+            "line": 356,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2621,7 +3007,7 @@
             ]
           ],
           "meta": {
-            "line": 435,
+            "line": 419,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2641,7 +3027,7 @@
             ]
           ],
           "meta": {
-            "line": 466,
+            "line": 449,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2661,7 +3047,7 @@
             ]
           ],
           "meta": {
-            "line": 466,
+            "line": 449,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2700,7 +3086,7 @@
             ]
           ],
           "meta": {
-            "line": 478,
+            "line": 461,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -2833,7 +3219,7 @@
         }
       ],
       "meta": {
-        "line": 32,
+        "line": 25,
         "file": "Utils.ts",
         "path": "src/classes"
       }
@@ -3006,11 +3392,16 @@
           "params": [
             {
               "name": "message",
-              "description": "Discord Message",
+              "description": "Message or Interaction",
               "type": [
                 [
                   [
                     "Message"
+                  ]
+                ],
+                [
+                  [
+                    "Interaction"
                   ]
                 ]
               ]
@@ -3088,7 +3479,7 @@
             ]
           ],
           "meta": {
-            "line": 155,
+            "line": 159,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -3130,7 +3521,7 @@
             ]
           ],
           "meta": {
-            "line": 194,
+            "line": 198,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -3867,7 +4258,7 @@
     },
     {
       "name": "ActionTypes",
-      "description": "* Mute\r* TempMute\r* UnMute\r* Ban\r* Kick\r* Warn\r* UnWarn",
+      "description": "* Mute\n* TempMute\n* UnMute\n* Ban\n* Kick\n* Warn\n* UnWarn",
       "type": [
         [
           [

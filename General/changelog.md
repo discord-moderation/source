@@ -76,4 +76,4 @@
 ››› <strong>Added Promises</strong> <br />
 ››› <strong>quick.db Support</strong> <br />
 ››› <strong>Log Embed Generator</strong> <br />
-››› <strong>Anti-Link, Anti-Invite, Anti-Spam, Auto-Role, Blacklist Systems</strong> <br />
+››› <strong>Anti-Link, Anti-Invite, Anti-Spam, Auto-Role, Ghost-Ping Systems</strong> <br />
