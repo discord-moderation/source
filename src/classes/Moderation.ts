@@ -11,7 +11,7 @@ import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
 import ModeratorError from "./ModeratorError";
 
 // Discord.JS
-import { Client, GuildMember, Message } from "discord.js";
+import { Client, GuildMember, Interaction, Message } from "discord.js";
 
 export declare interface Moderation {
   client: Client;
@@ -115,7 +115,7 @@ export class Moderation extends Base {
    * Method that Mutes or Temp Mutes Member
    *
    * @param {string} type Type of the Mute
-   * @param {Message} message Discord Message
+   * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Member to Mute
    * @param {string} reason Reason of the Mute
    * @param {number} time Time of the Temp Mute
@@ -125,7 +125,7 @@ export class Moderation extends Base {
    */
   mute(
     type: MuteTypes,
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string,
     time?: number
@@ -175,7 +175,7 @@ export class Moderation extends Base {
   /**
    * Method that warns Member
    *
-   * @param {Message} message Discord Message
+   * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Member for Warn
    * @param {string} reason Reaon of the Warn
    *
@@ -184,7 +184,7 @@ export class Moderation extends Base {
    * @returns {Promise<WarnsData>}
    */
   warn(
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string
   ): Promise<WarnsData> {
@@ -235,9 +235,9 @@ export class Moderation extends Base {
    * Method that removes last warn from Member
    *
    * @param {GuildMember} member Member for Warn
-   * @returns {Promise<WarnsData[] | undefined>}
+   * @returns {Promise<WarnsData[] | null>}
    */
-  allWarns(member: GuildMember): Promise<WarnsData[] | undefined> {
+  allWarns(member: GuildMember): Promise<WarnsData[] | null> {
     return new Promise(async (res, rej) => {
       if (!member)
         throw new ModeratorError(
@@ -248,7 +248,7 @@ export class Moderation extends Base {
         );
 
       const warns = await this.warns.all(member);
-      if (warns === null) return res(undefined);
+      if (warns === null) return res(null);
 
       return res(warns);
     });
@@ -286,3 +286,68 @@ export class Moderation extends Base {
     });
   }
 }
+
+/**
+ * @event Moderation#muteMember
+ * 
+ * @type {object}
+ * @prop {number} id ID of the Mute
+ * @prop {string} type Type of the Mute
+ * @prop {string} guildID ID of the Guild
+ * @prop {string} memberID ID of the Muted Member
+ * @prop {string} moderatorID ID of the Moderator
+ * @prop {string} channelID ID of the Channel
+ * @prop {string} reason Reason of the Mute 
+ * @prop {number} [time] Time of the Mute 
+ * @prop {number} [unmutedAt] Unmuting Date 
+ */
+
+/**
+ * @event Moderation#unmuteMember
+ * 
+ * @type {object}
+ * @prop {number} id ID of the Mute
+ * @prop {string} type Type of the Mute
+ * @prop {string} guildID ID of the Guild
+ * @prop {string} memberID ID of the Muted Member
+ * @prop {string} moderatorID ID of the Moderator
+ * @prop {string} channelID ID of the Channel
+ * @prop {string} reason Reason of the Mute 
+ * @prop {number} [time] Time of the Mute 
+ * @prop {number} [unmutedAt] Unmuting Date 
+ */
+
+/**
+ * @event Moderation#warnAdd
+ * 
+ * @type {object}
+ * @prop {number} id ID of the Warn
+ * @prop {string} guildID ID of the Guild
+ * @prop {string} memberID ID of the Warned Member
+ * @prop {string} moderatorID ID of the Moderator
+ * @prop {string} channelID ID of the Channel
+ * @prop {string} reason Reason of the Mute
+ */
+
+/**
+ * @event Moderation#warnRemove
+ * 
+ * @type {object}
+ * @prop {number} id ID of the Warn
+ * @prop {string} guildID ID of the Guild
+ * @prop {string} memberID ID of the Warned Member
+ * @prop {string} moderatorID ID of the Moderator
+ * @prop {string} channelID ID of the Channel
+ * @prop {string} reason Reason of the Mute
+ */
+
+/**
+ * @event Moderation#warnKick
+ * 
+ * @type {object}
+ * @prop {string} guildID ID of the Guild
+ * @prop {string} memberID ID of the Warned Member
+ * @prop {string} moderatorID ID of the Moderator
+ * @prop {string} channelID ID of the Channel
+ * @prop {string} reason Reason of the Mute
+ */
