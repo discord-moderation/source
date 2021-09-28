@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1632848304970
+    "date": 1632849176953
   },
   "custom": {
     "general": {
@@ -1417,11 +1417,16 @@
             },
             {
               "name": "message",
-              "description": "Discord Message",
+              "description": "Message or Interaction",
               "type": [
                 [
                   [
                     "Message"
+                  ]
+                ],
+                [
+                  [
+                    "Interaction"
                   ]
                 ]
               ]
@@ -1525,11 +1530,16 @@
           "params": [
             {
               "name": "message",
-              "description": "Discord Message",
+              "description": "Message or Interaction",
               "type": [
                 [
                   [
                     "Message"
+                  ]
+                ],
+                [
+                  [
+                    "Interaction"
                   ]
                 ]
               ]
@@ -1643,7 +1653,7 @@
                 ">|"
               ],
               [
-                "undefined",
+                "null",
                 ">"
               ]
             ]
@@ -1812,6 +1822,48 @@
           "meta": {
             "line": 45,
             "file": "Base.ts",
+            "path": "src/classes"
+          }
+        }
+      ],
+      "events": [
+        {
+          "name": "muteMember",
+          "meta": {
+            "line": 290,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "unmuteMember",
+          "meta": {
+            "line": 305,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "warnAdd",
+          "meta": {
+            "line": 320,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "warnRemove",
+          "meta": {
+            "line": 332,
+            "file": "Moderation.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "warnKick",
+          "meta": {
+            "line": 344,
+            "file": "Moderation.ts",
             "path": "src/classes"
           }
         }
