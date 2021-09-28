@@ -291,63 +291,63 @@ export class Moderation extends Base {
  * @event Moderation#muteMember
  * 
  * @type {object}
- * @prop {number} id ID of the Mute
- * @prop {string} type Type of the Mute
- * @prop {string} guildID ID of the Guild
- * @prop {string} memberID ID of the Muted Member
- * @prop {string} moderatorID ID of the Moderator
- * @prop {string} channelID ID of the Channel
- * @prop {string} reason Reason of the Mute 
- * @prop {number} [time] Time of the Mute 
- * @prop {number} [unmutedAt] Unmuting Date 
+ * @param {number} id ID of the Mute
+ * @param {string} type Type of the Mute
+ * @param {string} guildID ID of the Guild
+ * @param {string} memberID ID of the Muted Member
+ * @param {string} moderatorID ID of the Moderator
+ * @param {string} channelID ID of the Channel
+ * @param {string} reason Reason of the Mute 
+ * @param {number} [time] Time of the Mute 
+ * @param {number} [unmutedAt] Unmuting Date 
  */
 
 /**
  * @event Moderation#unmuteMember
  * 
  * @type {object}
- * @prop {number} id ID of the Mute
- * @prop {string} type Type of the Mute
- * @prop {string} guildID ID of the Guild
- * @prop {string} memberID ID of the Muted Member
- * @prop {string} moderatorID ID of the Moderator
- * @prop {string} channelID ID of the Channel
- * @prop {string} reason Reason of the Mute 
- * @prop {number} [time] Time of the Mute 
- * @prop {number} [unmutedAt] Unmuting Date 
+ * @param {number} id ID of the Mute
+ * @param {string} type Type of the Mute
+ * @param {string} guildID ID of the Guild
+ * @param {string} memberID ID of the Muted Member
+ * @param {string} moderatorID ID of the Moderator
+ * @param {string} channelID ID of the Channel
+ * @param {string} reason Reason of the Mute 
+ * @param {number} [time] Time of the Mute 
+ * @param {number} [unmutedAt] Unmuting Date 
  */
 
 /**
  * @event Moderation#warnAdd
  * 
  * @type {object}
- * @prop {number} id ID of the Warn
- * @prop {string} guildID ID of the Guild
- * @prop {string} memberID ID of the Warned Member
- * @prop {string} moderatorID ID of the Moderator
- * @prop {string} channelID ID of the Channel
- * @prop {string} reason Reason of the Mute
+ * @param {number} id ID of the Warn
+ * @param {string} guildID ID of the Guild
+ * @param {string} memberID ID of the Warned Member
+ * @param {string} moderatorID ID of the Moderator
+ * @param {string} channelID ID of the Channel
+ * @param {string} reason Reason of the Mute
  */
 
 /**
  * @event Moderation#warnRemove
  * 
  * @type {object}
- * @prop {number} id ID of the Warn
- * @prop {string} guildID ID of the Guild
- * @prop {string} memberID ID of the Warned Member
- * @prop {string} moderatorID ID of the Moderator
- * @prop {string} channelID ID of the Channel
- * @prop {string} reason Reason of the Mute
+ * @param {number} id ID of the Warn
+ * @param {string} guildID ID of the Guild
+ * @param {string} memberID ID of the Warned Member
+ * @param {string} moderatorID ID of the Moderator
+ * @param {string} channelID ID of the Channel
+ * @param {string} reason Reason of the Mute
  */
 
 /**
  * @event Moderation#warnKick
  * 
  * @type {object}
- * @prop {string} guildID ID of the Guild
- * @prop {string} memberID ID of the Warned Member
- * @prop {string} moderatorID ID of the Moderator
- * @prop {string} channelID ID of the Channel
- * @prop {string} reason Reason of the Mute
+ * @param {string} guildID ID of the Guild
+ * @param {string} memberID ID of the Warned Member
+ * @param {string} moderatorID ID of the Moderator
+ * @param {string} channelID ID of the Channel
+ * @param {string} reason Reason of the Mute
  */
