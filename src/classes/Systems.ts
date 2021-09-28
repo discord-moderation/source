@@ -64,7 +64,9 @@ export class Systems extends Base {
   antiJoin(member: GuildMember): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!member)
-        return this.logger.error('Specify "GuildMember" in Systems#antiJoin');
+        return rej(
+          this.logger.warn('Specify "GuildMember" in Systems#antiJoin')
+        );
 
       await member
         .kick("Anti-Join System.")
@@ -83,7 +85,7 @@ export class Systems extends Base {
           return res(true);
         })
         .catch((err) => {
-          return this.logger.error(err);
+          return rej(this.logger.warn(err));
         });
     });
   }
@@ -104,7 +106,7 @@ export class Systems extends Base {
       const linkCheck = links.some((link) => message.content.includes(link));
       if (linkCheck) {
         await message.delete().catch((err) => {
-          return this.logger.error(err);
+          return rej(this.logger.warn(err));
         });
 
         const embed = new MessageEmbed()
@@ -135,7 +137,7 @@ export class Systems extends Base {
   ghostPing(message: Message): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!message)
-        return this.logger.error('Specify "Message" in Systems#ghostPing!');
+        return rej(this.logger.warn('Specify "Message" in Systems#ghostPing!'));
       if (!message.mentions) return;
       if (!message.mentions.members) return;
 
@@ -153,7 +155,7 @@ export class Systems extends Base {
   antiInvite(invite: Invite): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!invite)
-        return this.logger.error('Specify "Invite" in Systems#antiInvite!');
+        return rej(this.logger.warn('Specify "Invite" in Systems#antiInvite!'));
       if (!invite.inviter) return;
 
       const immunityCheck = await this.utils.checkImmunity(invite);

@@ -19,7 +19,7 @@ export declare class MuteManager extends Base {
 
   create(
     type: MuteTypes,
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string,
     time: number

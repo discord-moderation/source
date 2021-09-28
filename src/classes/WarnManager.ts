@@ -1,4 +1,4 @@
-import { Client, GuildMember, Message } from "discord.js";
+import { Client, GuildMember, Interaction, Message } from "discord.js";
 import { Base } from "./Base";
 import { MuteManager } from "./MuteManager";
 import { Utils } from "./Utils";
@@ -72,8 +72,8 @@ export class WarnManager extends Base {
   getWarn(member: GuildMember): Promise<WarnsData | null> {
     return new Promise(async (res, rej) => {
       if (!member)
-        return this.logger.error(
-          'Specify "GuildMember" in WarnManager#getWarn!'
+        return rej(
+          this.logger.warn('Specify "GuildMember" in WarnManager#getWarn!')
         );
 
       const data = await this.utils.getGuild(member.guild);
@@ -89,7 +89,7 @@ export class WarnManager extends Base {
   /**
    * Method that creates Warn.
    *
-   * @param {Message} message Discord Message
+   * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Discord Member
    * @param {string} reason Warn Reason
    *
@@ -98,16 +98,18 @@ export class WarnManager extends Base {
    * @returns {Promise<WarnsData>}
    */
   create(
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string
   ): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
       if (!message)
-        return this.logger.error('Specify "Message" in WarnManager#create!');
+        return rej(
+          this.logger.warn('Specify "Message" in WarnManager#create!')
+        );
       if (!member)
-        return this.logger.error(
-          'Specify "GuildMember" in WarnManager#create!'
+        return rej(
+          this.logger.warn('Specify "GuildMember" in WarnManager#create!')
         );
       if (!reason) reason = "No reason provided";
 
@@ -116,8 +118,10 @@ export class WarnManager extends Base {
         id: data.warns.length + 1,
         guildID: member.guild.id,
         memberID: member.id,
-        moderatorID: message.author.id,
-        channelID: message.channel.id,
+        moderatorID:
+          message instanceof Message ? message.author.id : message.user.id,
+        channelID:
+          message instanceof Message ? message.channel.id : message.channel!.id,
         reason: reason,
       };
 
@@ -139,7 +143,7 @@ export class WarnManager extends Base {
         return res(warnData);
       } else if (data.warns.length === 6) {
         await member.kick("User reached 6 warns | AutoKick.").catch((err) => {
-          return this.logger.error(err);
+          return rej(this.logger.warn(err));
         });
 
         data.warns.filter((w: WarnsData) => w.memberID !== member.id);
@@ -163,15 +167,15 @@ export class WarnManager extends Base {
   delete(member: GuildMember): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
       if (!member)
-        return this.logger.error(
-          'Specify "GuildMember" in WarnManager#delete!'
+        return rej(
+          this.logger.warn('Specify "GuildMember" in WarnManager#delete!')
         );
 
       const data = await this.utils.getGuild(member.guild);
 
       const lastWarn = await this.getWarn(member);
       if (!lastWarn)
-        return this.logger.error("No Warn Data founded in Storage!");
+        return rej(this.logger.warn("No Warn Data founded in Storage!"));
 
       const warnData: WarnsData = {
         id: lastWarn.id,
@@ -200,7 +204,9 @@ export class WarnManager extends Base {
   all(member: GuildMember): Promise<WarnsData[] | null> {
     return new Promise(async (res, rej) => {
       if (!member)
-        return this.logger.error('Specify "GuildMember" in WarnManager#all!');
+        return rej(
+          this.logger.warn('Specify "GuildMember" in WarnManager#all!')
+        );
 
       const data = await this.utils.getGuild(member.guild);
       const warns = data.warns;

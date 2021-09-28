@@ -59,7 +59,8 @@ export class AutoRole {
    */
   get(guild: Guild): Promise<Role | null> {
     return new Promise(async (res, rej) => {
-      if (!guild) return this.logger.error('Specify "Guild" in AutoRole#get');
+      if (!guild)
+        return rej(this.logger.warn('Specify "Guild" in AutoRole#get'));
 
       const { autoRole } = await this.utils.getGuild(guild);
       if (!autoRole) return;
@@ -80,8 +81,10 @@ export class AutoRole {
    */
   set(guild: Guild, role: Role): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!guild) return this.logger.error('Specify "Guild" in AutoRole#set');
-      if (!role) return this.logger.error('Specify "Role" in AutoRole#set');
+      if (!guild)
+        return rej(this.logger.error('Specify "Guild" in AutoRole#set'));
+      if (!role)
+        return rej(this.logger.error('Specify "Role" in AutoRole#set'));
 
       const data = await this.utils.getGuild(guild);
       data.autoRole = role.id;
@@ -100,7 +103,7 @@ export class AutoRole {
   delete(guild: Guild): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!guild)
-        return this.logger.error('Specify "Guild" in AutoRole#delete');
+        return rej(this.logger.warn('Specify "Guild" in AutoRole#delete'));
 
       const data = await this.utils.getGuild(guild);
       data.autoRole = null;

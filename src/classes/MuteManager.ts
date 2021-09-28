@@ -1,12 +1,15 @@
 import { Options, GuildData, MuteTypes, MutesData } from "../constants";
-import { Client, Guild, GuildMember, Message, Role } from "discord.js";
+import {
+  Client,
+  Guild,
+  GuildMember,
+  Interaction,
+  Message,
+  Role,
+} from "discord.js";
 import { Base } from "./Base";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
-
-// Storage Import
-import db from "quick.db";
-
 export declare interface MuteManager {
   client: Client;
   options: Options;
@@ -65,13 +68,12 @@ export class MuteManager extends Base {
    * @returns {Promise<boolean>}
    */
   setRole(guild: Guild, role: Role): Promise<boolean> {
-    return new Promise(async (res, _rej) => {
+    return new Promise(async (res, rej) => {
       if (!role)
-        return this.logger.error('Specify "Role" in MuteManager#setRole');
+        return rej(this.logger.warn('Specify "Role" in MuteManager#setRole'));
 
       await this.utils.getGuild(guild);
-
-      db.set(`guild.${guild.id}.muteRole`, role.id);
+      this.utils.database.setProp(guild.id, "muteRole", role.id);
 
       return res(true);
     });
@@ -123,7 +125,7 @@ export class MuteManager extends Base {
    * This is method that mutes member.
    *
    * @param {string} type Mute Type
-   * @param {Message} message Message
+   * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Discord Guild Member
    * @param {string} reason Reason of the Mute
    * @param {number} time Time of Temp Mute
@@ -132,28 +134,31 @@ export class MuteManager extends Base {
    */
   create(
     type: MuteTypes,
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string,
     time?: number
   ): Promise<MutesData> {
     return new Promise(async (res, rej) => {
       if (!type)
-        return this.logger.warn('Specify "type" in MuteManager#create');
+        return rej(this.logger.warn('Specify "type" in MuteManager#create'));
       if (!message)
-        return this.logger.warn('Specify "message" in MuteManager#create');
+        return rej(this.logger.warn('Specify "message" in MuteManager#create'));
       if (!member)
-        return this.logger.warn('Specify "member" in MuteManager#create');
+        return rej(this.logger.warn('Specify "member" in MuteManager#create'));
 
       if (!reason) reason = "No reason provided.";
 
       if (type === "tempmute" && time === undefined)
-        return this.logger.warn(
-          'No "time" specified in MuteManager#create (tempmute)'
+        return rej(
+          this.logger.warn(
+            'No "time" specified in MuteManager#create (tempmute)'
+          )
         );
 
       const mute = await this.getMute(member);
-      if (mute !== null) return this.logger.error("Member already has Mute!");
+      if (mute !== null)
+        return rej(this.logger.warn("Member already has Mute!"));
       if (message.guild === null) return;
 
       const data = await this.utils.getGuild(message.guild);
@@ -167,8 +172,10 @@ export class MuteManager extends Base {
         type,
         guildID: message.guild.id,
         memberID: member.id,
-        moderatorID: message.author.id,
-        channelID: message.channel.id,
+        moderatorID:
+          message instanceof Message ? message.author.id : message.user.id,
+        channelID:
+          message instanceof Message ? message.channel.id : message.channel!.id,
         reason,
       };
 
@@ -185,7 +192,7 @@ export class MuteManager extends Base {
       });
 
       data.mutes.push(muteData);
-      db.set(`guild.${message.guild.id}`, data);
+      this.utils.database.set(message.guild.id, data);
 
       this.emit("muteMember", muteData);
 
@@ -199,7 +206,6 @@ export class MuteManager extends Base {
   /**
    * Method that removes Mute from Member
    *
-   * @param {Message} message Discord Message
    * @param {GuildMember} member Discord Member
    *
    * @fires Moderation#unmuteMember
@@ -209,22 +215,23 @@ export class MuteManager extends Base {
     return new Promise(async (res, rej) => {
       const mute = await this.getMute(member);
 
-      if (mute === null) return this.logger.error("Member hasn't any Mute!");
+      if (mute === null)
+        return rej(this.logger.warn("Member hasn't any Mute!"));
       else {
         const data = await this.utils.getGuild(member.guild);
         const role = await this.getRole(member.guild);
 
-        if (!role) return this.logger.error("Server hasn't any Mute Role!");
+        if (!role) return rej(this.logger.warn("Server hasn't any Mute Role!"));
 
         const roleCheck = member.roles.cache.find((r) => r.id === role.id);
-        if (!roleCheck) return this.logger.error("Member haven't Mute Role!");
+        if (!roleCheck)
+          return rej(this.logger.warn("Member haven't Mute Role!"));
 
         await member.roles.remove(role).catch((err) => {
           return this.logger.error(err);
         });
 
         data.mutes.filter((muteData) => muteData.memberID !== member.id);
-
         this.utils.setData(member.guild, data);
 
         this.emit("unmuteMember", {
@@ -238,7 +245,7 @@ export class MuteManager extends Base {
           time: mute.time !== undefined ? mute.time : undefined,
         });
 
-        return mute;
+        return res(mute);
       }
     });
   }

@@ -25,6 +25,7 @@ const client = new Client({
 });
 
 const moderation = new Moderation(client, {
+  dbPath: './db/',
   locale: "en-US",
   systems: {
     autoRole: false,
@@ -44,10 +45,9 @@ const moderation = new Moderation(client, {
 <span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />
 <span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />
 <span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />
-<span><strong>[5] [quick.db](https://npmjs.com/package/quick.db/)</strong></span> <br />
+<span><strong>[5] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />
 
 ## Links
-<span><strong>[1] [Module Website](https://discord/)</strong></span> <br />
-<span><strong>[2] [NPMJS Link](https://npmjs.com/package/discord-moderation/)</strong></span> <br />
-<span><strong>[3] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />
-<span><strong>[4] [Support Server](https://discord.gg/eGZfaWsZgR/)</strong></span>
+<span><strong>[1] [Documentation](https://discord-moderation.js.org/)</strong></span> <br />
+<span><strong>[2] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />
+<span><strong>[3] [Support Server](https://discord.gg/eGZfaWsZgR/)</strong></span>

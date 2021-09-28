@@ -1,4 +1,4 @@
-import { Client, GuildMember, Message } from "discord.js";
+import { Client, GuildMember, Interaction, Message } from "discord.js";
 import {
   Options,
   GuildData,
@@ -35,7 +35,7 @@ export declare class Moderation extends Base {
 
   mute(
     type: MuteTypes,
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string,
     time?: number
@@ -44,12 +44,12 @@ export declare class Moderation extends Base {
   unmute(member: GuildMember): Promise<MutesData>;
 
   warn(
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason?: string
   ): Promise<WarnsData>;
 
   unwarn(member: GuildMember): Promise<WarnsData>;
-  
+
   allWarns(member: GuildMember): Promise<WarnsData[] | null>;
 }

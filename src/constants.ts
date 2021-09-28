@@ -42,6 +42,7 @@ export const links: Array<string> = [
 ];
 
 export const defaultOptions: Options = {
+  dbPath: "./db/",
   locale: "en-US",
   systems: {
     autoRole: false,
@@ -153,6 +154,7 @@ export interface WarnsData {
 }
 
 export interface Options {
+  dbPath: string;
   locale?: string;
 
   systems?: ModuleSystems;

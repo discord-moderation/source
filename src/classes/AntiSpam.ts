@@ -83,20 +83,22 @@ export class AntiSpam {
     return new Promise(async (res, rej) => {
       if (!this.options.systems?.antiSpam) return;
       if (!message)
-        return this.logger.error('Specify "Message" in AntiSpam#_handle!');
+        return rej(this.logger.warn('Specify "Message" in AntiSpam#_handle!'));
       if (!message.guild) return;
       if (!message.member) return;
 
       const { muteRole } = await this.utils.getGuild(message.guild);
       if (!muteRole)
-        return this.logger.error(
-          `Guild "${message.guild.id}" hasn't a Mute Role!`
+        return rej(
+          this.logger.warn(`Guild "${message.guild.id}" hasn't a Mute Role!`)
         );
 
       const role = message.guild.roles.cache.get(muteRole);
       if (!role)
-        return this.logger.error(
-          `Mute Role with ID "${muteRole}" not found in the Guild!`
+        return rej(
+          this.logger.warn(
+            `Mute Role with ID "${muteRole}" not found in the Guild!`
+          )
         );
 
       const LIMIT = 7;

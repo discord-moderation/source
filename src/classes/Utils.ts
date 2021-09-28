@@ -1,10 +1,4 @@
-import {
-  Client,
-  Guild,
-  GuildMember,
-  Invite,
-  MessageEmbed,
-} from "discord.js";
+import { Client, Guild, GuildMember, Invite, MessageEmbed } from "discord.js";
 import {
   Options,
   GuildData,
@@ -16,16 +10,15 @@ import {
 import { Logger } from "./Logger";
 import { Base } from "./Base";
 import { version } from "../../package.json";
-import fetch, { Response } from "node-fetch";
+import { DBManager } from "./DBManager";
+import fetch from "node-fetch";
 import ms from "ms";
-
-// Storage Imports
-import db from "quick.db";
 
 export declare interface Utils {
   client: Client;
   options: Options;
 
+  database: DBManager;
   logger: Logger;
 }
 
@@ -60,6 +53,12 @@ export class Utils extends Base {
     this.options = options;
 
     /**
+     * Database
+     * @type {DBManager}
+     */
+    this.database = new DBManager(this.client, this.options);
+
+    /**
      * Module Logger
      * @type {Logger}
      */
@@ -74,14 +73,15 @@ export class Utils extends Base {
    */
   getGuild(guild: Guild): Promise<GuildData> {
     return new Promise(async (res, rej) => {
-      if (!guild) return this.logger.error('Specify "Guild" in Utils#getGuild');
+      if (!guild)
+        return rej(this.logger.warn('Specify "Guild" in Utils#getGuild'));
 
-      var data: GuildData = db.fetch(`guild.${guild.id}`);
+      var data: GuildData = this.database.fetch(guild.id);
 
       if (data === undefined || data === null) {
         this.createGuild(guild);
 
-        data = db.fetch(`guild.${guild.id}`);
+        data = this.database.fetch(guild.id);
       } else return res(data);
     });
   }
@@ -95,12 +95,12 @@ export class Utils extends Base {
   createGuild(guild: Guild): Promise<boolean> {
     return new Promise(async (res, rej) => {
       if (!guild)
-        return this.logger.error('Specify "Guild" in Utils#createGuild');
+        return rej(this.logger.warn('Specify "Guild" in Utils#createGuild'));
 
-      const data = db.fetch(`guild.${guild.id}`);
+      const data = this.database.fetch(guild.id);
 
       if (data === undefined || data === null) {
-        db.set(`guild.${guild.id}`, {
+        this.database.set(guild.id, {
           guildID: guild.id,
           muteRole: null,
           autoRole: null,
@@ -130,13 +130,14 @@ export class Utils extends Base {
    */
   setData(guild: Guild, newData: GuildData): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!guild) return this.logger.error('Specify "Guild" in Utils#setData!');
+      if (!guild)
+        return rej(this.logger.warn('Specify "Guild" in Utils#setData!'));
       if (!newData)
-        return this.logger.error('Specify "GuildData" in Utils#setData!');
+        return rej(this.logger.error('Specify "GuildData" in Utils#setData!'));
 
       await this.getGuild(guild);
 
-      db.set(`guild.${guild.id}`, newData);
+      this.database.set(guild.id, newData);
 
       return res(true);
     });
@@ -159,7 +160,6 @@ export class Utils extends Base {
   ): Promise<MessageEmbed> {
     return new Promise(async (res, rej) => {
       const embed = new MessageEmbed();
-      embed.setColor("RED");
       const caseID = await (await this.getGuild(member.guild)).cases;
 
       switch (action) {
@@ -170,6 +170,7 @@ export class Utils extends Base {
           });
           const info = data.entries.first();
 
+          embed.setColor("RED");
           embed.setTitle(`New Case [ID: ${caseID}]`);
           embed.setDescription(
             [
@@ -191,27 +192,7 @@ export class Utils extends Base {
           });
           const info = data.entries.first();
 
-          embed.setTitle(`New Case [ID: ${caseID}]`);
-          embed.setDescription(
-            [
-              `› **Type**: **Member Kick**`,
-              `› **Member**: **${member}**`,
-              `› **Moderator**: **${info?.target}**`,
-              `› **Reason**: **${info?.reason || "No reason provided."}**`,
-              `› **Kicked At**: **${new Date(
-                info?.createdTimestamp || Date.now()
-              ).toLocaleString(this.options.locale)}**`,
-            ].join("\n")
-          );
-        }
-
-        case "Kick": {
-          const data = await member.guild.fetchAuditLogs({
-            type: "MEMBER_KICK",
-            limit: 1,
-          });
-          const info = data.entries.first();
-
+          embed.setColor("RED");
           embed.setTitle(`New Case [ID: ${caseID}]`);
           embed.setDescription(
             [
@@ -237,6 +218,7 @@ export class Utils extends Base {
             String(info?.channelID)
           );
 
+          embed.setColor("RED");
           embed.setTitle(`New Case [ID: ${caseID}]`);
           embed.setDescription(
             [
@@ -268,6 +250,7 @@ export class Utils extends Base {
             this.options.locale
           );
 
+          embed.setColor("RED");
           embed.setTitle(`New Case [ID: ${caseID}]`);
           embed.setDescription(
             [
@@ -299,6 +282,7 @@ export class Utils extends Base {
             muteData?.unmutedAt || Date.now()
           ).toLocaleString(this.options.locale);
 
+          embed.setColor("RED");
           embed.setTitle(`New Case [ID: ${caseID}]`);
           embed.setDescription(
             [
@@ -389,14 +373,14 @@ export class Utils extends Base {
           const muteRole = guild.roles.cache.get(data.muteRole);
           if (!muteRole) {
             return rej(
-              this.logger.error(`Mute Role in "${guild.name}" isn't found!`)
+              this.logger.warn(`Mute Role in "${guild.name}" isn't found!`)
             );
           }
 
           const member = guild.members.cache.get(mute.memberID);
           if (!member) {
             return rej(
-              this.logger.error(
+              this.logger.warn(
                 `Member with ID "${mute.memberID}" isn't found in server!`
               )
             );

@@ -20,7 +20,7 @@ export declare class WarnManager extends Base {
   getWarn(member: GuildMember): Promise<WarnsData | null>;
 
   create(
-    message: Message,
+    message: Message | Interaction,
     member: GuildMember,
     reason: string
   ): Promise<WarnsData>;
