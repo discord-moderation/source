@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1632849415682
+    "date": 1632849585660
   },
   "custom": {
     "general": {
@@ -1829,6 +1829,109 @@
       "events": [
         {
           "name": "muteMember",
+          "params": [
+            {
+              "name": "id",
+              "description": "ID of the Mute",
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "type",
+              "description": "Type of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "guildID",
+              "description": "ID of the Guild",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "memberID",
+              "description": "ID of the Muted Member",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "moderatorID",
+              "description": "ID of the Moderator",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "channelID",
+              "description": "ID of the Channel",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reason of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "time",
+              "description": "Time of the Mute",
+              "optional": true,
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "unmutedAt",
+              "description": "Unmuting Date",
+              "optional": true,
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            }
+          ],
           "meta": {
             "line": 290,
             "file": "Moderation.ts",
@@ -1837,6 +1940,109 @@
         },
         {
           "name": "unmuteMember",
+          "params": [
+            {
+              "name": "id",
+              "description": "ID of the Mute",
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "type",
+              "description": "Type of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "guildID",
+              "description": "ID of the Guild",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "memberID",
+              "description": "ID of the Muted Member",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "moderatorID",
+              "description": "ID of the Moderator",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "channelID",
+              "description": "ID of the Channel",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reason of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "time",
+              "description": "Time of the Mute",
+              "optional": true,
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "unmutedAt",
+              "description": "Unmuting Date",
+              "optional": true,
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            }
+          ],
           "meta": {
             "line": 305,
             "file": "Moderation.ts",
@@ -1845,6 +2051,74 @@
         },
         {
           "name": "warnAdd",
+          "params": [
+            {
+              "name": "id",
+              "description": "ID of the Warn",
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "guildID",
+              "description": "ID of the Guild",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "memberID",
+              "description": "ID of the Warned Member",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "moderatorID",
+              "description": "ID of the Moderator",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "channelID",
+              "description": "ID of the Channel",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reason of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
           "meta": {
             "line": 320,
             "file": "Moderation.ts",
@@ -1853,6 +2127,74 @@
         },
         {
           "name": "warnRemove",
+          "params": [
+            {
+              "name": "id",
+              "description": "ID of the Warn",
+              "type": [
+                [
+                  [
+                    "number"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "guildID",
+              "description": "ID of the Guild",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "memberID",
+              "description": "ID of the Warned Member",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "moderatorID",
+              "description": "ID of the Moderator",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "channelID",
+              "description": "ID of the Channel",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reason of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
           "meta": {
             "line": 332,
             "file": "Moderation.ts",
@@ -1861,6 +2203,63 @@
         },
         {
           "name": "warnKick",
+          "params": [
+            {
+              "name": "guildID",
+              "description": "ID of the Guild",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "memberID",
+              "description": "ID of the Warned Member",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "moderatorID",
+              "description": "ID of the Moderator",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "channelID",
+              "description": "ID of the Channel",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "reason",
+              "description": "Reason of the Mute",
+              "type": [
+                [
+                  [
+                    "string"
+                  ]
+                ]
+              ]
+            }
+          ],
           "meta": {
             "line": 344,
             "file": "Moderation.ts",
