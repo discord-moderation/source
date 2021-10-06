@@ -3,7 +3,7 @@ import { Base } from "./Base";
 import { MuteManager } from "./MuteManager";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
-import { Options, WarnsData } from "../constants";
+import { GuildData, Options, WarnsData } from "../constants";
 
 export declare interface WarnManager {
   client: Client;
@@ -76,11 +76,13 @@ export class WarnManager extends Base {
           this.logger.warn('Specify "GuildMember" in WarnManager#getWarn!')
         );
 
-      const data = await this.utils.getGuild(member.guild);
-      const warns = data.warns.length;
-      const lastWarn = data.warns[warns - 1];
+      const { warns } = await this.utils.getGuild(member.guild);
 
-      if (!lastWarn || lastWarn === undefined) return res(null);
+      const memberWarns = warns.filter((warn) => warn.memberID === member.id);
+      if (!memberWarns?.length) return res(null);
+
+      const lastWarn = memberWarns[memberWarns.length - 1];
+      if (!lastWarn) return res(null);
 
       return res(lastWarn);
     });
@@ -105,7 +107,9 @@ export class WarnManager extends Base {
     return new Promise(async (res, rej) => {
       if (!message)
         return rej(
-          this.logger.warn('Specify "Message" in WarnManager#create!')
+          this.logger.warn(
+            'Specify "Message" or "Interaction" in WarnManager#create!'
+          )
         );
       if (!member)
         return rej(
@@ -128,31 +132,9 @@ export class WarnManager extends Base {
       data.warns.push(warnData);
 
       await this.utils.setData(member.guild, data);
+      res(warnData);
 
-      if (data.warns.length === 3) {
-        await this.mutes.create(
-          "tempmute",
-          message,
-          member,
-          "User reached 3 warns | AutoMute.",
-          3600000
-        );
-
-        this.emit("warnAdd", warnData);
-
-        return res(warnData);
-      } else if (data.warns.length === 6) {
-        await member.kick("User reached 6 warns | AutoKick.").catch((err) => {
-          return rej(this.logger.warn(err));
-        });
-
-        data.warns.filter((w: WarnsData) => w.memberID !== member.id);
-
-        await this.utils.setData(member.guild, data);
-        await this.emit("warnKick", warnData);
-
-        return res(warnData);
-      }
+      return await this._handle(message, member, data, warnData);
     });
   }
 
@@ -172,8 +154,8 @@ export class WarnManager extends Base {
         );
 
       const data = await this.utils.getGuild(member.guild);
-
       const lastWarn = await this.getWarn(member);
+
       if (!lastWarn)
         return rej(this.logger.warn("No Warn Data founded in Storage!"));
 
@@ -189,7 +171,7 @@ export class WarnManager extends Base {
       this.emit("warnRemove", warnData);
 
       data.warns.filter((w: WarnsData) => w.id !== lastWarn.id);
-      await this.utils.setData(member.guild, data);
+      await this.utils.database.setProp(member.guild.id, "warns", data.warns);
 
       return res(warnData);
     });
@@ -211,8 +193,52 @@ export class WarnManager extends Base {
       const data = await this.utils.getGuild(member.guild);
       const warns = data.warns;
 
-      if (!warns || warns.length) return res(null);
-      else return res(warns);
+      if (!warns?.length) return res(null);
+
+      return res(warns);
+    });
+  }
+
+  /**
+   * Method that handles Member Warns
+   *
+   * @param {Message | Interaction} message Message or Interaction
+   * @param {GuildMember} member Discord Member
+   * @param {GuildData} data Guild Data
+   * @param {WarnsData} warnData Warn Data
+   * @returns {Promise<boolean>}
+   */
+  private async _handle(
+    message: Message | Interaction,
+    member: GuildMember,
+    data: GuildData,
+    warnData: WarnsData
+  ): Promise<boolean> {
+    return new Promise(async (res, rej) => {
+      if (data.warns.length === 3) {
+        await this.mutes.create(
+          "tempmute",
+          message,
+          member,
+          "User reached 3 warns | AutoMute.",
+          3600000
+        );
+
+        this.emit("warnAdd", warnData);
+
+        return res(true);
+      } else if (data.warns.length === 6) {
+        await member.kick("User reached 6 warns | AutoKick.").catch((err) => {
+          return rej(this.logger.warn(err));
+        });
+
+        data.warns.filter((w: WarnsData) => w.memberID !== member.id);
+
+        await this.utils.setData(member.guild, data);
+        await this.emit("warnKick", warnData);
+
+        return res(true);
+      }
     });
   }
 }

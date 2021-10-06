@@ -289,7 +289,7 @@ export class Moderation extends Base {
 
 /**
  * @event Moderation#muteMember
- * 
+ *
  * @type {object}
  * @param {number} id ID of the Mute
  * @param {string} type Type of the Mute
@@ -297,14 +297,14 @@ export class Moderation extends Base {
  * @param {string} memberID ID of the Muted Member
  * @param {string} moderatorID ID of the Moderator
  * @param {string} channelID ID of the Channel
- * @param {string} reason Reason of the Mute 
- * @param {number} [time] Time of the Mute 
- * @param {number} [unmutedAt] Unmuting Date 
+ * @param {string} reason Reason of the Mute
+ * @param {number} [time] Time of the Mute
+ * @param {number} [unmutedAt] Unmuting Date
  */
 
 /**
  * @event Moderation#unmuteMember
- * 
+ *
  * @type {object}
  * @param {number} id ID of the Mute
  * @param {string} type Type of the Mute
@@ -312,14 +312,14 @@ export class Moderation extends Base {
  * @param {string} memberID ID of the Muted Member
  * @param {string} moderatorID ID of the Moderator
  * @param {string} channelID ID of the Channel
- * @param {string} reason Reason of the Mute 
- * @param {number} [time] Time of the Mute 
- * @param {number} [unmutedAt] Unmuting Date 
+ * @param {string} reason Reason of the Mute
+ * @param {number} [time] Time of the Mute
+ * @param {number} [unmutedAt] Unmuting Date
  */
 
 /**
  * @event Moderation#warnAdd
- * 
+ *
  * @type {object}
  * @param {number} id ID of the Warn
  * @param {string} guildID ID of the Guild
@@ -331,7 +331,7 @@ export class Moderation extends Base {
 
 /**
  * @event Moderation#warnRemove
- * 
+ *
  * @type {object}
  * @param {number} id ID of the Warn
  * @param {string} guildID ID of the Guild
@@ -343,7 +343,7 @@ export class Moderation extends Base {
 
 /**
  * @event Moderation#warnKick
- * 
+ *
  * @type {object}
  * @param {string} guildID ID of the Guild
  * @param {string} memberID ID of the Warned Member

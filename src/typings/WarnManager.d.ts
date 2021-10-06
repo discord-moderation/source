@@ -1,9 +1,9 @@
-import { Client, GuildMember, Message } from "discord.js";
+import { Client, GuildMember, Interaction, Message } from "discord.js";
 import { Base } from "./Base";
 import { Logger } from "./Logger";
 import { MuteManager } from "./MuteManager";
 import { Utils } from "./Utils";
-import { Options, WarnsData } from "../constants";
+import { GuildData, Options, WarnsData } from "../constants";
 
 export declare interface WarnManager {
   client: Client;
@@ -26,4 +26,11 @@ export declare class WarnManager extends Base {
   ): Promise<WarnsData>;
   delete(member: GuildMember): Promise<WarnsData>;
   all(member: GuildMember): Promise<WarnsData[] | null>;
+
+  private _handle(
+    message: Message | Interaction,
+    member: GuildMember,
+    data: GuildData,
+    warnData: WarnsData
+  ): Promise<boolean>;
 }

@@ -104,7 +104,6 @@ export class Utils extends Base {
           guildID: guild.id,
           muteRole: null,
           autoRole: null,
-          cases: 0,
           warns: [],
           mutes: [],
           immunityUsers: [],
@@ -136,7 +135,6 @@ export class Utils extends Base {
         return rej(this.logger.error('Specify "GuildData" in Utils#setData!'));
 
       await this.getGuild(guild);
-
       this.database.set(guild.id, newData);
 
       return res(true);
@@ -447,7 +445,7 @@ export class Utils extends Base {
   }
 
   /**
-   * @returns {Promise<any>}
+   * @returns {Promise<boolean>}
    */
   checkOptions(): Promise<boolean> {
     return new Promise(async (res, rej) => {
