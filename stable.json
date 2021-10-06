@@ -2,7 +2,7 @@
   "meta": {
     "generator": "0.11.1",
     "format": 22,
-    "date": 1632849585660
+    "date": 1633531326115
   },
   "custom": {
     "general": {
@@ -3342,7 +3342,7 @@
             ]
           ],
           "meta": {
-            "line": 124,
+            "line": 123,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3403,7 +3403,7 @@
             ]
           ],
           "meta": {
-            "line": 146,
+            "line": 144,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3424,7 +3424,7 @@
             ]
           ],
           "meta": {
-            "line": 356,
+            "line": 354,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3458,7 +3458,7 @@
             ]
           ],
           "meta": {
-            "line": 419,
+            "line": 417,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3478,7 +3478,7 @@
             ]
           ],
           "meta": {
-            "line": 449,
+            "line": 427,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3492,13 +3492,13 @@
                 "<"
               ],
               [
-                "any",
+                "boolean",
                 ">"
               ]
             ]
           ],
           "meta": {
-            "line": 449,
+            "line": 447,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3537,7 +3537,7 @@
             ]
           ],
           "meta": {
-            "line": 461,
+            "line": 459,
             "file": "Utils.ts",
             "path": "src/classes"
           }
@@ -3893,7 +3893,7 @@
             ]
           ],
           "meta": {
-            "line": 89,
+            "line": 91,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -3930,7 +3930,7 @@
             ]
           ],
           "meta": {
-            "line": 159,
+            "line": 141,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
@@ -3972,7 +3972,80 @@
             ]
           ],
           "meta": {
-            "line": 198,
+            "line": 180,
+            "file": "WarnManager.ts",
+            "path": "src/classes"
+          }
+        },
+        {
+          "name": "_handle",
+          "description": "Method that handles Member Warns",
+          "params": [
+            {
+              "name": "message",
+              "description": "Message or Interaction",
+              "type": [
+                [
+                  [
+                    "Message"
+                  ]
+                ],
+                [
+                  [
+                    "Interaction"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "member",
+              "description": "Discord Member",
+              "type": [
+                [
+                  [
+                    "GuildMember"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "data",
+              "description": "Guild Data",
+              "type": [
+                [
+                  [
+                    "GuildData"
+                  ]
+                ]
+              ]
+            },
+            {
+              "name": "warnData",
+              "description": "Warn Data",
+              "type": [
+                [
+                  [
+                    "WarnsData"
+                  ]
+                ]
+              ]
+            }
+          ],
+          "async": true,
+          "returns": [
+            [
+              [
+                "Promise",
+                "<"
+              ],
+              [
+                "boolean",
+                ">"
+              ]
+            ]
+          ],
+          "meta": {
+            "line": 202,
             "file": "WarnManager.ts",
             "path": "src/classes"
           }
