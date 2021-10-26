@@ -168,11 +168,10 @@ export class WarnManager extends Base {
         reason: lastWarn.reason,
       };
 
+      const changedWarns = data.warns.filter((x) => x.id !== lastWarn.id);
+      await this.utils.database.setProp(member.guild.id, 'warns', changedWarns);
+
       this.emit("warnRemove", warnData);
-
-      data.warns.filter((w: WarnsData) => w.id !== lastWarn.id);
-      await this.utils.database.setProp(member.guild.id, "warns", data.warns);
-
       return res(warnData);
     });
   }
