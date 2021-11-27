@@ -1,5 +1,5 @@
 <img src="https://raw.githubusercontent.com/discord-moderation/source/main/assets/discord-moderation-main.png" />
-<hr>
+<hr />
 
 ## Welcome!
 <strong>Welcome, this is 'discord-moderation' module!</strong> <br />
