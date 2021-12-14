@@ -23,7 +23,7 @@ export class Base {
     event: K,
     listener: (...args: Events[K]) => void
   ): EventEmitter {
-    // @ts-expect-error
+    // @ts-ignore
     return emitter.on(event, listener);
   }
 
@@ -38,7 +38,7 @@ export class Base {
     event: K,
     listener: (...args: Events[K]) => void
   ): EventEmitter {
-    // @ts-expect-error
+    // @ts-ignore
     return emitter.once(event, listener);
   }
 

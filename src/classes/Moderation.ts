@@ -102,7 +102,6 @@ export class Moderation extends Base {
     this.isReady = false;
 
     async () => {
-      await this._init();
       await this.utils.checkOptions();
     };
 
@@ -277,12 +276,6 @@ export class Moderation extends Base {
       } else {
         return res(false);
       }
-    });
-  }
-
-  private _init(): Promise<any> {
-    return new Promise(async (res, rej) => {
-      await this.utils.checkUpdate();
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Client, MessageEmbed, TextChannel } from 'discord.js'
+import { Client, TextChannel } from 'discord.js'
 import { Moderation } from '../src/index' // replace '../src/index' with 'discord-moderation'
 import ms from 'ms';
 
@@ -6,6 +6,7 @@ const client = new Client({
     intents: ['GUILDS', 'GUILD_BANS', 'GUILD_INVITES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_PRESENCES']
 });
 const moderation = new Moderation(client, {
+    dbPath: __dirname,
     locale: 'en-US',
     systems: {
         antiInvite: false,

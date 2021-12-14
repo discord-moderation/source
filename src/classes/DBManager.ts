@@ -50,6 +50,7 @@ export class DBManager {
     this.database = new Enmap({
       name: "moderation",
       dataDir: this.options.dbPath,
+      wal: false
     });
   }
 
@@ -149,10 +150,7 @@ export class DBManager {
     }
 
     const arr: any[] = data[key];
-    const filtered = arr.filter((x) => x[second] !== value);
-
-    data[key] = filtered;
-
+    arr.filter((x) => x[second] !== value);
     this.database.set(`moderation-${id}`, data);
 
     return true;

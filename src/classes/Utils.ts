@@ -11,7 +11,6 @@ import { Logger } from "./Logger";
 import { Base } from "./Base";
 import { version } from "../../package.json";
 import { DBManager } from "./DBManager";
-import fetch from "node-fetch";
 import ms from "ms";
 
 export declare interface Utils {
@@ -387,12 +386,13 @@ export class Utils extends Base {
           if (mute.unmutedAt === undefined) continue;
 
           if (Date.now() > mute.unmutedAt) {
+            this.database.remove(guild.id, 'mutes', 'memberID', member.id);
+
             await member.roles.remove(muteRole).catch((err) => {
               return rej(this.logger.error(err.message));
             });
 
             mute.unmutedAt = Date.now();
-
             this.emit("unmuteMember", mute);
           } else {
             const delay = mute.unmutedAt - Date.now();
@@ -425,32 +425,12 @@ export class Utils extends Base {
   }
 
   /**
-   * @returns {Promise<any>}
-   */
-  checkUpdate(): Promise<any> {
-    return new Promise(async (res, rej) => {
-      const data = await fetch(
-        "https://registry.npmjs.com/discord-moderation"
-      ).then((res) => res.json());
-      const lastVersion: string = (data as any)["dist-tags"]["latest"];
-
-      if (version !== lastVersion) {
-        return res(
-          this.logger.warn(
-            'New Version of Discord-Moderation avaliable!\nWe recomend you to update this module using "npm i discord-moderation@latest" command.'
-          )
-        );
-      }
-    });
-  }
-
-  /**
    * @returns {Promise<boolean>}
    */
   checkOptions(): Promise<boolean> {
     return new Promise(async (res, rej) => {
       var options = this.options;
-      if (!options) this.options = defaultOptions;
+      if (typeof options === 'undefined') this.options = defaultOptions;
 
       return res(true);
     });
