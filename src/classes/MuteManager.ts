@@ -232,7 +232,7 @@ export class MuteManager extends Base {
         });
 
         data.mutes.filter((muteData) => muteData.memberID !== member.id);
-        this.utils.setData(member.guild, data);
+        await this.utils.database.set(member.guild.id, data);
 
         this.emit("unmuteMember", {
           id: mute.id,
@@ -242,7 +242,8 @@ export class MuteManager extends Base {
           moderatorID: mute.moderatorID,
           channelID: mute.channelID,
           reason: mute.reason,
-          time: mute.time !== undefined ? mute.time : undefined,
+          time: mute.type === 'tempmute' ? mute.time : null,
+          unmutedAt: mute.type === 'tempmute' ? mute.unmutedAt : null
         });
 
         return res(mute);
@@ -276,14 +277,20 @@ export class MuteManager extends Base {
 
       const muteData: MutesData = {
         id: data.mutes.length + 1,
-        type: "mute",
+        type: lastMute.type,
         guildID: member.guild.id,
         memberID: member.id,
         moderatorID: this.client.user.id,
         channelID: lastMute.channelID,
         reason: "User rejoined server.",
+        time: lastMute.type === 'tempmute' ? lastMute.time : null,
+        unmutedAt: lastMute.type === 'tempmute' ? lastMute.unmutedAt : null
       };
 
+      data.mutes.filter((m) => m.memberID !== member.id);
+      data.mutes.push(muteData);
+
+      await this.utils.database.set(member.guild.id, data);
       await member.roles.add(role).catch((err) => {
         return rej(this.logger.error(err.message));
       });

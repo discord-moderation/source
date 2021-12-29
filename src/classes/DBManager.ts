@@ -106,9 +106,9 @@ export class DBManager {
    * @param {id} id Discord Guild ID
    * @param {any} key Key to Get
    *
-   * @returns {string | number}
+   * @returns {any}
    */
-  get(id: string, key: string): string | number {
+  get(id: string, key: string): any {
     const data = this.database.fetch(`moderation-${id}`);
     const value = data[key];
 

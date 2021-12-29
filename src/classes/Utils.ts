@@ -9,7 +9,6 @@ import {
 } from "../constants";
 import { Logger } from "./Logger";
 import { Base } from "./Base";
-import { version } from "../../package.json";
 import { DBManager } from "./DBManager";
 import ms from "ms";
 
@@ -384,9 +383,9 @@ export class Utils extends Base {
           }
 
           if (mute.unmutedAt === undefined) continue;
-
-          if (Date.now() > mute.unmutedAt) {
-            this.database.remove(guild.id, 'mutes', 'memberID', member.id);
+          else if (Date.now() > mute.unmutedAt) {
+            data.mutes.filter((m) => m.memberID !== member.id);
+            await this.database.set(guild.id, data);
 
             await member.roles.remove(muteRole).catch((err) => {
               return rej(this.logger.error(err.message));
