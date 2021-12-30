@@ -1,6 +1,6 @@
 {
   "name": "discord-moderation",
-  "version": "2.1.5.1",
+  "version": "2.1.51",
   "description": "discord-moderation will simplify creating moderation system to your discord bot.",
   "main": "dist/index.js",
   "types": "src/typings/Moderation.d.ts",
