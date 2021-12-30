@@ -44,8 +44,7 @@ const moderation = new Moderation(client, {
 <span><strong>[1] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />
 <span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />
 <span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />
-<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />
-<span><strong>[5] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />
+<span><strong>[4] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />
 
 ## Links
 <span><strong>[1] [Documentation](https://discord-moderation.js.org/)</strong></span> <br />

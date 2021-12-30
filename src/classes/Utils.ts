@@ -384,8 +384,8 @@ export class Utils extends Base {
 
           if (mute.unmutedAt === undefined) continue;
           else if (Date.now() > mute.unmutedAt) {
-            data.mutes.filter((m) => m.memberID !== member.id);
-            await this.database.set(guild.id, data);
+            var newMutes = data.mutes.filter((m) => m.memberID !== member.id);
+            await this.database.setProp(guild.id, 'mutes', newMutes);
 
             await member.roles.remove(muteRole).catch((err) => {
               return rej(this.logger.error(err.message));

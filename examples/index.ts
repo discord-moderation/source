@@ -22,7 +22,7 @@ client.once('ready', () => {
     console.log('# Client started!');
 });
 
-client.on('message', async(msg) => {
+client.on('messageCreate', async(msg) => {
     const prefix = '!';
 
     if(!msg.guild || !msg.guild.available || msg.author.bot) return;
@@ -38,7 +38,7 @@ client.on('message', async(msg) => {
         var reason = args.slice(1).join(' ');
 
         if(!member) {
-            msg.reply('mention any member!');
+            msg.reply('Mention any member!');
 
             return;
         }
@@ -59,16 +59,16 @@ client.on('message', async(msg) => {
 
         const member = msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
         var time = args[1];
-        var reason = args.slice(1).join(' ');
+        var reason = args.slice(2).join(' ');
 
         if(!member) {
-            msg.reply('mention any member!');
+            msg.reply('Mention any member!');
 
             return;
         }
 
         if(!time) {
-            msg.reply('write the time of mute!');
+            msg.reply('Write the time of mute!');
 
             return;
         }
@@ -82,6 +82,21 @@ client.on('message', async(msg) => {
         if(!reason) reason = 'No Reason Provided.';
 
         moderation.mute('tempmute', msg, member, reason, ms(time));
+        return;
+    }
+    else if(cmd === 'muterole-set') {
+        if(!msg.member.permissions.has(['ADMINISTRATOR'])) return; // You can change required permissions
+
+        const role = msg.mentions.roles.first() || msg.guild.roles.cache.get(args[0]);
+        if(!role) {
+            msg.reply('Mention any role!');
+
+            return;
+        }
+
+        moderation.mutes.setRole(msg.guild, role);
+
+        msg.reply(`Changed Mute Role to ${role.toString()}`);
         return;
     }
     // ...
@@ -100,4 +115,4 @@ moderation.on('muteMember', async(data) => {
 });
 // ...
 
-client.login('super-super-bot-token') // https://discord.com/developers/applications/
+client.login('TOKEN-HERE') // https://discord.com/developers/applications/

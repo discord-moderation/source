@@ -319,19 +319,22 @@ export class MuteManager extends Base {
     muteData: MutesData
   ): Promise<null | boolean> {
     return new Promise(async (res, rej) => {
-      const data = await this.utils.getGuild(guild);
+      var data = await this.utils.getGuild(guild);
       if (data.muteRole === null) return res(null);
 
       const role = guild.roles.cache.get(data.muteRole);
       if (!role) return res(null);
+
+      const mute = await this.getMute(member);
+      if (!mute) return res(null);
 
       setTimeout(async () => {
         await member.roles.remove(role).catch((err) => {
           return rej(this.logger.error(err.message));
         });
 
-        data.mutes.filter((m) => m.memberID !== member.id);
-        await this.utils.setData(guild, data);
+        var newMutes = data.mutes.filter((m) => m.id !== mute.id);
+        await this.utils.database.setProp(guild.id, 'mutes', newMutes);
 
         this.emit("unmuteMember", muteData);
 
