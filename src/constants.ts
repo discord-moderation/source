@@ -1,12 +1,4 @@
 export type MuteTypes = "mute" | "tempmute";
-export type ActionTypes =
-  | "Mute"
-  | "TempMute"
-  | "UnMute"
-  | "Ban"
-  | "Kick"
-  | "Warn"
-  | "UnWarn";
 
 export const ERROR_MESSAGES = {
   INVALID_TYPE: (expected: string | string[], got: any, name?: string) =>
@@ -42,89 +34,79 @@ export const links: Array<string> = [
 ];
 
 export const defaultOptions: Options = {
-  dbPath: "./db/",
+  dbPath: "./",
   locale: "en-US",
-  systems: {
+  defaultSystems: {
     autoRole: false,
     antiSpam: false,
     antiInvite: false,
     antiJoin: false,
     antiLink: false,
     ghostPing: false,
-    logSystem: false,
   },
 };
 
 export interface Events {
-  muteMember: [
-    {
-      id: number;
-      type: string;
-      guildID: string;
-      memberID: string;
-      moderatorID: string;
-      channelID: string;
-      reason: string;
-      time?: number;
-      unmutedAt?: number;
-    }
-  ];
+  muteMember: (data: {
+    id: number;
+    type: string;
+    guildID: string;
+    memberID: string;
+    moderatorID: string;
+    channelID: string;
+    reason: string;
+    time?: number;
+    unmutedAt?: number;
+  }) => void;
 
-  unmuteMember: [
-    {
-      id: number;
-      type: string;
-      guildID: string;
-      memberID: string;
-      moderatorID: string;
-      channelID: string;
-      reason: string;
-      time?: number;
-      unmutedAt?: number;
-    }
-  ];
+  unmuteMember: (data: {
+    id: number;
+    type: string;
+    guildID: string;
+    memberID: string;
+    moderatorID: string;
+    channelID: string;
+    reason: string;
+    time?: number;
+    unmutedAt?: number;
+  }) => void;
 
-  warnKick: [
-    {
-      guildID: string;
-      memberID: string;
-      moderatorID: string;
-      channelID: string;
-      reason: string;
-    }
-  ];
+  warnKick: (data: {
+    guildID: string;
+    memberID: string;
+    moderatorID: string;
+    channelID: string;
+    reason: string;
+  }) => void;
 
-  warnAdd: [
-    {
-      id: number;
-      guildID: string;
-      moderatorID: string;
-      memberID: string;
-      channelID: string;
-      reason: string;
-    }
-  ];
+  warnAdd: (data: {
+    id: number;
+    guildID: string;
+    moderatorID: string;
+    memberID: string;
+    channelID: string;
+    reason: string;
+  }) => void;
 
-  warnRemove: [
-    {
-      id: number;
-      guildID: string;
-      memberID: string;
-      moderatorID: string;
-      channelID: string;
-      reason: string;
-    }
-  ];
+  warnRemove: (data: {
+    id: number;
+    guildID: string;
+    memberID: string;
+    moderatorID: string;
+    channelID: string;
+    reason: string;
+  }) => void;
 }
 
 export interface GuildData {
   guildID: string;
   muteRole: null | string;
   autoRole: null | string;
-  cases: null | number;
-  warns: Array<WarnsData>;
-  mutes: Array<MutesData>;
-  immunityUsers: Array<ImmunityUsersData>;
+  cases: number;
+  warns: WarnsData[];
+  mutes: MutesData[];
+  immunityUsers: ImmunityUsersData[];
+  systems: ModuleSystems;
 }
 
 export interface ImmunityUsersData {
@@ -156,8 +138,7 @@ export interface WarnsData {
 export interface Options {
   dbPath: string;
   locale?: string;
-
-  systems?: ModuleSystems;
+  defaultSystems?: ModuleSystems;
 }
 
 export interface ModuleSystems {
@@ -167,5 +148,4 @@ export interface ModuleSystems {
   antiInvite?: boolean;
   antiLink?: boolean;
   ghostPing?: boolean;
-  logSystem?: boolean;
 }

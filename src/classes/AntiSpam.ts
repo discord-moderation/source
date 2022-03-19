@@ -81,7 +81,7 @@ export class AntiSpam {
    */
   handle(message: Message): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!this.options.systems?.antiSpam) return;
+      // if (!this.options.systems?.antiSpam) return;
       if (!message)
         return rej(this.logger.warn('Specify "Message" in AntiSpam#_handle!'));
       if (!message.guild) return;
@@ -129,31 +129,13 @@ export class AntiSpam {
           ++msgCount;
 
           if (Number(msgCount) === LIMIT) {
-            return this.mutes
-              .create(
-                "tempmute",
-                message,
-                message.member,
-                "Anti-Spam System.",
-                3600000
-              )
-              .then(async (muteData) => {
-                if (!message.member) return;
-
-                const embed = await this.utils.logEmbed(
-                  "TempMute",
-                  message.member,
-                  muteData
-                );
-
-                return message.member
-                  .send({
-                    embeds: [embed],
-                  })
-                  .catch((err) => {
-                    return this.logger.error(err);
-                  });
-              });
+            return this.mutes.create(
+              "tempmute",
+              message,
+              message.member,
+              "Anti-Spam System.",
+              3600000
+            );
           } else {
             userData.msgCount = msgCount;
 

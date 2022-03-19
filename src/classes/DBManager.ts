@@ -1,5 +1,5 @@
-import { Client } from "discord.js";
 import { GuildData, Options } from "../constants";
+import { Client } from "discord.js";
 import { Logger } from "./Logger";
 import Enmap from "enmap";
 
@@ -7,7 +7,7 @@ export declare interface DBManager {
   client: Client;
   options: Options;
 
-  database: Enmap;
+  database: Enmap<string, GuildData>;
   logger: Logger;
 }
 
@@ -45,114 +45,129 @@ export class DBManager {
 
     /**
      * Database
-     * @type {Enmap}
+     * @type {Enmap<string, GuildData>}
      */
     this.database = new Enmap({
       name: "moderation",
       dataDir: this.options.dbPath,
-      wal: false
+      wal: false,
     });
   }
 
   /**
-   * Method that Changes Something from Database
+   * Method that Changes Guild Data from Database
    *
-   * @param {id} id Discord Guild ID
-   * @param {any} value Value to Set
+   * @param {string} id Discord Guild ID
+   * @param {GuildData} value Value to Set
    *
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
-  set(id: string, value: any): boolean {
-    this.database.set(`moderation-${id}`, value);
+  set(id: string, value: GuildData): Promise<boolean> {
+    return new Promise((res, rej) => {
+      this.database.set(`moderation-${id}`, value);
 
-    return true;
+      return res(true);
+    });
   }
 
   /**
    * Method that Changes Property Value from Database
    *
-   * @param {id} id Discord Guild ID
+   * @param {string} id Guild ID
    * @param {string} key Property Name
    * @param {any} value Value to Set
    *
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
-  setProp(id: string, key: string, value: any): boolean {
-    var data = this.database.fetch(`moderation-${id}`);
-    data[key] = value;
+  setProp<K extends keyof GuildData>(
+    id: string,
+    key: K,
+    value: GuildData[K]
+  ): Promise<boolean> {
+    return new Promise((res, rej) => {
+      var data = this.database.fetch(`moderation-${id}`);
+      data[key] = value;
 
-    this.set(id, data);
-
-    return true;
+      this.set(id, data);
+      return res(true);
+    });
   }
 
   /**
    * Method that Pushing Data to Something from Database
    *
-   * @param {id} id Discord Guild ID
+   * @param {string} id Guild ID
    * @param {any} data Data to Push
    *
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
-  push(id: string, data: any): boolean {
-    this.database.push(`moderation-${id}`, data);
+  push(id: string, data: any): Promise<boolean> {
+    return new Promise((res, rej) => {
+      this.database.push(`moderation-${id}`, data);
 
-    return true;
+      return res(true);
+    });
   }
 
   /**
    * Method that Returns Value from Specified Key in Database
    *
-   * @param {id} id Discord Guild ID
-   * @param {any} key Key to Get
+   * @param {string} id Guild ID
+   * @param {keyof GuildData} key Key to Get
    *
-   * @returns {any}
+   * @returns {Promise<GuildData[any]>}
    */
-  get(id: string, key: string): any {
-    const data = this.database.fetch(`moderation-${id}`);
-    const value = data[key];
+  get<K extends keyof GuildData>(id: string, key: K): Promise<GuildData[K]> {
+    return new Promise((res, rej) => {
+      const data = this.database.fetch(`moderation-${id}`);
+      const value = data[key];
 
-    return value;
+      return res(value);
+    });
   }
 
   /**
    * Method that Returns Data from Database
    *
-   * @param {id} id Discord Guild ID
-   * @returns {object}
+   * @param {string} id Guild ID
+   * @returns {Promise<GuildData>}
    */
-  fetch(id: string): GuildData {
-    const data = this.database.fetch(`moderation-${id}`);
-
-    return data;
+  fetch(id: string): Promise<GuildData> {
+    return new Promise((res, rej) => {
+      const data = this.database.fetch(`moderation-${id}`);
+      this.remove("123", "warns");
+      return res(data);
+    });
   }
 
   /**
    * Method that Removes Object from Array in Database
    *
-   * @param {id} id Discord Guild ID
-   * @param {string} key Name of Array in Database
+   * @param {string} id Guild ID
+   * @param {keyof GuildData} key Name of Array in Database
    * @param {string} second Property for Filter
    * @param {string} value Value for Filter
    *
    * @returns {any | boolean}
    */
-  remove(
+  remove<K extends keyof GuildData, S extends typeof GuildData[K][number]>(
     id: string,
-    key: string,
-    second: string,
-    value: string
+    key: K,
+    second: S,
+    value: GuildData[K][S]
   ): any | boolean {
-    const data = this.database.fetch(`moderation-${id}`);
+    return new Promise((res, rej) => {
+      const data = this.database.fetch(`moderation-${id}`);
+      const prop = data[key];
 
-    if (!Array.isArray(data[key])) {
-      return this.logger.error(`"${key}" in DB isn't Array!`);
-    }
+      if (!Array.isArray(prop)) {
+        return rej(this.logger.error(`"${key}" in DB isn't Array!`));
+      }
 
-    const arr: any[] = data[key];
-    arr.filter((x) => x[second] !== value);
-    this.database.set(`moderation-${id}`, data);
+      (prop as []).filter((x) => x[second] !== value);
 
-    return true;
+      this.database.set(`moderation-${id}`, data);
+      return res(true);
+    });
   }
 }

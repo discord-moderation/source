@@ -1,9 +1,9 @@
 {
-	"include": ["src/**/*.ts"],
-	"exclude": ["node_modules", ".github", "assets", "docs", "examples"],
+	"include": ["src"],
+	"exclude": ["node_modules", ".github", "assets", "pages", "examples"],
 	"compilerOptions": {
 		"target": "ESNext",
-		"lib": ["ESNext", "DOM", "DOM.Iterable", "ES2020.BigInt"],
+		"lib": ["ESNext", "DOM"],
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"checkJs": false,
