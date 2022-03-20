@@ -1,4 +1,5 @@
 import { Client, Message } from "discord.js";
+import { SystemsManager } from "./SystemsManager";
 import { MuteManager } from "./MuteManager";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
@@ -10,10 +11,11 @@ interface userMap {
   timer: NodeJS.Timeout;
 }
 
-export declare interface AntiSpam {
+export interface AntiSpam {
   client: Client;
   options: Options;
 
+  systems: SystemsManager;
   mutes: MuteManager;
   utils: Utils;
   logger: Logger;
@@ -49,6 +51,12 @@ export class AntiSpam {
     this.options = options;
 
     /**
+     * Systems Manager
+     * @type {SystemsManager}
+     */
+    this.systems = new SystemsManager(this.client, this.options);
+
+    /**
      * Mute Manager
      * @type {MuteManager}
      */
@@ -76,16 +84,24 @@ export class AntiSpam {
   /**
    * Method that handles Anti-Spam System.
    *
-   * @param {Message} message Discord Message
+   * @param {Message} message Message
    * @returns {Promise<boolean>}
    */
   handle(message: Message): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      // if (!this.options.systems?.antiSpam) return;
-      if (!message)
+      if (!message) {
         return rej(this.logger.warn('Specify "Message" in AntiSpam#_handle!'));
+      }
+
       if (!message.guild) return;
       if (!message.member) return;
+
+      const status = await this.systems.status(message.guild, "antiSpam");
+      if (!status) {
+        return rej(
+          `AntiSpam is disabled in the guild with ID "${message.guild.id}"!`
+        );
+      }
 
       const { muteRole } = await this.utils.getGuild(message.guild);
       if (!muteRole)
@@ -94,12 +110,13 @@ export class AntiSpam {
         );
 
       const role = message.guild.roles.cache.get(muteRole);
-      if (!role)
+      if (!role) {
         return rej(
           this.logger.warn(
             `Mute Role with ID "${muteRole}" not found in the Guild!`
           )
         );
+      }
 
       const LIMIT = 7;
       const TIME = 15000;

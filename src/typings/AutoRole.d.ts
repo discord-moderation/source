@@ -1,4 +1,5 @@
 import { Client, Guild, Role } from "discord.js";
+import { SystemsManager } from "./SystemsManager";
 import { Options } from "../constants";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";
@@ -7,6 +8,7 @@ export declare interface AutoRole {
   client: Client;
   options: Options;
 
+  systems: SystemsManager;
   utils: Utils;
   logger: Logger;
 }

@@ -1,37 +1,41 @@
-import { Client, GuildMember, Interaction, Message } from "discord.js";
-import {
-  Options,
-  GuildData,
-  WarnsData,
-  MutesData,
-  MuteTypes,
-} from "../constants";
-
-import { Base } from "./Base";
-import { Logger } from "./Logger";
+// Imports
+import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
+import { SystemsManager } from "./SystemsManager";
+import { GuildSystems } from "./modules/GuildSystems";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
-import { Systems } from "./Systems";
 import { AutoRole } from "./AutoRole";
 import { AntiSpam } from "./AntiSpam";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
+import ModeratorError from "./ModeratorError";
 
-export declare interface Moderation {
+// Discord.JS
+import { Client, GuildMember, Interaction, Message } from "discord.js";
+
+export interface Moderation {
   client: Client;
   options: Options;
 
+  // Classes and Systems
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
-  systems: Systems;
+  guildSystems: GuildSystems;
+  systems: SystemsManager;
   autoRole: AutoRole;
   antiSpam: AntiSpam;
   logger: Logger;
 
+  // Other
   isReady: boolean;
 }
 
-export declare class Moderation extends Base {
+export class Moderation extends Base {
   constructor(client: Client, options: Options);
+
+  private _init(): Promise<boolean>;
 
   mute(
     type: MuteTypes,
@@ -40,7 +44,6 @@ export declare class Moderation extends Base {
     reason?: string,
     time?: number
   ): Promise<MutesData>;
-
   unmute(member: GuildMember): Promise<MutesData>;
 
   warn(
@@ -48,8 +51,6 @@ export declare class Moderation extends Base {
     member: GuildMember,
     reason?: string
   ): Promise<WarnsData>;
-
   unwarn(member: GuildMember): Promise<WarnsData>;
-
   allWarns(member: GuildMember): Promise<WarnsData[] | null>;
 }

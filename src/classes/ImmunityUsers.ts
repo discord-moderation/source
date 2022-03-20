@@ -3,7 +3,7 @@ import { ImmunityUsersData, Options } from "../constants";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";
 
-export declare interface ImmunityUsers {
+export interface ImmunityUsers {
   client: Client;
   options: Options;
 
@@ -52,8 +52,11 @@ export class ImmunityUsers {
    */
   add(member: GuildMember): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!member)
-        return this.logger.error('Specify "GuildMember" in ImmunityUsers#add.');
+      if (!member) {
+        return rej(
+          this.logger.error('Specify "GuildMember" in ImmunityUsers#add.')
+        );
+      }
 
       const data = await this.utils.getGuild(member.guild);
       const fastCheck = data.immunityUsers.find(
@@ -68,7 +71,6 @@ export class ImmunityUsers {
       };
 
       data.immunityUsers.push(userData);
-
       await this.utils.setData(member.guild, data);
 
       return res(true);
@@ -83,8 +85,11 @@ export class ImmunityUsers {
    */
   delete(member: GuildMember): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!member)
-        return this.logger.error('Specify "GuildMember" in ImmunityUsers#add.');
+      if (!member) {
+        return rej(
+          this.logger.error('Specify "GuildMember" in ImmunityUsers#add.')
+        );
+      }
 
       const data = await this.utils.getGuild(member.guild);
       const fastCheck = data.immunityUsers.find(

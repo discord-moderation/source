@@ -1,4 +1,3 @@
-import { Base } from "./Base";
 import {
   Client,
   GuildMember,
@@ -7,11 +6,12 @@ import {
   Invite,
   TextChannel,
 } from "discord.js";
-import { Options, links } from "../constants";
-import { Logger } from "./Logger";
-import { Utils } from "./Utils";
+import { Options, links } from "../../constants";
+import { Logger } from "../Logger";
+import { Utils } from "../Utils";
+import { Base } from "../Base";
 
-export declare interface Systems {
+export interface GuildSystems {
   client: Client;
   options: Options;
 
@@ -19,7 +19,7 @@ export declare interface Systems {
   logger: Logger;
 }
 
-export class Systems extends Base {
+export class GuildSystems extends Base {
   /**
    *
    * @param {Client} client Discord.JS Client

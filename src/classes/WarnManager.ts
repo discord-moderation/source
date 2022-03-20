@@ -1,11 +1,11 @@
 import { Client, GuildMember, Interaction, Message } from "discord.js";
-import { Base } from "./Base";
-import { MuteManager } from "./MuteManager";
-import { Utils } from "./Utils";
-import { Logger } from "./Logger";
 import { GuildData, Options, WarnsData } from "../constants";
+import { MuteManager } from "./MuteManager";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
 
-export declare interface WarnManager {
+export interface WarnManager {
   client: Client;
   options: Options;
 
@@ -169,7 +169,7 @@ export class WarnManager extends Base {
       };
 
       const changedWarns = data.warns.filter((x) => x.id !== lastWarn.id);
-      await this.utils.database.setProp(member.guild.id, 'warns', changedWarns);
+      await this.utils.database.setProp(member.guild.id, "warns", changedWarns);
 
       this.emit("warnRemove", warnData);
       return res(warnData);

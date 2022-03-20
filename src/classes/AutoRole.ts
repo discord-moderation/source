@@ -2,11 +2,13 @@ import { Client, Guild, Role } from "discord.js";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
 import { Options } from "../constants";
+import { SystemsManager } from "./SystemsManager";
 
-export declare interface AutoRole {
+export interface AutoRole {
   client: Client;
   options: Options;
 
+  systems: SystemsManager;
   utils: Utils;
   logger: Logger;
 }
@@ -39,6 +41,12 @@ export class AutoRole {
     this.options = options;
 
     /**
+     * Systems Manager
+     * @type {SystemsManager}
+     */
+    this.systems = new SystemsManager(this.client, this.options);
+
+    /**
      * Module Utils
      * @type {Utils}
      */
@@ -59,8 +67,14 @@ export class AutoRole {
    */
   get(guild: Guild): Promise<Role | null> {
     return new Promise(async (res, rej) => {
-      if (!guild)
+      if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in AutoRole#get'));
+      }
+
+      const status = await this.systems.status(guild, "autoRole");
+      if (!status) {
+        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+      }
 
       const { autoRole } = await this.utils.getGuild(guild);
       if (!autoRole) return;
@@ -81,10 +95,18 @@ export class AutoRole {
    */
   set(guild: Guild, role: Role): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!guild)
+      if (!guild) {
         return rej(this.logger.error('Specify "Guild" in AutoRole#set'));
-      if (!role)
+      }
+
+      if (!role) {
         return rej(this.logger.error('Specify "Role" in AutoRole#set'));
+      }
+
+      const status = await this.systems.status(guild, "autoRole");
+      if (!status) {
+        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+      }
 
       const data = await this.utils.getGuild(guild);
       data.autoRole = role.id;
@@ -102,8 +124,14 @@ export class AutoRole {
    */
   delete(guild: Guild): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!guild)
+      if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in AutoRole#delete'));
+      }
+
+      const status = await this.systems.status(guild, "autoRole");
+      if (!status) {
+        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+      }
 
       const data = await this.utils.getGuild(guild);
       data.autoRole = null;

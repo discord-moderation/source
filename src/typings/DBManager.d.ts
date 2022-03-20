@@ -14,10 +14,15 @@ export declare interface DBManager {
 export declare class DBManager {
   constructor(client: Client, options: Options);
 
-  set(id: string, value: any): boolean;
-  setProp(id: string, key: string, value: any): boolean;
-  push(id: string, data: any): boolean;
-  get(id: string, key: string): string | number;
-  fetch(id: string): GuildData;
-  remove(id: string, key: string, second: string, value: string): any | boolean;
+  set(id: string, value: any): Promise<boolean>;
+  setProp(id: string, key: string, value: any): Promise<boolean>;
+  push(id: string, data: any): Promise<boolean>;
+  get(id: string, key: string): Promise<string | number>;
+  fetch(id: string): Promise<GuildData>;
+  remove(
+    id: string,
+    key: string,
+    second: string,
+    value: string
+  ): Promise<any | boolean>;
 }

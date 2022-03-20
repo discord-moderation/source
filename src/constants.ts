@@ -149,3 +149,11 @@ export interface ModuleSystems {
   antiLink?: boolean;
   ghostPing?: boolean;
 }
+
+export type AvaliableSystems =
+  | "autoRole"
+  | "antiSpam"
+  | "antiInvite"
+  | "antiJoin"
+  | "antiLink"
+  | "ghostPing";

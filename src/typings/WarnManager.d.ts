@@ -1,9 +1,9 @@
 import { Client, GuildMember, Interaction, Message } from "discord.js";
-import { Base } from "./Base";
-import { Logger } from "./Logger";
-import { MuteManager } from "./MuteManager";
-import { Utils } from "./Utils";
 import { GuildData, Options, WarnsData } from "../constants";
+import { MuteManager } from "./MuteManager";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
 
 export declare interface WarnManager {
   client: Client;

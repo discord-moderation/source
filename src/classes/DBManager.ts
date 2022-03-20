@@ -3,7 +3,7 @@ import { Client } from "discord.js";
 import { Logger } from "./Logger";
 import Enmap from "enmap";
 
-export declare interface DBManager {
+export interface DBManager {
   client: Client;
   options: Options;
 
@@ -135,7 +135,7 @@ export class DBManager {
   fetch(id: string): Promise<GuildData> {
     return new Promise((res, rej) => {
       const data = this.database.fetch(`moderation-${id}`);
-      this.remove("123", "warns");
+
       return res(data);
     });
   }
@@ -144,18 +144,18 @@ export class DBManager {
    * Method that Removes Object from Array in Database
    *
    * @param {string} id Guild ID
-   * @param {keyof GuildData} key Name of Array in Database
+   * @param {string} key Name of Array in Database
    * @param {string} second Property for Filter
-   * @param {string} value Value for Filter
+   * @param {any} value Value for Filter
    *
-   * @returns {any | boolean}
+   * @returns {Promise<any | boolean>}
    */
-  remove<K extends keyof GuildData, S extends typeof GuildData[K][number]>(
+  remove(
     id: string,
-    key: K,
-    second: S,
-    value: GuildData[K][S]
-  ): any | boolean {
+    key: string,
+    second: string,
+    value: any
+  ): Promise<any | boolean> {
     return new Promise((res, rej) => {
       const data = this.database.fetch(`moderation-${id}`);
       const prop = data[key];

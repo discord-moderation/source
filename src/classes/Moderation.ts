@@ -1,19 +1,20 @@
 // Imports
-import { Base } from "./Base";
-import { Utils } from "./Utils";
+import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
+import { SystemsManager } from "./SystemsManager";
+import { GuildSystems } from "./modules/GuildSystems";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
-import { Logger } from "./Logger";
 import { AutoRole } from "./AutoRole";
 import { AntiSpam } from "./AntiSpam";
-import { Systems } from "./Systems";
-import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
 import ModeratorError from "./ModeratorError";
 
 // Discord.JS
 import { Client, GuildMember, Interaction, Message } from "discord.js";
 
-export declare interface Moderation {
+export interface Moderation {
   client: Client;
   options: Options;
 
@@ -21,7 +22,8 @@ export declare interface Moderation {
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
-  systems: Systems;
+  guildSystems: GuildSystems;
+  systems: SystemsManager;
   autoRole: AutoRole;
   antiSpam: AntiSpam;
   logger: Logger;
@@ -90,10 +92,16 @@ export class Moderation extends Base {
     this.antiSpam = new AntiSpam(this.client, this.options);
 
     /**
-     * Module Systems
-     * @type {Systems}
+     * Systems Manager
+     * @type {SystemsManager}
      */
-    this.systems = new Systems(this.client, this.options);
+    this.systems = new SystemsManager(this.client, this.options);
+
+    /**
+     * Module Systems
+     * @type {SystemsManager}
+     */
+    this.guildSystems = new GuildSystems(this.client, this.options);
 
     /**
      * Module Ready State
@@ -101,12 +109,21 @@ export class Moderation extends Base {
      */
     this.isReady = false;
 
-    async () => {
-      await this.utils.checkOptions();
-    };
+    this._init();
+  }
 
-    this.client.on("ready", async () => {
-      await this.utils.checkMutes();
+  /**
+   * @private
+   */
+  private _init(): Promise<boolean> {
+    return new Promise((res, rej) => {
+      this.utils.checkOptions();
+
+      this.client.on("ready", () => {
+        this.utils.checkMutes();
+      });
+
+      this.isReady = true;
     });
   }
 
@@ -116,8 +133,8 @@ export class Moderation extends Base {
    * @param {string} type Type of the Mute
    * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Member to Mute
-   * @param {string} reason Reason of the Mute
-   * @param {number} time Time of the Temp Mute
+   * @param {string} [reason] Reason of the Mute
+   * @param {number} [time] Time of the Temp Mute
    *
    * @returns {Promise<MutesData>}
    * @emits Moderation#muteMember
@@ -130,20 +147,23 @@ export class Moderation extends Base {
     time?: number
   ): Promise<MutesData> {
     return new Promise(async (res, rej) => {
-      if (!["mute", "tempmute"].includes(type))
+      if (!["mute", "tempmute"].includes(type)) {
         throw new ModeratorError(
           "INVALID_TYPE",
           ["mute", "tempmute"],
           type,
           "mute#type"
         );
-      if (type === "tempmute" && time === undefined)
+      }
+
+      if (type === "tempmute" && !time) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "Number",
           "undefined",
           "mute#time"
         );
+      }
 
       return res(await this.mutes.create(type, message, member, reason, time));
     });
@@ -159,13 +179,14 @@ export class Moderation extends Base {
    */
   unmute(member: GuildMember): Promise<MutesData> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "GuildMember",
           "undefined",
           "unmute#member"
         );
+      }
 
       return res(await this.mutes.delete(member));
     });
@@ -176,7 +197,7 @@ export class Moderation extends Base {
    *
    * @param {Message | Interaction} message Message or Interaction
    * @param {GuildMember} member Member for Warn
-   * @param {string} reason Reaon of the Warn
+   * @param {string} [reason] Reaon of the Warn
    *
    * @fires Moderation#warnAdd
    * @fires Moderation#warnKick
@@ -188,20 +209,24 @@ export class Moderation extends Base {
     reason?: string
   ): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
-      if (!message)
+      if (!message) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "Message",
           "undefined",
           "warn#message"
         );
-      if (!member)
+      }
+
+      if (!member) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "GuildMember",
           "undefined",
           "warn#member"
         );
+      }
+
       if (!reason) reason = "No reason provided.";
 
       return res(this.warns.create(message, member, reason));
@@ -218,13 +243,14 @@ export class Moderation extends Base {
    */
   unwarn(member: GuildMember): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "GuildMember",
           "undefined",
           "unwarn#member"
         );
+      }
 
       return res(await this.warns.delete(member));
     });
@@ -238,44 +264,19 @@ export class Moderation extends Base {
    */
   allWarns(member: GuildMember): Promise<WarnsData[] | null> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         throw new ModeratorError(
           "UNDEFINED_VALUE",
           "GuildMember",
           "undefined",
           "warns#member"
         );
+      }
 
       const warns = await this.warns.all(member);
       if (warns === null) return res(null);
 
       return res(warns);
-    });
-  }
-
-  /**
-   * Method that will be used when Member joins Server
-   *
-   * @param {GuildMember} member Discord Member
-   *
-   * @private
-   * @returns {Promise<boolean>}
-   */
-  private checkMute(member: GuildMember): Promise<boolean> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        return this.logger.error('Specify "GuildMember" in Utils#checkMute');
-
-      await this.utils.getGuild(member.guild);
-      const mute = await this.mutes.getMute(member);
-
-      if (mute) {
-        await this.mutes.handleUtilsMute(member);
-
-        return res(true);
-      } else {
-        return res(false);
-      }
     });
   }
 }

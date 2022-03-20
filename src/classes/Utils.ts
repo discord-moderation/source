@@ -1,17 +1,10 @@
-import { Client, Guild, GuildMember, Invite, MessageEmbed } from "discord.js";
-import {
-  Options,
-  GuildData,
-  defaultOptions,
-  MutesData,
-  WarnsData,
-} from "../constants";
+import { Client, Guild, GuildMember, Invite } from "discord.js";
+import { Options, GuildData, defaultOptions } from "../constants";
 import { Logger } from "./Logger";
 import { Base } from "./Base";
 import { DBManager } from "./DBManager";
-import ms from "ms";
 
-export declare interface Utils {
+export interface Utils {
   client: Client;
   options: Options;
 
@@ -70,16 +63,18 @@ export class Utils extends Base {
    */
   getGuild(guild: Guild): Promise<GuildData> {
     return new Promise(async (res, rej) => {
-      if (!guild)
+      if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in Utils#getGuild'));
+      }
 
-      var data: GuildData = this.database.fetch(guild.id);
-
-      if (data === undefined || data === null) {
+      var data: GuildData = await this.database.fetch(guild.id);
+      if (!data) {
         this.createGuild(guild);
 
-        data = this.database.fetch(guild.id);
-      } else return res(data);
+        data = await this.database.fetch(guild.id);
+      }
+
+      return res(data);
     });
   }
 
@@ -91,12 +86,12 @@ export class Utils extends Base {
    */
   createGuild(guild: Guild): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      if (!guild)
+      if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in Utils#createGuild'));
+      }
 
       const data = this.database.fetch(guild.id);
-
-      if (data === undefined || data === null) {
+      if (!data) {
         this.database.set(guild.id, {
           guildID: guild.id,
           cases: 0,
@@ -149,7 +144,7 @@ export class Utils extends Base {
    */
   checkMutes(): Promise<boolean> {
     return new Promise(async (res, rej) => {
-      return this.client.guilds.cache.forEach(async (guild) => {
+      for (const [id, guild] of this.client.guilds.cache) {
         const data = await this.getGuild(guild);
         if (!data.mutes.length) return;
 
@@ -175,17 +170,20 @@ export class Utils extends Base {
             );
           }
 
-          if (mute.unmutedAt === undefined) continue;
+          if (!mute.unmutedAt) continue;
           else if (Date.now() > mute.unmutedAt) {
             var newMutes = data.mutes.filter((m) => m.memberID !== member.id);
             await this.database.setProp(guild.id, "mutes", newMutes);
 
-            await member.roles.remove(muteRole).catch((err) => {
-              return rej(this.logger.error(err.message));
-            });
-
-            mute.unmutedAt = Date.now();
-            this.emit("unmuteMember", mute);
+            await member.roles
+              .remove(muteRole)
+              .then(() => {
+                mute.unmutedAt = Date.now();
+                this.emit("unmuteMember", mute);
+              })
+              .catch((err) => {
+                return rej(this.logger.error(err.message));
+              });
           } else {
             const delay = mute.unmutedAt - Date.now();
 
@@ -204,7 +202,7 @@ export class Utils extends Base {
         }
 
         return res(true);
-      });
+      }
     });
   }
 

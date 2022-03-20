@@ -1,8 +1,5 @@
-import { EventEmitter } from "events";
 import { TypedEmitter } from "tiny-typed-emitter";
 import { Events } from "../constants";
-
-const emitter = new EventEmitter();
 
 /**
  * Base class that uses in all other classes.
@@ -88,4 +85,15 @@ export class Base extends TypedEmitter<Events> {
  * @prop {number} msgCount Count of Sent User Messages
  * @prop {Message} lastMessage Last Message by User
  * @prop {NodeJS.Timeout} timer Timeout
+ */
+
+/**
+ * * autorole
+ * * antispam
+ * * antiinvite
+ * * antijoin
+ * * antilink
+ * * ghostping
+ *
+ * @typedef {string} AvaliableSystems
  */

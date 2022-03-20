@@ -1,12 +1,21 @@
-import { Client, Guild, GuildMember, Message, Role } from "discord.js";
-import { Base } from "./Base";
+import {
+  Client,
+  Guild,
+  GuildMember,
+  Interaction,
+  Message,
+  Role,
+} from "discord.js";
+import { Options, MuteTypes, MutesData } from "../constants";
+import { Logger } from "./Logger";
 import { Utils } from "./Utils";
-import { MutesData, MuteTypes, Options } from "../constants";
+import { Base } from "./Base";
 
 export declare interface MuteManager {
   client: Client;
   options: Options;
 
+  logger: Logger;
   utils: Utils;
 }
 
