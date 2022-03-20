@@ -113,9 +113,9 @@ export class DBManager {
    * Method that Returns Value from Specified Key in Database
    *
    * @param {string} id Guild ID
-   * @param {keyof GuildData} key Key to Get
+   * @param {string} key Key to Get
    *
-   * @returns {Promise<GuildData[any]>}
+   * @returns {Promise<any>}
    */
   get<K extends keyof GuildData>(id: string, key: K): Promise<GuildData[K]> {
     return new Promise((res, rej) => {

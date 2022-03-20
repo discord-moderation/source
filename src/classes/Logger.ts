@@ -7,7 +7,11 @@ import colors from "colors";
  * @classdesc Logger Class
  */
 export class Logger {
-  public tag = "[DM]";
+  public tag: string;
+
+  constructor() {
+    this.tag = "[DM]";
+  }
 
   /**
    * Logging Something
