@@ -1,5 +1,11 @@
 // Imports
-import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
+import {
+  Options,
+  MuteTypes,
+  MutesData,
+  WarnsData,
+  ReturnObject,
+} from "../constants";
 import { SystemsManager } from "./SystemsManager";
 import { GuildSystems } from "./modules/GuildSystems";
 import { MuteManager } from "./MuteManager";
@@ -136,7 +142,7 @@ export class Moderation extends Base {
    * @param {string} [reason] Reason of the Mute
    * @param {number} [time] Time of the Temp Mute
    *
-   * @returns {Promise<MutesData>}
+   * @returns {Promise<ReturnObject | MutesData>}
    * @emits Moderation#muteMember
    */
   mute(
@@ -145,7 +151,7 @@ export class Moderation extends Base {
     member: GuildMember,
     reason?: string,
     time?: number
-  ): Promise<MutesData> {
+  ): Promise<ReturnObject | MutesData> {
     return new Promise(async (res, rej) => {
       if (!["mute", "tempmute"].includes(type)) {
         throw new ModeratorError(
@@ -174,10 +180,10 @@ export class Moderation extends Base {
    *
    * @param {GuildMember} member Member for Mute
    *
-   * @returns {Promise<MutesData>}
+   * @returns {Promise<ReturnObject | MutesData>}
    * @emits Moderation#unmuteMember
    */
-  unmute(member: GuildMember): Promise<MutesData> {
+  unmute(member: GuildMember): Promise<ReturnObject | MutesData> {
     return new Promise(async (res, rej) => {
       if (!member) {
         throw new ModeratorError(

@@ -135,6 +135,7 @@ export class DBManager {
   fetch(id: string): Promise<GuildData> {
     return new Promise((res, rej) => {
       const data = this.database.fetch(`moderation-${id}`);
+      if (data === null) return res(null);
 
       return res(data);
     });

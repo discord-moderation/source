@@ -1,5 +1,11 @@
 // Imports
-import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
+import {
+  Options,
+  MuteTypes,
+  MutesData,
+  WarnsData,
+  ReturnObject,
+} from "../constants";
 import { SystemsManager } from "./SystemsManager";
 import { GuildSystems } from "./modules/GuildSystems";
 import { MuteManager } from "./MuteManager";
@@ -43,8 +49,8 @@ export class Moderation extends Base {
     member: GuildMember,
     reason?: string,
     time?: number
-  ): Promise<MutesData>;
-  unmute(member: GuildMember): Promise<MutesData>;
+  ): Promise<ReturnObject | MutesData>;
+  unmute(member: GuildMember): Promise<ReturnObject | MutesData>;
 
   warn(
     message: Message | Interaction,

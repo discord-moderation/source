@@ -1,7 +1,7 @@
+import { Options, ReturnObject } from "../constants";
 import { Client, Message } from "discord.js";
-import { Options } from "../constants";
-import { Logger } from "./Logger";
 import { MuteManager } from "./MuteManager";
+import { Logger } from "./Logger";
 import { Utils } from "./Utils";
 
 interface userMap {
@@ -24,5 +24,5 @@ export declare interface AntiSpam {
 export class AntiSpam {
   constructor(client: Client, options: Options);
 
-  handle(message: Message): Promise<boolean>;
+  handle(message: Message): Promise<ReturnObject | boolean>;
 }

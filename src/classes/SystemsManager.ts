@@ -1,4 +1,9 @@
-import { AvaliableSystems, ModuleSystems, Options } from "../constants";
+import {
+  AvaliableSystems,
+  ModuleSystems,
+  Options,
+  ReturnObject,
+} from "../constants";
 import { Client, Guild } from "discord.js";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";
@@ -54,13 +59,19 @@ export class SystemsManager extends Base {
    * @param {Guild} guild Guild
    * @param {AvaliableSystems} system System to enable
    *
-   * @returns {Promise<boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  enable(guild: Guild, system: AvaliableSystems): Promise<boolean> {
+  enable(
+    guild: Guild,
+    system: AvaliableSystems
+  ): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       const data = await this.utils.getGuild(guild);
       if (data.systems[system] === true) {
-        return rej(`System "${system}" is already enabled!`);
+        return res({
+          status: false,
+          message: `System "${system}" is already enabled!`,
+        });
       }
 
       data.systems[system] = true;
@@ -76,13 +87,19 @@ export class SystemsManager extends Base {
    * @param {Guild} guild Guild
    * @param {AvaliableSystems} system System to enable
    *
-   * @returns {Promise<boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  disable(guild: Guild, system: AvaliableSystems): Promise<boolean> {
+  disable(
+    guild: Guild,
+    system: AvaliableSystems
+  ): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       const data = await this.utils.getGuild(guild);
       if (data.systems[system] === false) {
-        return rej(`System "${system}" is already disabled!`);
+        return res({
+          status: false,
+          message: `System "${system}" is already disabled!`,
+        });
       }
 
       data.systems[system] = false;

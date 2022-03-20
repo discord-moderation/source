@@ -47,55 +47,13 @@ export const defaultOptions: Options = {
 };
 
 export interface Events {
-  muteMember: (data: {
-    id: number;
-    type: string;
-    guildID: string;
-    memberID: string;
-    moderatorID: string;
-    channelID: string;
-    reason: string;
-    time?: number;
-    unmutedAt?: number;
-  }) => void;
+  muteMember: (data: MutesData) => void;
+  unmuteMember: (data: MutesData) => void;
 
-  unmuteMember: (data: {
-    id: number;
-    type: string;
-    guildID: string;
-    memberID: string;
-    moderatorID: string;
-    channelID: string;
-    reason: string;
-    time?: number;
-    unmutedAt?: number;
-  }) => void;
-
-  warnKick: (data: {
-    guildID: string;
-    memberID: string;
-    moderatorID: string;
-    channelID: string;
-    reason: string;
-  }) => void;
-
-  warnAdd: (data: {
-    id: number;
-    guildID: string;
-    moderatorID: string;
-    memberID: string;
-    channelID: string;
-    reason: string;
-  }) => void;
-
-  warnRemove: (data: {
-    id: number;
-    guildID: string;
-    memberID: string;
-    moderatorID: string;
-    channelID: string;
-    reason: string;
-  }) => void;
+  warnKick: (data: WarnsData) => void;
+  warnMute: (data: WarnsData) => void;
+  warnAdd: (data: WarnsData) => void;
+  warnRemove: (data: WarnsData) => void;
 }
 
 export interface GuildData {
@@ -148,6 +106,11 @@ export interface ModuleSystems {
   antiInvite?: boolean;
   antiLink?: boolean;
   ghostPing?: boolean;
+}
+
+export interface ReturnObject {
+  status: boolean;
+  message?: string;
 }
 
 export type AvaliableSystems =

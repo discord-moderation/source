@@ -1,7 +1,7 @@
 import { Client, Guild, Role } from "discord.js";
 import { Utils } from "./Utils";
 import { Logger } from "./Logger";
-import { Options } from "../constants";
+import { Options, ReturnObject } from "../constants";
 import { SystemsManager } from "./SystemsManager";
 
 export interface AutoRole {
@@ -63,9 +63,9 @@ export class AutoRole {
    * Method that gets Guild Auto-Role
    *
    * @param {Guild} guild Discord Guild
-   * @returns {Promise<Role | null>}
+   * @returns {Promise<ReturnObject | Role | null>}
    */
-  get(guild: Guild): Promise<Role | null> {
+  get(guild: Guild): Promise<ReturnObject | Role | null> {
     return new Promise(async (res, rej) => {
       if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in AutoRole#get'));
@@ -73,7 +73,10 @@ export class AutoRole {
 
       const status = await this.systems.status(guild, "autoRole");
       if (!status) {
-        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+        return res({
+          status: false,
+          message: `AutoRole is disabled in the guild with ID "${guild.id}"!`,
+        });
       }
 
       const { autoRole } = await this.utils.getGuild(guild);
@@ -91,9 +94,9 @@ export class AutoRole {
    *
    * @param {Guild} guild Discord Guild
    * @param {Role} role Discord Role
-   * @returns {Promise<boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  set(guild: Guild, role: Role): Promise<boolean> {
+  set(guild: Guild, role: Role): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       if (!guild) {
         return rej(this.logger.error('Specify "Guild" in AutoRole#set'));
@@ -105,7 +108,10 @@ export class AutoRole {
 
       const status = await this.systems.status(guild, "autoRole");
       if (!status) {
-        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+        return res({
+          status: false,
+          message: `AutoRole is disabled in the guild with ID "${guild.id}"!`,
+        });
       }
 
       const data = await this.utils.getGuild(guild);
@@ -120,9 +126,9 @@ export class AutoRole {
    * Method that removes Guild Auto-Role
    *
    * @param {Guild} guild Discord Guild
-   * @returns {Promise<boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  delete(guild: Guild): Promise<boolean> {
+  delete(guild: Guild): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in AutoRole#delete'));
@@ -130,7 +136,10 @@ export class AutoRole {
 
       const status = await this.systems.status(guild, "autoRole");
       if (!status) {
-        return rej(`AutoRole is disabled in the guild with ID "${guild.id}"!`);
+        return res({
+          status: false,
+          message: `AutoRole is disabled in the guild with ID "${guild.id}"!`,
+        });
       }
 
       const data = await this.utils.getGuild(guild);

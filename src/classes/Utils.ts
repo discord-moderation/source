@@ -68,10 +68,8 @@ export class Utils extends Base {
       }
 
       var data: GuildData = await this.database.fetch(guild.id);
-      if (!data) {
-        this.createGuild(guild);
-
-        data = await this.database.fetch(guild.id);
+      if (data === null) {
+        data = await this.createGuild(guild);
       }
 
       return res(data);
@@ -84,40 +82,34 @@ export class Utils extends Base {
    * @param {Guild} guild - Discord Guild
    * @returns {Promise<boolean>}
    */
-  createGuild(guild: Guild): Promise<boolean> {
+  createGuild(guild: Guild): Promise<GuildData> {
     return new Promise(async (res, rej) => {
       if (!guild) {
         return rej(this.logger.warn('Specify "Guild" in Utils#createGuild'));
       }
 
-      const data = this.database.fetch(guild.id);
-      if (!data) {
-        this.database.set(guild.id, {
-          guildID: guild.id,
-          cases: 0,
-          muteRole: null,
-          autoRole: null,
-          warns: [],
-          mutes: [],
-          immunityUsers: [],
-          systems: {
-            antiInvite: false,
-            antiJoin: false,
-            antiLink: false,
-            antiSpam: false,
-            autoRole: false,
-            ghostPing: false,
-          },
-        });
+      const data = await this.database.fetch(guild.id);
+      if (data !== null) return res(data);
 
-        return res(true);
-      } else {
-        return rej(
-          this.logger.warn(
-            `Guild with name "${guild.name}" already placed in DB.`
-          )
-        );
-      }
+      this.database.set(guild.id, {
+        guildID: guild.id,
+        cases: 0,
+        muteRole: null,
+        autoRole: null,
+        warns: [],
+        mutes: [],
+        immunityUsers: [],
+        systems: {
+          antiInvite: false,
+          antiJoin: false,
+          antiLink: false,
+          antiSpam: false,
+          autoRole: false,
+          ghostPing: false,
+        },
+      });
+
+      return res(await this.database.fetch(guild.id));
     });
   }
 
@@ -145,8 +137,13 @@ export class Utils extends Base {
   checkMutes(): Promise<boolean> {
     return new Promise(async (res, rej) => {
       for (const [id, guild] of this.client.guilds.cache) {
-        const data = await this.getGuild(guild);
-        if (!data.mutes.length) return;
+        var data = await this.database.fetch(guild.id);
+        if (data === null) {
+          await this.createGuild(guild);
+          data = await this.database.fetch(guild.id);
+        }
+
+        if (!data.mutes) continue;
 
         for (let i = 0; i < data.mutes.length; i++) {
           const mute = data.mutes[i];

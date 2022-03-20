@@ -6,7 +6,7 @@ import {
   Message,
   Role,
 } from "discord.js";
-import { Options, MuteTypes, MutesData } from "../constants";
+import { Options, MuteTypes, MutesData, ReturnObject } from "../constants";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";
 import { Base } from "./Base";
@@ -134,7 +134,7 @@ export class MuteManager extends Base {
    * @param {string} reason Reason of the Mute
    * @param {number} time Time of Temp Mute
    *
-   * @returns {Promise<MutesData>}
+   * @returns {Promise<ReturnObject | MutesData>}
    */
   create(
     type: MuteTypes,
@@ -142,7 +142,7 @@ export class MuteManager extends Base {
     member: GuildMember,
     reason?: string,
     time?: number
-  ): Promise<MutesData> {
+  ): Promise<MutesData | ReturnObject> {
     return new Promise(async (res, rej) => {
       if (!type) {
         return rej(this.logger.warn('Specify "type" in MuteManager#create'));
@@ -158,24 +158,26 @@ export class MuteManager extends Base {
 
       if (!reason) reason = "No reason provided.";
 
-      if (type === "tempmute" && time === undefined)
+      if (type === "tempmute" && time === undefined) {
         return rej(
           this.logger.warn(
             'No "time" specified in MuteManager#create (tempmute)'
           )
         );
+      }
 
       const mute = await this.getMute(member);
       if (mute !== null) {
-        return rej(this.logger.warn("Member already has Mute!"));
+        return res({
+          status: false,
+          message: "Member already has Mute!",
+        });
       }
 
       if (!message.guild) return;
       const data = await this.utils.getGuild(message.guild);
       const role = await this.getRole(message.guild);
-
       if (role === null) return;
-      if (time === undefined) return;
 
       var muteData: MutesData = {
         id: data.mutes.length + 1,
@@ -212,7 +214,10 @@ export class MuteManager extends Base {
           }
         })
         .catch((err) => {
-          return rej(this.logger.error(err.message));
+          return res({
+            status: false,
+            message: err.message,
+          });
         });
     });
   }
@@ -223,32 +228,38 @@ export class MuteManager extends Base {
    * @param {GuildMember} member Discord Member
    *
    * @fires Moderation#unmuteMember
-   * @returns {Promise<MutesData>}
+   * @returns {Promise<ReturnObject | MutesData>}
    */
-  delete(member: GuildMember): Promise<MutesData> {
+  delete(member: GuildMember): Promise<ReturnObject | MutesData> {
     return new Promise(async (res, rej) => {
       const mute = await this.getMute(member);
 
       if (mute === null) {
-        return rej(this.logger.warn("Member hasn't any Mute!"));
+        return res({
+          status: false,
+          message: "Member hasn't any Mute!",
+        });
       } else {
         const data = await this.utils.getGuild(member.guild);
         const role = await this.getRole(member.guild);
         if (!role) {
-          return rej(this.logger.warn("Server hasn't any Mute Role!"));
+          return res({
+            status: false,
+            message: "Server hasn't any Mute Role!",
+          });
         }
 
         const roleCheck = member.roles.cache.find((r) => r.id === role.id);
         if (!roleCheck) {
-          return rej(this.logger.warn("Member haven't Mute Role!"));
+          return res({
+            status: false,
+            message: "Member hasn't Mute Role!",
+          });
         }
 
         await member.roles
           .remove(role)
           .then(async () => {
-            data.mutes.filter((muteData) => muteData.memberID !== member.id);
-            await this.utils.database.set(member.guild.id, data);
-
             this.emit("unmuteMember", {
               id: mute.id,
               type: mute.type,
@@ -264,8 +275,14 @@ export class MuteManager extends Base {
             return res(mute);
           })
           .catch((err) => {
-            return this.logger.error(err);
+            return res({
+              status: false,
+              message: err.message,
+            });
           });
+
+        data.mutes.filter((muteData) => muteData.memberID !== member.id);
+        await this.utils.database.set(member.guild.id, data);
       }
     });
   }
@@ -277,11 +294,11 @@ export class MuteManager extends Base {
    * @param {GuildMember} member Guild Member
    * @param {number} time Time of the Mute
    * @param {MutesData} muteData Mute Data
-   * @returns {Promise<null | boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    *
    * @emits Moderation#muteMember
    */
-  handleUtilsMute(member: GuildMember): Promise<boolean> {
+  handleUtilsMute(member: GuildMember): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       const data = await this.utils.getGuild(member.guild);
       if (data.muteRole === null) return res(false);
@@ -317,7 +334,10 @@ export class MuteManager extends Base {
           return res(true);
         })
         .catch((err) => {
-          return rej(this.logger.error(err.message));
+          return res({
+            status: false,
+            message: err.message,
+          });
         });
     });
   }
@@ -329,8 +349,8 @@ export class MuteManager extends Base {
    * @param {GuildMember} member Guild Member
    * @param {number} time Time of the Mute
    * @param {MutesData} muteData Mute Data
-   * @returns {Promise<null | boolean>}
    *
+   * @returns {Promise<ReturnObject | null | boolean>}
    * @emits Moderation#unmuteMember
    */
   private handleMute(
@@ -338,7 +358,7 @@ export class MuteManager extends Base {
     member: GuildMember,
     time: number,
     muteData: MutesData
-  ): Promise<null | boolean> {
+  ): Promise<ReturnObject | null | boolean> {
     return new Promise(async (res, rej) => {
       var data = await this.utils.getGuild(guild);
       if (data.muteRole === null) return res(null);
@@ -350,16 +370,21 @@ export class MuteManager extends Base {
       if (!mute) return res(null);
 
       setTimeout(async () => {
-        await member.roles.remove(role).catch((err) => {
-          return rej(this.logger.error(err.message));
-        });
+        await member.roles
+          .remove(role)
+          .then(async () => {
+            this.emit("unmuteMember", muteData);
+            return res(true);
+          })
+          .catch((err) => {
+            return res({
+              status: false,
+              message: err.message,
+            });
+          });
 
         var newMutes = data.mutes.filter((m) => m.id !== mute.id);
         await this.utils.database.setProp(guild.id, "mutes", newMutes);
-
-        this.emit("unmuteMember", muteData);
-
-        return res(true);
       }, time);
     });
   }

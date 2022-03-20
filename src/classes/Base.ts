@@ -88,6 +88,13 @@ export class Base extends TypedEmitter<Events> {
  */
 
 /**
+ * Return Object
+ * @typedef {Object} ReturnObject
+ * @prop {boolean} status Status
+ * @prop {string} [message] Error Message
+ */
+
+/**
  * * autorole
  * * antispam
  * * antiinvite

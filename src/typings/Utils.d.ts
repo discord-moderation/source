@@ -18,7 +18,7 @@ export declare class Utils extends Base {
   checkMute(member: GuildMember): Promise<boolean>;
 
   getGuild(guild: Guild): Promise<GuildData>;
-  createGuild(guild: Guild): Promise<boolean>;
+  createGuild(guild: Guild): Promise<GuildData>;
   setData(guild: Guild, newData: GuildData): Promise<boolean>;
 
   checkMutes(): Promise<boolean>;

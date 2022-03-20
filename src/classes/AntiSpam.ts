@@ -1,9 +1,9 @@
-import { Client, Message } from "discord.js";
+import { Options, ReturnObject } from "../constants";
 import { SystemsManager } from "./SystemsManager";
+import { Client, Message } from "discord.js";
 import { MuteManager } from "./MuteManager";
-import { Utils } from "./Utils";
 import { Logger } from "./Logger";
-import { Options } from "../constants";
+import { Utils } from "./Utils";
 
 interface userMap {
   msgCount: number;
@@ -85,9 +85,9 @@ export class AntiSpam {
    * Method that handles Anti-Spam System.
    *
    * @param {Message} message Message
-   * @returns {Promise<boolean>}
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  handle(message: Message): Promise<boolean> {
+  handle(message: Message): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
       if (!message) {
         return rej(this.logger.warn('Specify "Message" in AntiSpam#_handle!'));
@@ -98,24 +98,26 @@ export class AntiSpam {
 
       const status = await this.systems.status(message.guild, "antiSpam");
       if (!status) {
-        return rej(
-          `AntiSpam is disabled in the guild with ID "${message.guild.id}"!`
-        );
+        return res({
+          status: false,
+          message: `AntiSpam is disabled in the guild with ID "${message.guild.id}"!`,
+        });
       }
 
       const { muteRole } = await this.utils.getGuild(message.guild);
-      if (!muteRole)
-        return rej(
-          this.logger.warn(`Guild "${message.guild.id}" hasn't a Mute Role!`)
-        );
+      if (!muteRole) {
+        return res({
+          status: false,
+          message: `Guild "${message.guild.id}" hasn't a Mute Role!`,
+        });
+      }
 
       const role = message.guild.roles.cache.get(muteRole);
       if (!role) {
-        return rej(
-          this.logger.warn(
-            `Mute Role with ID "${muteRole}" not found in the Guild!`
-          )
-        );
+        return res({
+          status: false,
+          message: `Mute Role with ID "${muteRole}" isn't found in the Guild!`,
+        });
       }
 
       const LIMIT = 7;
