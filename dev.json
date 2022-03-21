@@ -2,7 +2,7 @@
  "meta": {
   "generator": "0.11.1",
   "format": 22,
-  "date": 1647793395284
+  "date": 1647885977126
  },
  "custom": {
   "general": {
@@ -1215,7 +1215,7 @@
       ]
      ],
      "meta": {
-      "line": 58,
+      "line": 51,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1231,7 +1231,7 @@
       ]
      ],
      "meta": {
-      "line": 64,
+      "line": 57,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1247,7 +1247,7 @@
       ]
      ],
      "meta": {
-      "line": 70,
+      "line": 63,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1263,7 +1263,7 @@
       ]
      ],
      "meta": {
-      "line": 76,
+      "line": 69,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1279,7 +1279,7 @@
       ]
      ],
      "meta": {
-      "line": 82,
+      "line": 75,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1295,7 +1295,7 @@
       ]
      ],
      "meta": {
-      "line": 88,
+      "line": 81,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1311,7 +1311,7 @@
       ]
      ],
      "meta": {
-      "line": 94,
+      "line": 87,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1327,7 +1327,7 @@
       ]
      ],
      "meta": {
-      "line": 100,
+      "line": 93,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1343,7 +1343,7 @@
       ]
      ],
      "meta": {
-      "line": 106,
+      "line": 99,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1359,7 +1359,7 @@
       ]
      ],
      "meta": {
-      "line": 112,
+      "line": 105,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1370,182 +1370,29 @@
      "name": "_init",
      "access": "private",
      "meta": {
-      "line": 121,
+      "line": 114,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
     },
     {
-     "name": "mute",
-     "description": "Method that Mutes or Temp Mutes Member",
-     "emits": [
-      "Moderation#event:muteMember"
-     ],
+     "name": "lockdown",
+     "description": "Method that locks channel.",
      "params": [
       {
-       "name": "type",
-       "description": "Type of the Mute",
+       "name": "channel",
+       "description": "Text Channel",
        "type": [
         [
          [
-          "string"
-         ]
-        ]
-       ]
-      },
-      {
-       "name": "message",
-       "description": "Message or Interaction",
-       "type": [
-        [
-         [
-          "Message"
-         ]
-        ],
-        [
-         [
-          "Interaction"
-         ]
-        ]
-       ]
-      },
-      {
-       "name": "member",
-       "description": "Member to Mute",
-       "type": [
-        [
-         [
-          "GuildMember"
+          "TextChannel"
          ]
         ]
        ]
       },
       {
        "name": "reason",
-       "description": "Reason of the Mute",
-       "optional": true,
-       "type": [
-        [
-         [
-          "string"
-         ]
-        ]
-       ]
-      },
-      {
-       "name": "time",
-       "description": "Time of the Temp Mute",
-       "optional": true,
-       "type": [
-        [
-         [
-          "number"
-         ]
-        ]
-       ]
-      }
-     ],
-     "returns": [
-      [
-       [
-        "Promise",
-        "<"
-       ],
-       [
-        "ReturnObject",
-        "|"
-       ],
-       [
-        "MutesData",
-        ">"
-       ]
-      ]
-     ],
-     "meta": {
-      "line": 136,
-      "file": "Moderation.ts",
-      "path": "src/classes"
-     }
-    },
-    {
-     "name": "unmute",
-     "description": "Method that unmutes Member",
-     "emits": [
-      "Moderation#event:unmuteMember"
-     ],
-     "params": [
-      {
-       "name": "member",
-       "description": "Member for Mute",
-       "type": [
-        [
-         [
-          "GuildMember"
-         ]
-        ]
-       ]
-      }
-     ],
-     "returns": [
-      [
-       [
-        "Promise",
-        "<"
-       ],
-       [
-        "ReturnObject",
-        "|"
-       ],
-       [
-        "MutesData",
-        ">"
-       ]
-      ]
-     ],
-     "meta": {
-      "line": 178,
-      "file": "Moderation.ts",
-      "path": "src/classes"
-     }
-    },
-    {
-     "name": "warn",
-     "description": "Method that warns Member",
-     "emits": [
-      "Moderation#event:warnAdd",
-      "Moderation#event:warnKick"
-     ],
-     "params": [
-      {
-       "name": "message",
-       "description": "Message or Interaction",
-       "type": [
-        [
-         [
-          "Message"
-         ]
-        ],
-        [
-         [
-          "Interaction"
-         ]
-        ]
-       ]
-      },
-      {
-       "name": "member",
-       "description": "Member for Warn",
-       "type": [
-        [
-         [
-          "GuildMember"
-         ]
-        ]
-       ]
-      },
-      {
-       "name": "reason",
-       "description": "Reaon of the Warn",
+       "description": "Reason for lock",
        "optional": true,
        "type": [
         [
@@ -1563,31 +1410,28 @@
         "<"
        ],
        [
-        "WarnsData",
+        "boolean",
         ">"
        ]
       ]
      ],
      "meta": {
-      "line": 201,
+      "line": 129,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
     },
     {
-     "name": "unwarn",
-     "description": "Method that removes last warn from Member",
-     "emits": [
-      "Moderation#event:warnRemove"
-     ],
+     "name": "unlock",
+     "description": "Method that unlocks channel.",
      "params": [
       {
-       "name": "member",
-       "description": "Member for Warn",
+       "name": "channel",
+       "description": "Text Channel",
        "type": [
         [
          [
-          "GuildMember"
+          "TextChannel"
          ]
         ]
        ]
@@ -1600,55 +1444,13 @@
         "<"
        ],
        [
-        "WarnsData",
+        "boolean",
         ">"
        ]
       ]
      ],
      "meta": {
-      "line": 242,
-      "file": "Moderation.ts",
-      "path": "src/classes"
-     }
-    },
-    {
-     "name": "allWarns",
-     "description": "Method that removes last warn from Member",
-     "params": [
-      {
-       "name": "member",
-       "description": "Member for Warn",
-       "type": [
-        [
-         [
-          "GuildMember"
-         ]
-        ]
-       ]
-      }
-     ],
-     "returns": [
-      [
-       [
-        "Promise",
-        "<"
-       ],
-       [
-        "Array",
-        "<"
-       ],
-       [
-        "WarnsData",
-        ">|"
-       ],
-       [
-        "null",
-        ">"
-       ]
-      ]
-     ],
-     "meta": {
-      "line": 265,
+      "line": 160,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1761,7 +1563,7 @@
       }
      ],
      "meta": {
-      "line": 290,
+      "line": 185,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1872,7 +1674,7 @@
       }
      ],
      "meta": {
-      "line": 305,
+      "line": 200,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -1948,7 +1750,7 @@
       }
      ],
      "meta": {
-      "line": 320,
+      "line": 215,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -2024,7 +1826,7 @@
       }
      ],
      "meta": {
-      "line": 332,
+      "line": 227,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
@@ -2089,14 +1891,14 @@
       }
      ],
      "meta": {
-      "line": 344,
+      "line": 239,
       "file": "Moderation.ts",
       "path": "src/classes"
      }
     }
    ],
    "meta": {
-    "line": 41,
+    "line": 34,
     "file": "Moderation.ts",
     "path": "src/classes"
    }
@@ -2321,6 +2123,9 @@
     {
      "name": "create",
      "description": "This is method that mutes member.",
+     "emits": [
+      "Moderation#event:muteMember"
+     ],
      "params": [
       {
        "name": "type",
@@ -2441,7 +2246,7 @@
       ]
      ],
      "meta": {
-      "line": 225,
+      "line": 226,
       "file": "MuteManager.ts",
       "path": "src/classes"
      }
@@ -2515,7 +2320,7 @@
       ]
      ],
      "meta": {
-      "line": 290,
+      "line": 291,
       "file": "MuteManager.ts",
       "path": "src/classes"
      }
@@ -2593,7 +2398,7 @@
       ]
      ],
      "meta": {
-      "line": 345,
+      "line": 346,
       "file": "MuteManager.ts",
       "path": "src/classes"
      }
