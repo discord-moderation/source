@@ -2,23 +2,23 @@
  "meta": {
   "generator": "0.11.1",
   "format": 22,
-  "date": 1647886756966
+  "date": 1647888437440
  },
  "custom": {
   "general": {
    "name": "General",
    "files": {
-    "README": {
+    "welcome": {
      "name": "Welcome",
      "type": "md",
      "content": "## Welcome!\n\n<strong>Welcome, this is 'discord-moderation' module!</strong> <br />\n<strong>discord-moderation will simplify creating Moderation System for Your Discord Bot!</strong>\n\n## Features\n\n<span><strong>[🔑] Built in TypeScript</strong></span> <br />\n<span><strong>[⚙] 100% Promise-based</strong></span> <br />\n<span><strong>[🙂] TypeScript Support</strong></span> <br />\n<span><strong>[👍] Discord.JS v13</strong></span>\n\n## Requirements\n\n<span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />\n<span><strong>[2] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />\n\n## Quick Example\n\n```js\nconst { Client, Intents } = require(\"discord.js\");\nconst { Moderation } = require(\"discord-moderation\");\n\nconst client = new Client({\n  intents: [\n    \"GUILDS\",\n    \"GUILD_MESSAGES\",\n    \"GUILD_PRESENCES\",\n    \"GUILD_MEMBERS\",\n    \"GUILD_BANS\",\n  ],\n});\n\nconst moderation = new Moderation(client, {\n  dbPath: \"./db/\",\n  locale: \"en-US\",\n  defaultSystems: {\n    autoRole: false,\n    antiSpam: false,\n    antiInvite: false,\n    antiJoin: false,\n    antiLink: false,\n    blacklist: false,\n    ghostPing: false,\n    logSystem: false,\n  },\n});\n```\n\n## This module uses\n\n<span><strong>[1] [Discord.JS](https://npmjs.com/package/discord.js/)</strong></span> <br />\n<span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />\n<span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />\n<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />\n<span><strong>[5] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />\n\n## Links\n\n<span><strong>[1] [Documentation](https://discord-moderation.js.org/)</strong></span> <br />\n<span><strong>[2] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />\n<span><strong>[3] [Support Server](https://discord.gg/zsTgXs24k2/)</strong></span>\n",
-     "path": "pages/general/README.md"
+     "path": "pages/general/welcome.md"
     },
-    "Updating": {
+    "updating": {
      "name": "Updating",
      "type": "md",
      "content": "# Migrating to 2.2.0\n\n<strong>The new version of \"discord-moderation\" contains breaking changes that You should know.</strong>\n\n<ul>\n    <li><strong>1. There's no more \"mute()\", \"warn()\" methods in Moderation class, they're gone into their managers.</strong></li>\n    <li><strong>2. There's new Systems Manager with Per Guild Configuration. It means that every guild can have their own enabled systems.</strong></li>\n    <li><strong>3. Not major but there's finally fixed typings for this module!</strong></li>\n</ul>\n\n```diff\n- <Moderation>#mute(...)\n+ <Moderation>#mutes#create(...)\n\n- <Moderation>#warn(...)\n+ <Moderation>#warns#create(...)\n\n+ <Moderation>#lockdown(...)\n+ <Moderation>#unlock(...)\n```\n\n<style>\n    ul {\n        margin-left: 0;\n        padding-left: 0;\n    }\n\n    ul > li {\n        list-style-type: none;\n    }\n</style>\n",
-     "path": "pages/general/Updating.md"
+     "path": "pages/general/updating.md"
     }
    }
   }
