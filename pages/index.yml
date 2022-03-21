@@ -1,4 +1,6 @@
 - name: General
-  files: 
+  files:
     - name: Welcome
       path: README.md
+    - name: Updating
+      path: Updating.md
