@@ -134,6 +134,7 @@ export class MuteManager extends Base {
    * @param {string} reason Reason of the Mute
    * @param {number} time Time of Temp Mute
    *
+   * @fires Moderation#muteMember
    * @returns {Promise<ReturnObject | MutesData>}
    */
   create(

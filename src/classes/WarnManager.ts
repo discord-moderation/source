@@ -71,13 +71,13 @@ export class WarnManager extends Base {
    */
   getWarn(member: GuildMember): Promise<WarnsData | null> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         return rej(
           this.logger.warn('Specify "GuildMember" in WarnManager#getWarn!')
         );
+      }
 
       const { warns } = await this.utils.getGuild(member.guild);
-
       const memberWarns = warns.filter((warn) => warn.memberID === member.id);
       if (!memberWarns?.length) return res(null);
 

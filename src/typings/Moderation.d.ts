@@ -42,21 +42,4 @@ export class Moderation extends Base {
   constructor(client: Client, options: Options);
 
   private _init(): Promise<boolean>;
-
-  mute(
-    type: MuteTypes,
-    message: Message | Interaction,
-    member: GuildMember,
-    reason?: string,
-    time?: number
-  ): Promise<ReturnObject | MutesData>;
-  unmute(member: GuildMember): Promise<ReturnObject | MutesData>;
-
-  warn(
-    message: Message | Interaction,
-    member: GuildMember,
-    reason?: string
-  ): Promise<WarnsData>;
-  unwarn(member: GuildMember): Promise<WarnsData>;
-  allWarns(member: GuildMember): Promise<WarnsData[] | null>;
 }
