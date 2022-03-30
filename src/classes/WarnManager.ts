@@ -1,11 +1,11 @@
 import { Client, GuildMember, Interaction, Message } from "discord.js";
-import { Base } from "./Base";
-import { MuteManager } from "./MuteManager";
-import { Utils } from "./Utils";
-import { Logger } from "./Logger";
 import { GuildData, Options, WarnsData } from "../constants";
+import { MuteManager } from "./MuteManager";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
 
-export declare interface WarnManager {
+export interface WarnManager {
   client: Client;
   options: Options;
 
@@ -71,13 +71,13 @@ export class WarnManager extends Base {
    */
   getWarn(member: GuildMember): Promise<WarnsData | null> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         return rej(
           this.logger.warn('Specify "GuildMember" in WarnManager#getWarn!')
         );
+      }
 
       const { warns } = await this.utils.getGuild(member.guild);
-
       const memberWarns = warns.filter((warn) => warn.memberID === member.id);
       if (!memberWarns?.length) return res(null);
 
@@ -105,16 +105,20 @@ export class WarnManager extends Base {
     reason?: string
   ): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
-      if (!message)
+      if (!message) {
         return rej(
           this.logger.warn(
             'Specify "Message" or "Interaction" in WarnManager#create!'
           )
         );
-      if (!member)
+      }
+
+      if (!member) {
         return rej(
           this.logger.warn('Specify "GuildMember" in WarnManager#create!')
         );
+      }
+
       if (!reason) reason = "No reason provided";
 
       const data = await this.utils.getGuild(member.guild);
@@ -131,6 +135,7 @@ export class WarnManager extends Base {
 
       data.warns.push(warnData);
 
+      this.emit("warnAdd", warnData);
       await this.utils.setData(member.guild, data);
       res(warnData);
 
@@ -148,16 +153,18 @@ export class WarnManager extends Base {
    */
   delete(member: GuildMember): Promise<WarnsData> {
     return new Promise(async (res, rej) => {
-      if (!member)
+      if (!member) {
         return rej(
           this.logger.warn('Specify "GuildMember" in WarnManager#delete!')
         );
+      }
 
       const data = await this.utils.getGuild(member.guild);
       const lastWarn = await this.getWarn(member);
 
-      if (!lastWarn)
-        return rej(this.logger.warn("No Warn Data founded in Storage!"));
+      if (!lastWarn) {
+        return rej(this.logger.warn("No Warn Data founded in DB!"));
+      }
 
       const warnData: WarnsData = {
         id: lastWarn.id,
@@ -169,7 +176,7 @@ export class WarnManager extends Base {
       };
 
       const changedWarns = data.warns.filter((x) => x.id !== lastWarn.id);
-      await this.utils.database.setProp(member.guild.id, 'warns', changedWarns);
+      await this.utils.database.setProp(member.guild.id, "warns", changedWarns);
 
       this.emit("warnRemove", warnData);
       return res(warnData);
@@ -223,20 +230,21 @@ export class WarnManager extends Base {
           3600000
         );
 
-        this.emit("warnAdd", warnData);
-
+        this.emit("warnMute", warnData);
         return res(true);
       } else if (data.warns.length === 6) {
-        await member.kick("User reached 6 warns | AutoKick.").catch((err) => {
-          return rej(this.logger.warn(err));
-        });
+        await member
+          .kick("User reached 6 warns | AutoKick.")
+          .then(async () => {
+            data.warns.filter((w: WarnsData) => w.memberID !== member.id);
+            await this.utils.setData(member.guild, data);
+            await this.emit("warnKick", warnData);
 
-        data.warns.filter((w: WarnsData) => w.memberID !== member.id);
-
-        await this.utils.setData(member.guild, data);
-        await this.emit("warnKick", warnData);
-
-        return res(true);
+            return res(true);
+          })
+          .catch((err) => {
+            return rej(this.logger.warn(err));
+          });
       }
     });
   }

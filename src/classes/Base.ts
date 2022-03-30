@@ -1,7 +1,5 @@
-import { EventEmitter } from "events";
+import { TypedEmitter } from "tiny-typed-emitter";
 import { Events } from "../constants";
-
-const emitter = new EventEmitter();
 
 /**
  * Base class that uses in all other classes.
@@ -11,56 +9,18 @@ const emitter = new EventEmitter();
  *
  * @private
  */
-export class Base {
-  /**
-   * Handles all the Events
-   *
-   * @param {String} event Event Name
-   * @param {Function} fn Callback
-   * @returns {Base}
-   */
-  on<K extends keyof Events>(
-    event: K,
-    listener: (...args: Events[K]) => void
-  ): EventEmitter {
-    // @ts-ignore
-    return emitter.on(event, listener);
-  }
-
-  /**
-   * Handles all the Events
-   *
-   * @param {String} event Event Name
-   * @param {Function} fn Callback
-   * @returns {EventEmitter}
-   */
-  once<K extends keyof Events>(
-    event: K,
-    listener: (...args: Events[K]) => void
-  ): EventEmitter {
-    // @ts-ignore
-    return emitter.once(event, listener);
-  }
-
-  /**
-   * Emits any Event
-   *
-   * @param {String} event Event Name
-   * @param {Function} fn Callback
-   * @returns {boolean}
-   */
-  emit<K extends keyof Events>(event: K, ...args: Events[K]): boolean {
-    return emitter.emit(event, args[0]);
+export class Base extends TypedEmitter<Events> {
+  constructor() {
+    super();
   }
 }
 
 /**
  * Module Options
  * @typedef {Object} Options
- * @prop {string} storageType Storage Type (JSON or SQLite, default JSON)
- * @prop {string} storagePath Storage Path (Only for JSON type)
+ * @prop {string} dbPath Storage Path
  * @prop {string} locale Date Locale (default 'en-US')
- * @prop {ModuleSystems} ModuleSystems Module Systems
+ * @prop {ModuleSystems} defaultSystems Default Systems Values
  */
 
 /**
@@ -73,7 +33,6 @@ export class Base {
  * @prop {boolean} antiLink Anti Link System
  * @prop {boolean} blacklist Blacklist System
  * @prop {boolean} ghostPing Ghost Ping Detecting System
- * @prop {boolean} logSystem Log System
  */
 
 /**
@@ -129,13 +88,19 @@ export class Base {
  */
 
 /**
- * * Mute
- * * TempMute
- * * UnMute
- * * Ban
- * * Kick
- * * Warn
- * * UnWarn
+ * Return Object
+ * @typedef {Object} ReturnObject
+ * @prop {boolean} status Status
+ * @prop {string} [message] Error Message
+ */
+
+/**
+ * * autorole
+ * * antispam
+ * * antiinvite
+ * * antijoin
+ * * antilink
+ * * ghostping
  *
- * @typedef {string} ActionTypes
+ * @typedef {string} AvaliableSystems
  */

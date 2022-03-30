@@ -1,11 +1,9 @@
 .github
 node_modules
-docs
+pages
 dist
 tests
 examples
 package-lock.json
 .jsconfig.json
 .babelrc.json
-.commitlintrc.json
-.lintstagedrc.json

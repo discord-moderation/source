@@ -1,5 +1,5 @@
 export declare class Logger {
-  public tag = "[DM]";
+  public tag: string;
 
   log(message: string): void;
   warn(message: string): void;

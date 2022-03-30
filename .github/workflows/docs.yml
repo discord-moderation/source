@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    branches:
+      - "*"
+      - "!docs"
+    tags: 
+      - "*"
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+        
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Create Docs Folder
+        run: mkdir docs
+      
+      - name: Generate
+        uses: discordjs/action-docs@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

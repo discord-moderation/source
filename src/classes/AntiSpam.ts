@@ -1,8 +1,9 @@
+import { Options, ReturnObject } from "../constants";
 import { Client, Message } from "discord.js";
+import { SystemsManager } from "./SystemsManager";
 import { MuteManager } from "./MuteManager";
-import { Utils } from "./Utils";
 import { Logger } from "./Logger";
-import { Options } from "../constants";
+import { Utils } from "./Utils";
 
 interface userMap {
   msgCount: number;
@@ -10,10 +11,11 @@ interface userMap {
   timer: NodeJS.Timeout;
 }
 
-export declare interface AntiSpam {
+export interface AntiSpam {
   client: Client;
   options: Options;
 
+  systems: SystemsManager;
   mutes: MuteManager;
   utils: Utils;
   logger: Logger;
@@ -49,6 +51,12 @@ export class AntiSpam {
     this.options = options;
 
     /**
+     * Systems Manager
+     * @type {SystemsManager}
+     */
+    this.systems = new SystemsManager(this.client, this.options);
+
+    /**
      * Mute Manager
      * @type {MuteManager}
      */
@@ -76,30 +84,41 @@ export class AntiSpam {
   /**
    * Method that handles Anti-Spam System.
    *
-   * @param {Message} message Discord Message
-   * @returns {Promise<boolean>}
+   * @param {Message} message Message
+   * @returns {Promise<ReturnObject | boolean>}
    */
-  handle(message: Message): Promise<boolean> {
+  handle(message: Message): Promise<ReturnObject | boolean> {
     return new Promise(async (res, rej) => {
-      if (!this.options.systems?.antiSpam) return;
-      if (!message)
+      if (!message) {
         return rej(this.logger.warn('Specify "Message" in AntiSpam#_handle!'));
+      }
+
       if (!message.guild) return;
       if (!message.member) return;
 
+      const status = await this.systems.status(message.guild, "antiSpam");
+      if (!status) {
+        return res({
+          status: false,
+          message: `AntiSpam is disabled in the guild with ID "${message.guild.id}"!`,
+        });
+      }
+
       const { muteRole } = await this.utils.getGuild(message.guild);
-      if (!muteRole)
-        return rej(
-          this.logger.warn(`Guild "${message.guild.id}" hasn't a Mute Role!`)
-        );
+      if (!muteRole) {
+        return res({
+          status: false,
+          message: `Guild "${message.guild.id}" hasn't a Mute Role!`,
+        });
+      }
 
       const role = message.guild.roles.cache.get(muteRole);
-      if (!role)
-        return rej(
-          this.logger.warn(
-            `Mute Role with ID "${muteRole}" not found in the Guild!`
-          )
-        );
+      if (!role) {
+        return res({
+          status: false,
+          message: `Mute Role with ID "${muteRole}" isn't found in the Guild!`,
+        });
+      }
 
       const LIMIT = 7;
       const TIME = 15000;
@@ -129,31 +148,13 @@ export class AntiSpam {
           ++msgCount;
 
           if (Number(msgCount) === LIMIT) {
-            return this.mutes
-              .create(
-                "tempmute",
-                message,
-                message.member,
-                "Anti-Spam System.",
-                3600000
-              )
-              .then(async (muteData) => {
-                if (!message.member) return;
-
-                const embed = await this.utils.logEmbed(
-                  "TempMute",
-                  message.member,
-                  muteData
-                );
-
-                return message.member
-                  .send({
-                    embeds: [embed],
-                  })
-                  .catch((err) => {
-                    return this.logger.error(err);
-                  });
-              });
+            return this.mutes.create(
+              "tempmute",
+              message,
+              message.member,
+              "Anti-Spam System.",
+              3600000
+            );
           } else {
             userData.msgCount = msgCount;
 

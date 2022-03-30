@@ -1,12 +1,21 @@
-import { Client, Guild, GuildMember, Message, Role } from "discord.js";
-import { Base } from "./Base";
+import {
+  Client,
+  Guild,
+  GuildMember,
+  Interaction,
+  Message,
+  Role,
+} from "discord.js";
+import { Options, MuteTypes, MutesData, ReturnObject } from "../constants";
+import { Logger } from "./Logger";
 import { Utils } from "./Utils";
-import { MutesData, MuteTypes, Options } from "../constants";
+import { Base } from "./Base";
 
 export declare interface MuteManager {
   client: Client;
   options: Options;
 
+  logger: Logger;
   utils: Utils;
 }
 
@@ -23,14 +32,14 @@ export declare class MuteManager extends Base {
     member: GuildMember,
     reason?: string,
     time: number
-  ): Promise<MutesData>;
-  delete(member: GuildMember): Promise<MutesData>;
+  ): Promise<ReturnObject | MutesData>;
+  delete(member: GuildMember): Promise<ReturnObject | MutesData>;
 
-  handleUtilsMute(member: GuildMember): Promise<boolean>;
+  handleUtilsMute(member: GuildMember): Promise<ReturnObject | boolean>;
   private handleMute(
     guild: Guild,
     member: GuildMember,
     time: number,
     muteData: MutesData
-  ): Promise<null | boolean>;
+  ): Promise<ReturnObject | null | boolean>;
 }

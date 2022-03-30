@@ -1,19 +1,19 @@
 // Imports
-import { Base } from "./Base";
-import { Utils } from "./Utils";
+import { SystemsManager } from "./SystemsManager";
+import { GuildSystems } from "./modules/GuildSystems";
 import { MuteManager } from "./MuteManager";
 import { WarnManager } from "./WarnManager";
-import { Logger } from "./Logger";
 import { AutoRole } from "./AutoRole";
 import { AntiSpam } from "./AntiSpam";
-import { Systems } from "./Systems";
-import { Options, MuteTypes, MutesData, WarnsData } from "../constants";
-import ModeratorError from "./ModeratorError";
+import { Options } from "../constants";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
+import { Base } from "./Base";
 
 // Discord.JS
-import { Client, GuildMember, Interaction, Message } from "discord.js";
+import { Client, TextChannel } from "discord.js";
 
-export declare interface Moderation {
+export interface Moderation {
   client: Client;
   options: Options;
 
@@ -21,7 +21,8 @@ export declare interface Moderation {
   utils: Utils;
   mutes: MuteManager;
   warns: WarnManager;
-  systems: Systems;
+  guildSystems: GuildSystems;
+  systems: SystemsManager;
   autoRole: AutoRole;
   antiSpam: AntiSpam;
   logger: Logger;
@@ -90,10 +91,16 @@ export class Moderation extends Base {
     this.antiSpam = new AntiSpam(this.client, this.options);
 
     /**
-     * Module Systems
-     * @type {Systems}
+     * Systems Manager
+     * @type {SystemsManager}
      */
-    this.systems = new Systems(this.client, this.options);
+    this.systems = new SystemsManager(this.client, this.options);
+
+    /**
+     * Module Systems
+     * @type {SystemsManager}
+     */
+    this.guildSystems = new GuildSystems(this.client, this.options);
 
     /**
      * Module Ready State
@@ -101,181 +108,76 @@ export class Moderation extends Base {
      */
     this.isReady = false;
 
-    async () => {
-      await this.utils.checkOptions();
-    };
-
-    this.client.on("ready", async () => {
-      await this.utils.checkMutes();
-    });
+    this._init();
   }
 
   /**
-   * Method that Mutes or Temp Mutes Member
-   *
-   * @param {string} type Type of the Mute
-   * @param {Message | Interaction} message Message or Interaction
-   * @param {GuildMember} member Member to Mute
-   * @param {string} reason Reason of the Mute
-   * @param {number} time Time of the Temp Mute
-   *
-   * @returns {Promise<MutesData>}
-   * @emits Moderation#muteMember
-   */
-  mute(
-    type: MuteTypes,
-    message: Message | Interaction,
-    member: GuildMember,
-    reason?: string,
-    time?: number
-  ): Promise<MutesData> {
-    return new Promise(async (res, rej) => {
-      if (!["mute", "tempmute"].includes(type))
-        throw new ModeratorError(
-          "INVALID_TYPE",
-          ["mute", "tempmute"],
-          type,
-          "mute#type"
-        );
-      if (type === "tempmute" && time === undefined)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "Number",
-          "undefined",
-          "mute#time"
-        );
-
-      return res(await this.mutes.create(type, message, member, reason, time));
-    });
-  }
-
-  /**
-   * Method that unmutes Member
-   *
-   * @param {GuildMember} member Member for Mute
-   *
-   * @returns {Promise<MutesData>}
-   * @emits Moderation#unmuteMember
-   */
-  unmute(member: GuildMember): Promise<MutesData> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "GuildMember",
-          "undefined",
-          "unmute#member"
-        );
-
-      return res(await this.mutes.delete(member));
-    });
-  }
-
-  /**
-   * Method that warns Member
-   *
-   * @param {Message | Interaction} message Message or Interaction
-   * @param {GuildMember} member Member for Warn
-   * @param {string} reason Reaon of the Warn
-   *
-   * @fires Moderation#warnAdd
-   * @fires Moderation#warnKick
-   * @returns {Promise<WarnsData>}
-   */
-  warn(
-    message: Message | Interaction,
-    member: GuildMember,
-    reason?: string
-  ): Promise<WarnsData> {
-    return new Promise(async (res, rej) => {
-      if (!message)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "Message",
-          "undefined",
-          "warn#message"
-        );
-      if (!member)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "GuildMember",
-          "undefined",
-          "warn#member"
-        );
-      if (!reason) reason = "No reason provided.";
-
-      return res(this.warns.create(message, member, reason));
-    });
-  }
-
-  /**
-   * Method that removes last warn from Member
-   *
-   * @param {GuildMember} member Member for Warn
-   *
-   * @fires Moderation#warnRemove
-   * @returns {Promise<WarnsData>}
-   */
-  unwarn(member: GuildMember): Promise<WarnsData> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "GuildMember",
-          "undefined",
-          "unwarn#member"
-        );
-
-      return res(await this.warns.delete(member));
-    });
-  }
-
-  /**
-   * Method that removes last warn from Member
-   *
-   * @param {GuildMember} member Member for Warn
-   * @returns {Promise<WarnsData[] | null>}
-   */
-  allWarns(member: GuildMember): Promise<WarnsData[] | null> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        throw new ModeratorError(
-          "UNDEFINED_VALUE",
-          "GuildMember",
-          "undefined",
-          "warns#member"
-        );
-
-      const warns = await this.warns.all(member);
-      if (warns === null) return res(null);
-
-      return res(warns);
-    });
-  }
-
-  /**
-   * Method that will be used when Member joins Server
-   *
-   * @param {GuildMember} member Discord Member
-   *
    * @private
+   */
+  private _init(): Promise<boolean> {
+    return new Promise((res, rej) => {
+      this.utils.checkOptions();
+
+      this.client.on("ready", () => {
+        this.utils.checkMutes();
+      });
+
+      this.isReady = true;
+    });
+  }
+
+  /**
+   * Method that locks channel.
+   *
+   * @param {TextChannel} channel Text Channel
+   * @param {string} [reason] Reason for lock
+   *
    * @returns {Promise<boolean>}
    */
-  private checkMute(member: GuildMember): Promise<boolean> {
-    return new Promise(async (res, rej) => {
-      if (!member)
-        return this.logger.error('Specify "GuildMember" in Utils#checkMute');
+  lockdown(channel: TextChannel, reason?: string): Promise<boolean> {
+    return new Promise((res, rej) => {
+      if (!reason) reason = "No reason";
 
-      await this.utils.getGuild(member.guild);
-      const mute = await this.mutes.getMute(member);
+      return channel.permissionOverwrites
+        .set(
+          [
+            {
+              id: channel.guild.roles.everyone,
+              deny: ["SEND_MESSAGES"],
+            },
+          ],
+          reason
+        )
+        .then(() => {
+          return res(true);
+        })
+        .catch((err) => {
+          return rej(err.message);
+        });
+    });
+  }
 
-      if (mute) {
-        await this.mutes.handleUtilsMute(member);
-
-        return res(true);
-      } else {
-        return res(false);
-      }
+  /**
+   * Method that unlocks channel.
+   *
+   * @param {TextChannel} channel Text Channel
+   * @returns {Promise<boolean>}
+   */
+  unlock(channel: TextChannel): Promise<boolean> {
+    return new Promise((res, rej) => {
+      return channel.permissionOverwrites
+        .set([
+          {
+            id: channel.guild.roles.everyone,
+            allow: ["SEND_MESSAGES"],
+          },
+        ])
+        .then(() => {
+          return res(true);
+        })
+        .catch((err) => {
+          return rej(err.message);
+        });
     });
   }
 }
