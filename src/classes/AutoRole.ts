@@ -1,8 +1,8 @@
 import { Client, Guild, Role } from "discord.js";
-import { Utils } from "./Utils";
-import { Logger } from "./Logger";
 import { Options, ReturnObject } from "../constants";
 import { SystemsManager } from "./SystemsManager";
+import { Logger } from "./Logger";
+import { Utils } from "./Utils";
 
 export interface AutoRole {
   client: Client;

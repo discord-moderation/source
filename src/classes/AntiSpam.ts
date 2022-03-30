@@ -1,6 +1,6 @@
 import { Options, ReturnObject } from "../constants";
-import { SystemsManager } from "./SystemsManager";
 import { Client, Message } from "discord.js";
+import { SystemsManager } from "./SystemsManager";
 import { MuteManager } from "./MuteManager";
 import { Logger } from "./Logger";
 import { Utils } from "./Utils";

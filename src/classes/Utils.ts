@@ -1,8 +1,8 @@
 import { Client, Guild, GuildMember, Invite } from "discord.js";
 import { Options, GuildData, defaultOptions } from "../constants";
+import { DBManager } from "./DBManager";
 import { Logger } from "./Logger";
 import { Base } from "./Base";
-import { DBManager } from "./DBManager";
 
 export interface Utils {
   client: Client;
