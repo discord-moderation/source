@@ -31,7 +31,7 @@ export declare class MuteManager extends Base {
     message: Message | Interaction,
     member: GuildMember,
     reason?: string,
-    time: number
+    time?: number
   ): Promise<ReturnObject | MutesData>;
   delete(member: GuildMember): Promise<ReturnObject | MutesData>;
 
