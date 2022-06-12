@@ -54,7 +54,6 @@ export class Base extends TypedEmitter<Events> {
  * @prop {string} guildID Guild ID
  * @prop {null | string} muteRole Mute Role ID
  * @prop {null | string} autoRole Auto Role ID
- * @prop {null | number} cases Count of Cases
  * @prop {Array<WarnsData>} warns Guild Warns
  * @prop {Array<MutesData>} mutes Guild Mutes
  * @prop {Array<ImmunityUsersData>} ImmunityUsersData Users with Immunity

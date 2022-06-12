@@ -258,20 +258,16 @@ export class MuteManager extends Base {
           });
         }
 
-        await member.roles
+        return await member.roles
           .remove(role)
           .then(async () => {
-            this.emit("unmuteMember", {
-              id: mute.id,
-              type: mute.type,
-              guildID: member.guild.id,
-              memberID: member.id,
-              moderatorID: mute.moderatorID,
-              channelID: mute.channelID,
-              reason: mute.reason,
-              time: mute.type === "tempmute" ? mute.time : null,
-              unmutedAt: mute.type === "tempmute" ? mute.unmutedAt : null,
-            });
+            this.emit("unmuteMember", mute);
+
+            await this.utils.database.setProp(
+              member.guild.id,
+              "mutes",
+              data.mutes.filter((muteData) => muteData.guildID !== mute.guildID)
+            );
 
             return res(mute);
           })
@@ -281,9 +277,6 @@ export class MuteManager extends Base {
               message: err.message,
             });
           });
-
-        data.mutes.filter((muteData) => muteData.memberID !== member.id);
-        await this.utils.database.set(member.guild.id, data);
       }
     });
   }
@@ -384,8 +377,8 @@ export class MuteManager extends Base {
             });
           });
 
-        var newMutes = data.mutes.filter((m) => m.id !== mute.id);
-        await this.utils.database.setProp(guild.id, "mutes", newMutes);
+        data.mutes.filter((m) => m.id !== mute.id);
+        await this.utils.database.set(guild.id, data);
       }, time);
     });
   }

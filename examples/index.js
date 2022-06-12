@@ -1,6 +1,6 @@
-import { Client, MessageEmbed, TextChannel } from "discord.js";
-import { Moderation } from "discord-moderation";
-import ms from "ms";
+const { Client, MessageEmbed } = require("discord.js");
+const { Moderation } = require("discord-moderation");
+const ms = require("ms");
 
 const client = new Client({
   intents: [
@@ -37,13 +37,13 @@ client.on("messageCreate", async (msg) => {
   if (!msg.content.startsWith(prefix)) return;
 
   const args = msg.content.slice(prefix.length).trim().split(" ");
-  const cmd = args.shift()!.toLowerCase();
+  const cmd = args.shift().toLowerCase();
 
   if (cmd === "mute") {
-    if (!msg.member!.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
+    if (!msg.member.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
 
     const member =
-      msg.mentions.members!.first() || msg.guild.members.cache.get(args[0])!;
+      msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
 
     var reason = args.slice(1).join(" ");
     if (!reason) reason = "No Reason Provided.";
@@ -53,7 +53,7 @@ client.on("messageCreate", async (msg) => {
       return;
     }
 
-    if (member.roles.highest.position > msg.guild.me!.roles.highest.position) {
+    if (member.roles.highest.position > msg.guild.me.roles.highest.position) {
       msg.reply(
         "I can't mute this person, because his role is higher than mine"
       );
@@ -63,17 +63,17 @@ client.on("messageCreate", async (msg) => {
 
     const data = await moderation.mutes.create("mute", msg, member, reason);
     if ("message" in data) {
-      msg.reply(data.message!);
+      msg.reply(data.message);
       return;
     }
 
     msg.reply("Muted");
     return;
   } else if (cmd === "tempmute") {
-    if (!msg.member!.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
+    if (!msg.member.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
 
     const member =
-      msg.mentions.members!.first() || msg.guild.members.cache.get(args[0])!;
+      msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
 
     var time = args[1];
     var reason = args.slice(2).join(" ");
@@ -88,7 +88,7 @@ client.on("messageCreate", async (msg) => {
       return;
     }
 
-    if (member.roles.highest > msg.guild.me!.roles.highest) {
+    if (member.roles.highest > msg.guild.me.roles.highest) {
       msg.reply(
         "I can't mute this person, because his role is higher than mine"
       );
@@ -101,24 +101,24 @@ client.on("messageCreate", async (msg) => {
     moderation.mutes.create("tempmute", msg, member, reason, ms(time));
     return;
   } else if (cmd === "unmute") {
-    if (!msg.member!.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
+    if (!msg.member.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
 
     const member =
-      msg.mentions.members!.first() || msg.guild.members.cache.get(args[0])!;
+      msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
 
     const mute = await moderation.mutes.delete(member);
     if ("message" in mute) {
-      msg.reply(mute.message!);
+      msg.reply(mute.message);
       return;
     }
 
     msg.reply(`Unmuted ${member.toString()}`);
     return;
   } else if (cmd === "muterole-set") {
-    if (!msg.member!.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
+    if (!msg.member.permissions.has(["ADMINISTRATOR"])) return; // You can change required permissions
 
     const role =
-      msg.mentions.roles!.first() || msg.guild.roles.cache.get(args[0])!;
+      msg.mentions.roles.first() || msg.guild.roles.cache.get(args[0]);
 
     if (!role) {
       msg.reply("Mention any role!");
@@ -133,11 +133,10 @@ client.on("messageCreate", async (msg) => {
 });
 
 moderation.on("muteMember", async (data) => {
-  console.log("Emitted");
-  const guild = client.guilds.cache.get(data.guildID)!;
-  const channel = guild.channels.cache.get(data.channelID) as TextChannel;
-  const member = guild.members.cache.get(data.memberID)!;
-  const moderator = guild.members.cache.get(data.moderatorID)!;
+  const guild = client.guilds.cache.get(data.guildID);
+  const channel = guild.channels.cache.get(data.channelID);
+  const member = guild.members.cache.get(data.memberID);
+  const moderator = guild.members.cache.get(data.moderatorID);
 
   const embed = new MessageEmbed()
     .setColor("BLURPLE")

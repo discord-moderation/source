@@ -1,22 +1,17 @@
 {
-  "include": ["src"],
-  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["DOM", "ESNext"],
     "module": "commonjs",
-    "moduleResolution": "node",
-    "checkJs": false,
     "outDir": "dist",
+    "resolveJsonModule": true,
+    "declaration": false,
+    "declarationMap": false,
     "sourceMap": false,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "declaration": true,
-    "resolveJsonModule": true,
-    "types": ["node"]
-  }
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
