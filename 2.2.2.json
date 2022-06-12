@@ -1,0 +1,4037 @@
+{
+ "meta": {
+  "generator": "0.11.1",
+  "format": 22,
+  "date": 1655053510659
+ },
+ "custom": {
+  "general": {
+   "name": "General",
+   "files": {
+    "welcome": {
+     "name": "Welcome",
+     "type": "md",
+     "content": "## Welcome!\n\n<strong>Welcome, this is 'discord-moderation' module!</strong> <br />\n<strong>discord-moderation will simplify creating Moderation System for Your Discord Bot!</strong>\n\n## Features\n\n<span><strong>[🔑] Built in TypeScript</strong></span> <br />\n<span><strong>[⚙] 100% Promise-based</strong></span> <br />\n<span><strong>[🙂] TypeScript Support</strong></span> <br />\n<span><strong>[👍] Discord.JS v13</strong></span>\n\n## Requirements\n\n<span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />\n<span><strong>[2] [Discord.JS](https://npmjs.com/package/discord.js/)</strong></span> <br />\n\n## Quick Example\n\n```js\nconst { Client, Intents } = require(\"discord.js\");\nconst { Moderation } = require(\"discord-moderation\");\n\nconst client = new Client({\n  intents: [\n    \"GUILDS\",\n    \"GUILD_MESSAGES\",\n    \"GUILD_PRESENCES\",\n    \"GUILD_MEMBERS\",\n    \"GUILD_BANS\",\n  ],\n});\n\nconst moderation = new Moderation(client, {\n  dbPath: \"./\",\n  locale: \"en-US\",\n  defaultSystems: {\n    autoRole: false,\n    antiSpam: false,\n    antiInvite: false,\n    antiJoin: false,\n    antiLink: false,\n    blacklist: false,\n    ghostPing: false,\n    logSystem: false,\n  },\n});\n```\n\n## This module uses\n\n<span><strong>[1] [Discord.JS](https://npmjs.com/package/discord.js/)</strong></span> <br />\n<span><strong>[2] [colors](https://npmjs.com/package/colors/)</strong></span> <br />\n<span><strong>[3] [ms](https://npmjs.com/package/ms/)</strong></span> <br />\n<span><strong>[4] [node-fetch](https://npmjs.com/package/node-fetch/)</strong></span> <br />\n<span><strong>[5] [enmap (database)](https://npmjs.com/package/enmap/)</strong></span> <br />\n\n## Links\n\n<span><strong>[1] [Documentation](https://discord-moderation.js.org/)</strong></span> <br />\n<span><strong>[2] [Module Author](https://npmjs.com/~badboy-discord/)</strong></span> <br />\n<span><strong>[3] [Support Server](https://discord.gg/zsTgXs24k2/)</strong></span>\n",
+     "path": "pages/general/welcome.md"
+    },
+    "updating": {
+     "name": "Updating",
+     "type": "md",
+     "content": "# Migrating to 2.2.0\n\n<strong>The new version of \"discord-moderation\" contains breaking changes that You should know.</strong>\n\n<ul>\n    <li><strong>1. There's no more \"mute()\", \"warn()\" methods in Moderation class, they're gone into their managers.</strong></li>\n    <li><strong>2. There's new Systems Manager with Per Guild Configuration. It means that every guild can have their own enabled systems.</strong></li>\n    <li><strong>3. Not major but there's finally fixed typings for this module!</strong></li>\n</ul>\n\n```diff\n- <Moderation>#mute(...)\n+ <Moderation>#mutes#create(...)\n\n- <Moderation>#warn(...)\n+ <Moderation>#warns#create(...)\n\n+ <Moderation>#lockdown(...)\n+ <Moderation>#unlock(...)\n```\n\n<style>\n    ul {\n        margin-left: 0;\n        padding-left: 0;\n    }\n\n    ul > li {\n        list-style-type: none;\n    }\n</style>\n",
+     "path": "pages/general/updating.md"
+    }
+   }
+  }
+ },
+ "classes": [
+  {
+   "name": "AntiSpam",
+   "description": "Anti-Spam System",
+   "construct": {
+    "name": "AntiSpam",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 41,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 47,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "systems",
+     "description": "Systems Manager",
+     "type": [
+      [
+       [
+        "SystemsManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 53,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "mutes",
+     "description": "Mute Manager",
+     "type": [
+      [
+       [
+        "MuteManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 59,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 65,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 71,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "usersMap",
+     "description": "Users Map",
+     "type": [
+      [
+       [
+        "Map",
+        "<"
+       ],
+       [
+        "string",
+        ", "
+       ],
+       [
+        "userMap",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 77,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "handle",
+     "description": "Method that handles Anti-Spam System.",
+     "params": [
+      {
+       "name": "message",
+       "description": "Message",
+       "type": [
+        [
+         [
+          "Message"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 84,
+      "file": "AntiSpam.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 26,
+    "file": "AntiSpam.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "AutoRole",
+   "description": "Auto-Role System",
+   "construct": {
+    "name": "AutoRole",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 31,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 37,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "systems",
+     "description": "Systems Manager",
+     "type": [
+      [
+       [
+        "SystemsManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 43,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 49,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 55,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "get",
+     "description": "Method that gets Guild Auto-Role",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "Role",
+        "|"
+       ],
+       [
+        "null",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 62,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "set",
+     "description": "Method that sets Guild Auto-Role",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "role",
+       "description": "Discord Role",
+       "type": [
+        [
+         [
+          "Role"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 92,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "delete",
+     "description": "Method that removes Guild Auto-Role",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 125,
+      "file": "AutoRole.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 16,
+    "file": "AutoRole.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "Base",
+   "description": "Base class that uses in all other classes.",
+   "access": "private",
+   "meta": {
+    "line": 4,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "DBManager",
+   "description": "Class that controls Database",
+   "construct": {
+    "name": "DBManager",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 28,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 34,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 40,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "database",
+     "description": "Database",
+     "type": [
+      [
+       [
+        "Enmap",
+        "<"
+       ],
+       [
+        "string",
+        ", "
+       ],
+       [
+        "GuildData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 46,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "set",
+     "description": "Method that Changes Guild Data from Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Discord Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "value",
+       "description": "Value to Set",
+       "type": [
+        [
+         [
+          "GuildData"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 57,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "setProp",
+     "description": "Method that Changes Property Value from Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "key",
+       "description": "Property Name",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "value",
+       "description": "Value to Set",
+       "type": [
+        [
+         [
+          "any"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 73,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "push",
+     "description": "Method that Pushing Data to Something from Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "data",
+       "description": "Data to Push",
+       "type": [
+        [
+         [
+          "any"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 96,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "get",
+     "description": "Method that Returns Value from Specified Key in Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "key",
+       "description": "Key to Get",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "any",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 112,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "fetch",
+     "description": "Method that Returns Data from Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "GuildData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 129,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "remove",
+     "description": "Method that Removes Object from Array in Database",
+     "params": [
+      {
+       "name": "id",
+       "description": "Guild ID",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "key",
+       "description": "Name of Array in Database",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "second",
+       "description": "Property for Filter",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "value",
+       "description": "Value for Filter",
+       "type": [
+        [
+         [
+          "any"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "any",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 144,
+      "file": "DBManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 14,
+    "file": "DBManager.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "ImmunityUsers",
+   "description": "Immunity Users Class",
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 22,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 28,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 34,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 40,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "add",
+     "description": "Method that adds Member to Immunity List.",
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 47,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "delete",
+     "description": "Method that removes Member to Immunity List.",
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 80,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "getAll",
+     "description": "Method that returns an Array of Immunity Users.",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "Array",
+        "<"
+       ],
+       [
+        "ImmunityUsersData",
+        ">>"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 109,
+      "file": "ImmunityUsers.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 14,
+    "file": "ImmunityUsers.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "Logger",
+   "description": "Logger Class",
+   "methods": [
+    {
+     "name": "log",
+     "description": "Logging Something",
+     "params": [
+      {
+       "name": "message",
+       "description": "Message to Log",
+       "type": [
+        [
+         [
+          "String"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "void"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 36,
+      "file": "Logger.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "warn",
+     "description": "Logging Something",
+     "params": [
+      {
+       "name": "message",
+       "description": "Message to Log",
+       "type": [
+        [
+         [
+          "String"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "void"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 36,
+      "file": "Logger.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "error",
+     "description": "Logging Something",
+     "params": [
+      {
+       "name": "message",
+       "description": "Message to Log",
+       "type": [
+        [
+         [
+          "String"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "void"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 36,
+      "file": "Logger.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 3,
+    "file": "Logger.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "Moderation",
+   "description": "Class that enables Moderation System",
+   "extends": [
+    [
+     [
+      "Base"
+     ]
+    ]
+   ],
+   "construct": {
+    "name": "Moderation",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 51,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 57,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "mutes",
+     "description": "MuteManager Class",
+     "type": [
+      [
+       [
+        "MuteManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 63,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "warns",
+     "description": "WarnManager Class",
+     "type": [
+      [
+       [
+        "WarnManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 69,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 75,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "autoRole",
+     "description": "Auto-Role System",
+     "type": [
+      [
+       [
+        "AutoRole"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 81,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "antiSpam",
+     "description": "Anti-Spam System",
+     "type": [
+      [
+       [
+        "AntiSpam"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 87,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "systems",
+     "description": "Systems Manager",
+     "type": [
+      [
+       [
+        "SystemsManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 93,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "guildSystems",
+     "description": "Module Systems",
+     "type": [
+      [
+       [
+        "SystemsManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 99,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "isReady",
+     "description": "Module Ready State",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 105,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "_init",
+     "access": "private",
+     "meta": {
+      "line": 114,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "lockdown",
+     "description": "Method that locks channel.",
+     "params": [
+      {
+       "name": "channel",
+       "description": "Text Channel",
+       "type": [
+        [
+         [
+          "TextChannel"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason for lock",
+       "optional": true,
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 129,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "unlock",
+     "description": "Method that unlocks channel.",
+     "params": [
+      {
+       "name": "channel",
+       "description": "Text Channel",
+       "type": [
+        [
+         [
+          "TextChannel"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 160,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "events": [
+    {
+     "name": "muteMember",
+     "params": [
+      {
+       "name": "id",
+       "description": "ID of the Mute",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "type",
+       "description": "Type of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "guildID",
+       "description": "ID of the Guild",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "memberID",
+       "description": "ID of the Muted Member",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "moderatorID",
+       "description": "ID of the Moderator",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "channelID",
+       "description": "ID of the Channel",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "time",
+       "description": "Time of the Mute",
+       "optional": true,
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "unmutedAt",
+       "description": "Unmuting Date",
+       "optional": true,
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      }
+     ],
+     "meta": {
+      "line": 185,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "unmuteMember",
+     "params": [
+      {
+       "name": "id",
+       "description": "ID of the Mute",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "type",
+       "description": "Type of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "guildID",
+       "description": "ID of the Guild",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "memberID",
+       "description": "ID of the Muted Member",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "moderatorID",
+       "description": "ID of the Moderator",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "channelID",
+       "description": "ID of the Channel",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "time",
+       "description": "Time of the Mute",
+       "optional": true,
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "unmutedAt",
+       "description": "Unmuting Date",
+       "optional": true,
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      }
+     ],
+     "meta": {
+      "line": 200,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "warnAdd",
+     "params": [
+      {
+       "name": "id",
+       "description": "ID of the Warn",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "guildID",
+       "description": "ID of the Guild",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "memberID",
+       "description": "ID of the Warned Member",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "moderatorID",
+       "description": "ID of the Moderator",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "channelID",
+       "description": "ID of the Channel",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "meta": {
+      "line": 215,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "warnRemove",
+     "params": [
+      {
+       "name": "id",
+       "description": "ID of the Warn",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "guildID",
+       "description": "ID of the Guild",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "memberID",
+       "description": "ID of the Warned Member",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "moderatorID",
+       "description": "ID of the Moderator",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "channelID",
+       "description": "ID of the Channel",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "meta": {
+      "line": 227,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "warnKick",
+     "params": [
+      {
+       "name": "guildID",
+       "description": "ID of the Guild",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "memberID",
+       "description": "ID of the Warned Member",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "moderatorID",
+       "description": "ID of the Moderator",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "channelID",
+       "description": "ID of the Channel",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "meta": {
+      "line": 239,
+      "file": "Moderation.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 34,
+    "file": "Moderation.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "MuteManager",
+   "description": "Class that Handles/Creates/Removes Mutes",
+   "extends": [
+    [
+     [
+      "Base"
+     ]
+    ]
+   ],
+   "construct": {
+    "name": "MuteManager",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 39,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 45,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 51,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 57,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "setRole",
+     "description": "This method sets Mute Role.",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "role",
+       "description": "Discord Role",
+       "type": [
+        [
+         [
+          "Role"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 64,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "getRole",
+     "description": "This method getting Mute Role.",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 84,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "getMute",
+     "description": "Method that finds Mute in Storage",
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "MutesData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 106,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "create",
+     "description": "This is method that mutes member.",
+     "emits": [
+      "Moderation#event:muteMember"
+     ],
+     "params": [
+      {
+       "name": "type",
+       "description": "Mute Type",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "message",
+       "description": "Message or Interaction",
+       "type": [
+        [
+         [
+          "Message"
+         ]
+        ],
+        [
+         [
+          "Interaction"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "member",
+       "description": "Discord Guild Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Reason of the Mute",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "time",
+       "description": "Time of Temp Mute",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "MutesData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 128,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "delete",
+     "description": "Method that removes Mute from Member",
+     "emits": [
+      "Moderation#event:unmuteMember"
+     ],
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "MutesData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 226,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "handleUtilsMute",
+     "description": "Private method that will handle Mute",
+     "emits": [
+      "Moderation#event:muteMember"
+     ],
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "member",
+       "description": "Guild Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "time",
+       "description": "Time of the Mute",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "muteData",
+       "description": "Mute Data",
+       "type": [
+        [
+         [
+          "MutesData"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 284,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "handleMute",
+     "description": "Private method that will handle Mute",
+     "emits": [
+      "Moderation#event:unmuteMember"
+     ],
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "member",
+       "description": "Guild Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "time",
+       "description": "Time of the Mute",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "muteData",
+       "description": "Mute Data",
+       "type": [
+        [
+         [
+          "MutesData"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "null",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 339,
+      "file": "MuteManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 22,
+    "file": "MuteManager.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "SystemsManager",
+   "construct": {
+    "name": "SystemsManager",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 31,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 37,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 43,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 49,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "enable",
+     "description": "Method that Enables System",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "system",
+       "description": "System to enable",
+       "type": [
+        [
+         [
+          "AvaliableSystems"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 56,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "disable",
+     "description": "Method that Disables System",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "system",
+       "description": "System to enable",
+       "type": [
+        [
+         [
+          "AvaliableSystems"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ReturnObject",
+        "|"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 84,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "status",
+     "description": "Method that shows Status of Guild System",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "system",
+       "description": "System Name",
+       "type": [
+        [
+         [
+          "AvaliableSystems"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 112,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "all",
+     "description": "Method that Shows all the Guild Systems",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "ModuleSystems",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 128,
+      "file": "SystemsManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 21,
+    "file": "SystemsManager.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "Utils",
+   "description": "Class that including some methods.",
+   "extends": [
+    [
+     [
+      "Base"
+     ]
+    ]
+   ],
+   "construct": {
+    "name": "Utils",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 33,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 39,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "database",
+     "description": "Database",
+     "type": [
+      [
+       [
+        "DBManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 45,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 51,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "getGuild",
+     "description": "Method that will return Guild Data",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "GuilData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 58,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "createGuild",
+     "description": "Method that created Guild Data",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 79,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "setData",
+     "description": "Method that changes data in Storage",
+     "params": [
+      {
+       "name": "guild",
+       "description": "Discord Guild",
+       "type": [
+        [
+         [
+          "Guild"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "newData",
+       "description": "New Guild Data",
+       "type": [
+        [
+         [
+          "GuildData"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 115,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "checkMutes",
+     "description": "Method that checks mutes when client is ready",
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 131,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "wait",
+     "description": "Method that create Timeout with Promise",
+     "params": [
+      {
+       "name": "ms",
+       "description": "Milliseconds",
+       "type": [
+        [
+         [
+          "number"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "unknown",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 205,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "checkOptions",
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 215,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "checkImmunity",
+     "description": "Method that checks User Immunity.",
+     "params": [
+      {
+       "name": "target",
+       "description": "Discord Member or Invite",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ],
+        [
+         [
+          "Invite"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 227,
+      "file": "Utils.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 15,
+    "file": "Utils.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "WarnManager",
+   "description": "Class that Handles/Creates/Removes Warns",
+   "extends": [
+    [
+     [
+      "Base"
+     ]
+    ]
+   ],
+   "construct": {
+    "name": "WarnManager",
+    "params": [
+     {
+      "name": "client",
+      "description": "Discord.JS Client",
+      "type": [
+       [
+        [
+         "Client"
+        ]
+       ]
+      ]
+     },
+     {
+      "name": "options",
+      "description": "Module Options",
+      "type": [
+       [
+        [
+         "Options"
+        ]
+       ]
+      ]
+     }
+    ]
+   },
+   "props": [
+    {
+     "name": "client",
+     "description": "Discord Client",
+     "type": [
+      [
+       [
+        "Client"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 35,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "options",
+     "description": "Module Options",
+     "type": [
+      [
+       [
+        "Options"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 41,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "mutes",
+     "description": "Mute Manager",
+     "type": [
+      [
+       [
+        "MuteManager"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 47,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "utils",
+     "description": "Module Utils",
+     "type": [
+      [
+       [
+        "Utils"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 53,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "logger",
+     "description": "Module Logger",
+     "type": [
+      [
+       [
+        "Logger"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 59,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "methods": [
+    {
+     "name": "getWarn",
+     "description": "Get last Member Warn",
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "WarnsData",
+        "|"
+       ],
+       [
+        "null",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 66,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "create",
+     "description": "Method that creates Warn.",
+     "emits": [
+      "Moderation#event:warnAdd",
+      "Moderation#event:warnKick"
+     ],
+     "params": [
+      {
+       "name": "message",
+       "description": "Message or Interaction",
+       "type": [
+        [
+         [
+          "Message"
+         ]
+        ],
+        [
+         [
+          "Interaction"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "reason",
+       "description": "Warn Reason",
+       "type": [
+        [
+         [
+          "string"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "WarnsData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 91,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "delete",
+     "description": "Method that removes last warn from member",
+     "emits": [
+      "Moderation#event:warnRemove"
+     ],
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "WarnsData",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 146,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "all",
+     "description": "Method that returns all member warns",
+     "params": [
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      }
+     ],
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "Array",
+        "<"
+       ],
+       [
+        "WarnsData",
+        ">|"
+       ],
+       [
+        "null",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 186,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    },
+    {
+     "name": "_handle",
+     "description": "Method that handles Member Warns",
+     "params": [
+      {
+       "name": "message",
+       "description": "Message or Interaction",
+       "type": [
+        [
+         [
+          "Message"
+         ]
+        ],
+        [
+         [
+          "Interaction"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "member",
+       "description": "Discord Member",
+       "type": [
+        [
+         [
+          "GuildMember"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "data",
+       "description": "Guild Data",
+       "type": [
+        [
+         [
+          "GuildData"
+         ]
+        ]
+       ]
+      },
+      {
+       "name": "warnData",
+       "description": "Warn Data",
+       "type": [
+        [
+         [
+          "WarnsData"
+         ]
+        ]
+       ]
+      }
+     ],
+     "async": true,
+     "returns": [
+      [
+       [
+        "Promise",
+        "<"
+       ],
+       [
+        "boolean",
+        ">"
+       ]
+      ]
+     ],
+     "meta": {
+      "line": 208,
+      "file": "WarnManager.ts",
+      "path": "src/classes"
+     }
+    }
+   ],
+   "meta": {
+    "line": 17,
+    "file": "WarnManager.ts",
+    "path": "src/classes"
+   }
+  }
+ ],
+ "interfaces": [],
+ "typedefs": [
+  {
+   "name": "Options",
+   "description": "Module Options",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "dbPath",
+     "description": "Storage Path",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "locale",
+     "description": "Date Locale (default 'en-US')",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "defaultSystems",
+     "description": "Default Systems Values",
+     "type": [
+      [
+       [
+        "ModuleSystems"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 18,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "ModuleSystems",
+   "description": "Module Options",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "autoRole",
+     "description": "Auto Role System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "antiSpam",
+     "description": "Anti Spam System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "antiInvite",
+     "description": "Anti Invite System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "antiJoin",
+     "description": "Anti Join System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "antiLink",
+     "description": "Anti Link System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "blacklist",
+     "description": "Blacklist System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "ghostPing",
+     "description": "Ghost Ping Detecting System",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 26,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "MutesData",
+   "description": "Mute Data",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "id",
+     "description": "ID of the Mute",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "type",
+     "description": "Type of the Mute",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "guildID",
+     "description": "Guild ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "memberID",
+     "description": "Member ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "moderatorID",
+     "description": "Moderator ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "channelID",
+     "description": "Channel ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "time",
+     "description": "Mute Time",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "unmutedAt",
+     "description": "Time when Member will be Unmuted",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 38,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "GuildData",
+   "description": "Guild Data",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "guildID",
+     "description": "Guild ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "muteRole",
+     "description": "Mute Role ID",
+     "type": [
+      [
+       [
+        "null"
+       ]
+      ],
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "autoRole",
+     "description": "Auto Role ID",
+     "type": [
+      [
+       [
+        "null"
+       ]
+      ],
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "warns",
+     "description": "Guild Warns",
+     "type": [
+      [
+       [
+        "Array",
+        "<"
+       ],
+       [
+        "WarnsData",
+        ">"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "mutes",
+     "description": "Guild Mutes",
+     "type": [
+      [
+       [
+        "Array",
+        "<"
+       ],
+       [
+        "MutesData",
+        ">"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "ImmunityUsersData",
+     "description": "Users with Immunity",
+     "type": [
+      [
+       [
+        "Array",
+        "<"
+       ],
+       [
+        "ImmunityUsersData",
+        ">"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 51,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "WarnsData",
+   "description": "Warn Data",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "id",
+     "description": "ID of the Warn",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "guildID",
+     "description": "Guild ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "memberID",
+     "description": "Member ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "moderatorID",
+     "description": "Moderator ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "channelID",
+     "description": "Channel ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "warns",
+     "description": "Warns Length",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ],
+      [
+       [
+        "null"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "reason",
+     "description": "Warn Reason",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 62,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "ImmunityUsersData",
+   "description": "Immunity Users Data",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "status",
+     "description": "Status of Immunity",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "memberID",
+     "description": "Member ID",
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 74,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "userMap",
+   "description": "Users Map",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "msgCount",
+     "description": "Count of Sent User Messages",
+     "type": [
+      [
+       [
+        "number"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "lastMessage",
+     "description": "Last Message by User",
+     "type": [
+      [
+       [
+        "Message"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "timer",
+     "description": "Timeout",
+     "type": [
+      [
+       [
+        "NodeJS",
+        "."
+       ],
+       [
+        "Timeout"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 81,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "ReturnObject",
+   "description": "Return Object",
+   "type": [
+    [
+     [
+      "Object"
+     ]
+    ]
+   ],
+   "props": [
+    {
+     "name": "status",
+     "description": "Status",
+     "type": [
+      [
+       [
+        "boolean"
+       ]
+      ]
+     ]
+    },
+    {
+     "name": "message",
+     "description": "Error Message",
+     "optional": true,
+     "type": [
+      [
+       [
+        "string"
+       ]
+      ]
+     ]
+    }
+   ],
+   "meta": {
+    "line": 89,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  },
+  {
+   "name": "AvaliableSystems",
+   "description": "* autorole\n* antispam\n* antiinvite\n* antijoin\n* antilink\n* ghostping",
+   "type": [
+    [
+     [
+      "string"
+     ]
+    ]
+   ],
+   "meta": {
+    "line": 96,
+    "file": "Base.ts",
+    "path": "src/classes"
+   }
+  }
+ ],
+ "externals": []
+}
