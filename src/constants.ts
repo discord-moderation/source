@@ -60,7 +60,6 @@ export interface GuildData {
   guildID: string;
   muteRole: null | string;
   autoRole: null | string;
-  cases: number;
   warns: WarnsData[];
   mutes: MutesData[];
   immunityUsers: ImmunityUsersData[];

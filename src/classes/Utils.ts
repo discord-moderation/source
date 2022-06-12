@@ -93,7 +93,6 @@ export class Utils extends Base {
 
       this.database.set(guild.id, {
         guildID: guild.id,
-        cases: 0,
         muteRole: null,
         autoRole: null,
         warns: [],

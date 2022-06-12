@@ -13,7 +13,7 @@
 ## Requirements
 
 <span><strong>[1] [NodeJS v16 or Above](https://nodejs.org/)</strong></span> <br />
-<span><strong>[2] [Discord.JS v13](https://npmjs.com/package/discord.js/)</strong></span> <br />
+<span><strong>[2] [Discord.JS](https://npmjs.com/package/discord.js/)</strong></span> <br />
 
 ## Quick Example
 
@@ -32,7 +32,7 @@ const client = new Client({
 });
 
 const moderation = new Moderation(client, {
-  dbPath: "./db/",
+  dbPath: "./",
   locale: "en-US",
   defaultSystems: {
     autoRole: false,
